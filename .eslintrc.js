@@ -12,7 +12,8 @@ module.exports = {
     semi: ['warn', 'never'],
     quotes: ['warn', 'single'],
     'linebreak-style': 'off',
-    'arrow-parens': ['warn', 'as-needed']
+    'arrow-parens': ['warn', 'as-needed'],
+    'space-before-function-paren': ['warn', 'never']
   },
   parserOptions: {
     parser: 'babel-eslint'
