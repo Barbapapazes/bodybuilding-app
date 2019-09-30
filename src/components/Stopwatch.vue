@@ -8,20 +8,20 @@
     v-card-actions
       v-row
 
-        v-col(cols="6", md="3", offset-md="3", align="center", v-if="!running")
+        v-col(cols="6", md="4", offset-md="2", align="center", v-if="!running")
           v-btn(text, @click="start").primary
             v-icon(left) mdi-play
             | start
 
-        v-col(cols="6", md="3", offset-md="3", align="center", v-else)
+        v-col(cols="6", md="4", offset-md="2", align="center", v-else)
           v-btn(text, @click="stop").primary
             v-icon(left) mdi-pause
-            | pause
+            | stop
 
-        v-col(cols="6", md="3", align="center")
+        v-col(cols="6", md="4", align="center")
           v-btn(text, @click="reset").primary
             v-icon(left) mdi-stop
-            | stop
+            | reset
 </template>
 
 <script>
@@ -91,6 +91,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-</style>
