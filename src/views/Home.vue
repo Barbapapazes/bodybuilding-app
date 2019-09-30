@@ -1,21 +1,30 @@
 <template lang="pug">
   #home
-    v-container
-      v-row
-        v-col(cols="12", sm="6", offset-sm="3")
-          stopwatch
-        v-col(cols="12", sm="6", offset-sm="3")
-          countdown
+    keep-alive
+      component(:is="componentName")
 </template>
 
 <script>
-import stopwatch from '@/components/Stopwatch'
-import countdown from '@/components/Countdown'
+import timeApp from '@/views/Time'
+import configApp from '@/views/Config'
 
 export default {
   components: {
-    stopwatch: stopwatch,
-    countdown: countdown
+    'time-app': timeApp,
+    'config-app': configApp
+  },
+  data() {
+    return {}
+  },
+  computed: {
+    componentName() {
+      return this.$store.getters.homeComponentName
+    }
+  },
+  watch: {
+    componentName() {
+      return this.$store.getters.homeComponentName
+    }
   }
 }
 </script>

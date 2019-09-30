@@ -1,29 +1,20 @@
 <template lang="pug">
   v-app
+    navbar-app
     v-content
-      v-btn(@click="dark = !dark") theme
-
-      v-text-field(clearable, label="Repetitions", v-model="rep", :disabled="apply", type="number", name="repetition")
-      v-btn(@click="apply = !apply") {{apply ? "edit": "apply"}}
-      p  {{ rep }}
-
       v-container(fluid)
         router-view
 </template>
 
 <script>
+import navbar from '@/components/Navbar'
+
 export default {
-  data() {
-    return {
-      dark: false,
-      rep: '',
-      apply: false
-    }
+  components: {
+    'navbar-app': navbar
   },
-  watch: {
-    dark: function(a, b) {
-      this.$vuetify.theme.dark = this.dark
-    }
+  data() {
+    return {}
   }
 }
 </script>
