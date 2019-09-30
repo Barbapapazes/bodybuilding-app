@@ -9,17 +9,17 @@
       v-row
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-if="!running")
-          v-btn(text, @click="start").primary
+          v-btn(text, @click="start", name="start").primary
             v-icon(left) mdi-play
             | start
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-else)
-          v-btn(text, @click="stop").primary
+          v-btn(text, @click="stop", name="stop").primary
             v-icon(left) mdi-pause
             | stop
 
         v-col(cols="6", md="4", align="center")
-          v-btn(text, @click="reset").primary
+          v-btn(text, @click="reset", name="reset").primary
             v-icon(left) mdi-stop
             | reset
 </template>

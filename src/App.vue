@@ -2,6 +2,11 @@
   v-app
     v-content
       v-btn(@click="dark = !dark") theme
+
+      v-text-field(clearable, label="Repetitions", v-model="rep", :disabled="apply", type="number", name="repetition")
+      v-btn(@click="apply = !apply") {{apply ? "edit": "apply"}}
+      p  {{ rep }}
+
       v-container(fluid)
         router-view
 </template>
@@ -10,7 +15,9 @@
 export default {
   data() {
     return {
-      dark: false
+      dark: false,
+      rep: '',
+      apply: false
     }
   },
   watch: {
