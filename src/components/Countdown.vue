@@ -28,8 +28,7 @@
 export default {
   data() {
     return {
-      timer: '00:01:03',
-      remainingTime: '00:01:03',
+      remainingTime: '',
       started: null,
       running: false,
       now: null,
@@ -37,6 +36,9 @@ export default {
       stoppedDuration: 0,
       endTimer: null
     }
+  },
+  mounted() {
+    this.remainingTime = this.timer
   },
   methods: {
     start: function() {
@@ -80,8 +82,7 @@ export default {
       this.stoppedDuration = 0
       this.timeBegan = null
       this.timeStopped = null
-      this.timer = '00:01:03'
-      this.remainingTime = '00:01:03'
+      this.remainingTime = this.timer
     },
     timerRunning: function() {
       this.now = Math.trunc(Date.parse(new Date()) / 1000)
@@ -99,6 +100,17 @@ export default {
         zero += '0'
       }
       return (zero + num).slice(-digit)
+    }
+  },
+  computed: {
+    timer() {
+      return this.$store.getters.config.timer
+    }
+  },
+  watch: {
+    timer() {
+      this.remainingTime = this.$store.getters.config.timer
+      return this.$store.getters.config.timer
     }
   }
 }
