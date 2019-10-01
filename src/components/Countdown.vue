@@ -6,7 +6,7 @@
           span.display-1.font-weight-light {{ remainingTime }}
 
     v-card-actions
-      v-row
+      //v-row(justify="center")
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-if="!running")
           v-btn(text, @click="start", name="start").primary
@@ -29,8 +29,8 @@ export default {
   data() {
     return {
       remainingTime: '',
+      running: null,
       started: null,
-      running: false,
       now: null,
       timeStopped: null,
       stoppedDuration: 0,
@@ -39,11 +39,10 @@ export default {
   },
   mounted() {
     this.remainingTime = this.timer
+    this.running = this.getRunning
   },
   methods: {
     start: function() {
-      if (this.running) return
-
       if (this.now === null) {
         this.reset()
       }
@@ -67,15 +66,15 @@ export default {
         Math.trunc(Date.parse(endTimer) / 1000) + this.stoppedDuration
 
       this.started = setInterval(this.timerRunning, 10)
-      this.running = true
+      this.setRunning(true)
     },
     stop: function() {
-      this.running = false
+      this.setRunning(false)
       this.timeStopped = Math.trunc(Date.parse(new Date()) / 1000)
       clearInterval(this.started)
     },
     reset: function() {
-      this.running = false
+      this.setRunning(false)
       clearInterval(this.started)
       this.now = null
       this.endTimer = null
@@ -100,17 +99,28 @@ export default {
         zero += '0'
       }
       return (zero + num).slice(-digit)
+    },
+    setRunning(state) {
+      this.$store.dispatch('setRunning', state)
     }
   },
   computed: {
     timer() {
       return this.$store.getters.config.timer
+    },
+    getRunning() {
+      return this.$store.getters.timerRunning
     }
   },
   watch: {
     timer() {
       this.remainingTime = this.$store.getters.config.timer
       return this.$store.getters.config.timer
+    },
+    getRunning() {
+      this.running = this.$store.getters.timerRunning
+      if (this.running) this.start()
+      return this.$store.getters.timerRunning
     }
   }
 }

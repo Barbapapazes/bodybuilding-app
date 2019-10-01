@@ -8,8 +8,8 @@ export default new Vuex.Store({
     homeComponentName: 'time-app',
     timerRunning: false,
     config: {
-      timer: '00:00:00',
-      rep: 0
+      timer: '00:00:10',
+      rep: 5
     }
   },
   mutations: {
@@ -21,6 +21,9 @@ export default new Vuex.Store({
     },
     decreaseRep(state, payload) {
       state.config.rep = payload
+    },
+    setRunning(state, payload) {
+      state.timerRunning = payload
     }
   },
   actions: {
@@ -36,6 +39,9 @@ export default new Vuex.Store({
     decreaseRep({ commit, state }) {
       const rep = (state.config.rep -= 1)
       commit('decreaseRep', rep)
+    },
+    setRunning({ commit }, payload) {
+      commit('setRunning', payload)
     }
   },
   getters: {
@@ -44,6 +50,9 @@ export default new Vuex.Store({
     },
     config(state) {
       return state.config
+    },
+    timerRunning(state) {
+      return state.timerRunning
     }
   }
 })
