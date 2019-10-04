@@ -1,12 +1,11 @@
 <template lang="pug">
   v-container
-      v-row
-        v-col(cols="12", sm="6", offset-sm="3")
-          stopwatch-app
-        v-col(cols="12", sm="6", offset-sm="3")
-          countdown-app
-        v-col(cols="12", sm="6", offset-sm="3", align="center")
-          button-rep-app
+    v-row
+      v-col(cols="12", sm="6", lg="4",align="center")
+        stopwatch-app
+      v-col(cols="12", sm="6", lg="4",align="center")
+        countdown-app
+        button-rep-app.mt-6
 </template>
 
 <script>

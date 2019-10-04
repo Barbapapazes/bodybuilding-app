@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import vuetify from './plugins/vuetify'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     homeComponentName: 'time-app',
+    darkTheme: false,
     timerRunning: false,
     config: {
       timer: '00:00:10',
@@ -13,6 +15,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    setTheme(state, payload) {
+      state.darkTheme = payload
+    },
     homeComponentName(state, payload) {
       state.homeComponentName = payload
     },
@@ -27,6 +32,17 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    setTheme({ commit, state }, payload) {
+      let newTheme
+      if (payload == undefined) {
+        newTheme = !state.darkTheme
+      } else {
+        newTheme = payload
+      }
+      vuetify.framework.theme.dark = newTheme
+      Vue.localStorage.set('dark-theme', newTheme)
+      commit('setTheme', newTheme)
+    },
     homeComponentName({ commit }, payload) {
       commit('homeComponentName', payload)
     },
@@ -45,6 +61,9 @@ export default new Vuex.Store({
     }
   },
   getters: {
+    getTheme(state) {
+      return state.darkTheme
+    },
     homeComponentName(state) {
       return state.homeComponentName
     },

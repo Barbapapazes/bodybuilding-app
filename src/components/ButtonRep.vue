@@ -1,6 +1,6 @@
 <template lang="pug">
   #button-rep
-    v-btn(fab, width="150px", height="150px", @click="decreaseRep") {{ rep }}
+    v-btn(fab, width="150px", height="150px", @click="decreaseRep").primary.display-2.font-weight-light {{rep}}
 </template>
 
 <script>
