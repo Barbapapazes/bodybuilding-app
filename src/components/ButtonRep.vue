@@ -1,10 +1,13 @@
 <template lang="pug">
   #button-rep
-    v-btn(fab, width="150", height="150", @click="decreaseRep").primary
-      span.text-center.display-1.font-weight-bold {{repRemaining}}
-    v-btn(@click="resetRep")
-      span reset
-      span {{rep}}
+    v-row(no-gutters)
+      v-col(cols="12")
+        v-btn(fab, width="150", height="150", @click="decreaseRep").primary
+          span.text-center.display-1.font-weight-bold {{repRemaining}}
+      v-col(cols="12").mt-2
+        v-btn(@click="resetRep")
+          span reset-
+          span.font-weight-bold.primary--text {{rep}}
 </template>
 
 <script>
