@@ -1,6 +1,10 @@
 <template lang="pug">
   #button-rep
-    v-btn(fab, width="150px", height="150px", @click="decreaseRep").primary.display-2.font-weight-light {{rep}}
+    v-btn(fab, width="150", height="150", @click="decreaseRep").primary
+      span.text-center.display-1.font-weight-bold {{repRemaining}}
+    v-btn(@click="resetRep")
+      span reset
+      span {{rep}}
 </template>
 
 <script>
@@ -9,26 +13,32 @@ export default {
     return {}
   },
   mounted() {
-    this.rep
+    this.repRemaining
   },
   methods: {
     decreaseRep() {
-      if (this.rep == 0 || this.timerRunning) return
+      if (this.repRemaining == 0 || this.timerRunning) return
       this.$store.dispatch('decreaseRep')
       this.$store.dispatch('setRunning', true)
+    },
+    resetRep() {
+      this.$store.dispatch('resetRep')
     }
   },
   computed: {
-    rep() {
-      return this.$store.getters.config.rep
+    repRemaining() {
+      return this.$store.getters.repRemaining
     },
     timerRunning() {
       return this.$store.getters.timerRunning
+    },
+    rep() {
+      return this.$store.getters.config.rep
     }
   },
   watch: {
-    rep() {
-      return this.$store.getters.config.rep
+    repRemaining() {
+      return this.$store.getters.repRemaining
     }
   }
 }

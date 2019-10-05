@@ -6,9 +6,8 @@
           v-text-field(clearable, label="Repetitions", type="number", name="repetition", v-model="rep", :disabled="apply", :rules="repRules", ref="rep", @input="repNegative(rep)")
         v-col(cols="12", md="10", offset-md="1", align="center")
           v-time-picker(use-seconds, format="24hr", scrollable, :allowed-seconds="allowedStep", v-model='time', :disabled="apply" color='primary', elevation-0)
-      p  {{ rep }} {{ time }}
     v-card-actions
-      v-btn(@click="applyConfig", disabled) {{apply ? "edit": "apply"}}
+      v-btn(@click="applyConfig", :disabled="valideData") {{apply ? "edit": "apply"}}
 </template>
 
 <script>
@@ -18,6 +17,7 @@ export default {
       rep: '',
       apply: false,
       time: '',
+      valideData: true,
       allowedStep: s => s % 5 === 0,
       repRules: [value => !!value || 'Required']
     }
@@ -36,6 +36,13 @@ export default {
       if (value < 1) {
         this.rep = 1
         this.$refs.rep.lazyValue = this.rep
+      }
+    }
+  },
+  watch: {
+    rep: function(a) {
+      if (Number.isInteger(Number(a))) {
+        this.valideData = false
       }
     }
   }

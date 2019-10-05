@@ -12,7 +12,8 @@ export default new Vuex.Store({
     config: {
       timer: '00:00:10',
       rep: 5
-    }
+    },
+    repRemaining: 5
   },
   mutations: {
     setTheme(state, payload) {
@@ -23,15 +24,22 @@ export default new Vuex.Store({
     },
     changeConfig(state, payload) {
       state.config = payload
+      state.repRemaining = payload.rep
     },
     decreaseRep(state, payload) {
-      state.config.rep = payload
+      state.repRemaining = payload
     },
     setRunning(state, payload) {
       state.timerRunning = payload
+    },
+    resetRep(state) {
+      state.repRemaining = state.config.rep
     }
   },
   actions: {
+    resetRep({ commit }) {
+      commit('resetRep')
+    },
     setTheme({ commit, state }, payload) {
       let newTheme
       if (payload == undefined) {
@@ -53,7 +61,7 @@ export default new Vuex.Store({
       commit('changeConfig', payload)
     },
     decreaseRep({ commit, state }) {
-      const rep = (state.config.rep -= 1)
+      const rep = (state.repRemaining -= 1)
       commit('decreaseRep', rep)
     },
     setRunning({ commit }, payload) {
@@ -69,6 +77,9 @@ export default new Vuex.Store({
     },
     config(state) {
       return state.config
+    },
+    repRemaining(state) {
+      return state.repRemaining
     },
     timerRunning(state) {
       return state.timerRunning

@@ -17,7 +17,7 @@
     v-app-bar(app)
       v-app-bar-nav-icon(@click.stop="drawer = !drawer", left)
       v-toolbar-title.text-uppercase
-        span.font-weight-bold.primary--text sport
+        span.font-weight-black.primary--text sport
         span.font-weight-thin companion
       v-spacer
       v-btn(@click="changeComponent('time-app')", text,v-if="componentName=='config-app'").secondary
