@@ -1,7 +1,8 @@
 <template lang="pug">
   #home
-    keep-alive
-      component(:is="componentName")
+    transition(name="fade", mode="out-in", appear)
+      keep-alive
+        component(:is="componentName")
 </template>
 
 <script>
@@ -28,3 +29,15 @@ export default {
   }
 }
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.22s;
+}
+.fade-enter,
+.fade-leave-to {
+  transform: translateX(4px);
+  opacity: 0;
+}
+</style>

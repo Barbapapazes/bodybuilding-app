@@ -10,10 +10,10 @@ export default new Vuex.Store({
     darkTheme: false,
     timerRunning: false,
     config: {
-      timer: '00:00:10',
-      rep: 5
+      timer: '00:00:00',
+      rep: 0
     },
-    repRemaining: 5
+    repRemaining: 0
   },
   mutations: {
     setTheme(state, payload) {

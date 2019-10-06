@@ -1,27 +1,31 @@
 <template lang="pug">
-  v-card#stopwatch
-    v-card-title
+
+  v-card(elevation="0")#stopwatch.background.lighten-2
+    v-card-title.pb-0
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0
           span.display-1.font-weight-light {{ time }}
 
-    v-card-actions
+    v-card-actions.pt-0
       v-row
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-if="!running")
-          v-btn(text, @click="start", name="start").primary
-            v-icon(left) mdi-play
-            | start
+          v-hover(v-slot:default="{hover}")
+            v-btn(text, @click="start", name="start", :elevation="hover ? 12 : 0").primary
+              v-icon(left) mdi-play
+              | start
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-else)
-          v-btn(text, @click="stop", name="stop").primary
-            v-icon(left) mdi-pause
-            | stop
+          v-hover(v-slot:default="{hover}")
+            v-btn(text, @click="stop", name="stop", :elevation="hover ? 12 : 0").primary
+              v-icon(left) mdi-pause
+              | stop
 
         v-col(cols="6", md="4", align="center")
-          v-btn(text, @click="reset", name="reset").primary
-            v-icon(left) mdi-stop
-            | reset
+          v-hover(v-slot:default="{hover}")
+            v-btn(text, @click="reset", name="reset", :elevation="hover ? 12 : 0").primary
+              v-icon(left) mdi-stop
+              | reset
 </template>
 
 <script>

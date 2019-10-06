@@ -1,13 +1,14 @@
 <template lang="pug">
-  v-card#time-rep
+  v-card(elevation="0")#time-rep
     v-card-text
       v-row(no-gutters)
         v-col(cols="12", md="6", offset-md="3")
           v-text-field(clearable, label="Repetitions", type="number", name="repetition", v-model="rep", :disabled="apply", :rules="repRules", ref="rep", @input="repNegative(rep)")
         v-col(cols="12", md="10", offset-md="1", align="center")
-          v-time-picker(use-seconds, format="24hr", scrollable, :allowed-seconds="allowedStep", v-model='time', :disabled="apply" color='primary', elevation-0)
+          v-time-picker(use-seconds, format="24hr", scrollable, :allowed-seconds="allowedStep", v-model='time', :disabled="apply" color='primary')
     v-card-actions
-      v-btn(@click="applyConfig", :disabled="valideData") {{apply ? "edit": "apply"}}
+      v-hover(v-slot:default="{hover}")
+        v-btn(@click="applyConfig", :disabled="valideData", :elevation="hover ? 12 : 0") {{apply ? "edit": "apply"}}
 </template>
 
 <script>

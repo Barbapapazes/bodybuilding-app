@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-app
+  v-app(:style="{background: $vuetify.theme.themes[theme].background}")
     navbar-app
     v-content
       v-container(fluid)
@@ -15,6 +15,11 @@ export default {
   },
   data() {
     return {}
+  },
+  computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? 'dark' : 'light'
+    }
   }
 }
 </script>

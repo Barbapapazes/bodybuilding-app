@@ -1,13 +1,23 @@
 <template lang="pug">
-  v-card#countdown
+  v-card(elevation="0")#countdown.background.lighten-2
     v-card-title
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0
           span.display-1.font-weight-light {{ remainingTime }}
+    v-card-actions
+      v-row(no-gutters)
+        v-col(cols="12", align="center")
+          button-rep-app
+
 </template>
 
 <script>
+import buttonRep from '@/components/ButtonRep'
+
 export default {
+  components: {
+    'button-rep-app': buttonRep
+  },
   data() {
     return {
       remainingTime: '',
@@ -101,6 +111,7 @@ export default {
     },
     getRunning() {
       this.running = this.$store.getters.timerRunning
+      if (!this.running) this.reset()
       if (this.running) this.start()
       return this.$store.getters.timerRunning
     }
