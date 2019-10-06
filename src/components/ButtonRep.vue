@@ -23,8 +23,9 @@ export default {
   methods: {
     decreaseRep() {
       if (this.repRemaining == 0 || this.timerRunning) return
+      if (this.allowVibrate) window.navigator.vibrate(50)
       this.$store.dispatch('decreaseRep')
-      this.$store.dispatch('setRunning', true)
+      if (this.timer !== '00:00:00') this.$store.dispatch('setRunning', true)
     },
     resetRep() {
       this.$store.dispatch('resetRep')
@@ -38,8 +39,14 @@ export default {
     timerRunning() {
       return this.$store.getters.timerRunning
     },
+    timer() {
+      return this.$store.getters.config.timer
+    },
     rep() {
       return this.$store.getters.config.rep
+    },
+    allowVibrate() {
+      return this.$store.getters.allowVibrate
     }
   },
   watch: {

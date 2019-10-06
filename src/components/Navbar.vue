@@ -9,11 +9,15 @@
             v-list-item-content
               v-list-item-title
       template(v-slot:prepend)
-        v-row
-          v-col(cols="12", align="center")
-            v-btn(@click="setTheme")
+        v-row()
+          v-col(cols="6", align="end")
+            v-btn(@click="setTheme", depressed, small)
               v-icon(left) mdi-brightness-6
-              | {{$vuetify.theme.dark ? 'light': 'dark'}}
+              | {{$vuetify.theme.dark ? 'dark' : 'light'}}
+          v-col(cols="6", align="start")
+            v-btn(@click="vibrate = !vibrate", depressed, small)
+              v-icon(left) {{vibrate ? 'mdi-vibrate' : 'mdi-vibrate-off'}}
+              | {{vibrate ? 'vibrate' :'quiet'}}
     v-app-bar(app).background.lighten-1
       v-app-bar-nav-icon(@click.stop="drawer = !drawer", left)
       v-toolbar-title.text-uppercase
@@ -33,7 +37,8 @@
 export default {
   data() {
     return {
-      drawer: null
+      drawer: null,
+      vibrate: false
     }
   },
   mounted() {
@@ -50,6 +55,11 @@ export default {
   computed: {
     componentName() {
       return this.$store.getters.homeComponentName
+    }
+  },
+  watch: {
+    vibrate(a) {
+      this.$store.dispatch('allowVibrate', a)
     }
   }
 }

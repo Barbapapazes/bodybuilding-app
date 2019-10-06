@@ -13,9 +13,13 @@ export default new Vuex.Store({
       timer: '00:00:00',
       rep: 0
     },
-    repRemaining: 0
+    repRemaining: 0,
+    allowVibrate: false
   },
   mutations: {
+    allowVibrate(state, payload) {
+      state.allowVibrate = payload
+    },
     setTheme(state, payload) {
       state.darkTheme = payload
     },
@@ -37,6 +41,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
+    allowVibrate({ commit }, payload) {
+      commit('allowVibrate', payload)
+    },
     resetRep({ commit }) {
       commit('resetRep')
     },
@@ -83,6 +90,9 @@ export default new Vuex.Store({
     },
     timerRunning(state) {
       return state.timerRunning
+    },
+    allowVibrate(state) {
+      return state.allowVibrate
     }
   }
 })

@@ -83,7 +83,10 @@ export default {
       const seconds = this.zeroPrefix(deltaTime % 60, 2)
 
       this.remainingTime = `${hours}:${minutes}:${seconds}`
-      if (hours == 0 && minutes == 0 && seconds <= 0) this.reset()
+      if (hours == 0 && minutes == 0 && seconds <= 0) {
+        if (this.allowVibrate) window.navigator.vibrate([300, 100, 500])
+        this.reset()
+      }
     },
     zeroPrefix: function(num, digit) {
       let zero = ''
@@ -102,6 +105,9 @@ export default {
     },
     getRunning() {
       return this.$store.getters.timerRunning
+    },
+    allowVibrate() {
+      return this.$store.getters.allowVibrate
     }
   },
   watch: {
