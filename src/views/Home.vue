@@ -33,7 +33,7 @@ export default {
 <style>
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.22s;
+  transition: all 0.22s cubic-bezier(0.84, 0.01, 1, 1);
 }
 .fade-enter,
 .fade-leave-to {
