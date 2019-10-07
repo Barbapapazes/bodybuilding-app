@@ -12,7 +12,7 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: colors.blue.darken3,
+        primary: colors.blue.darken4,
         secondary: colors.deepPurple.darken3,
         accent: colors.deepPurple.base,
         error: colors.red.base,

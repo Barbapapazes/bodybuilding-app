@@ -1,5 +1,5 @@
 <template lang="pug">
-  v-card(elevation="0")#countdown.background.lighten-2
+  v-card(elevation="0")#countdown.background
     v-card-title
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0

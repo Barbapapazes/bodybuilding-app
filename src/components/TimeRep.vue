@@ -1,14 +1,14 @@
 <template lang="pug">
-  v-card(elevation="0")#time-rep
+  v-card(elevation="0").background#time-rep
     v-card-text
       v-row(no-gutters)
         v-col(cols="12", md="6", offset-md="3")
-          v-text-field(clearable, label="Repetitions", type="number", name="repetition", v-model="rep", :disabled="apply", :rules="repRules", ref="rep", @input="repNegative(rep)")
+          v-text-field(clearable, label="Repetitions", type="number", name="repetition", v-model="rep", :disabled="apply", :rules="repRules", ref="rep", @input="repNegative(rep)" @keyup.enter="applyConfig")
         v-col(cols="12", md="10", offset-md="1", align="center")
           v-time-picker(use-seconds, format="24hr", scrollable, :allowed-seconds="allowedStep", v-model='time', :disabled="apply" color='primary')
     v-card-actions
       v-hover(v-slot:default="{hover}")
-        v-btn(@click="applyConfig", :disabled="valideData", :elevation="hover ? 12 : 0") {{apply ? "edit": "apply"}}
+        v-btn(@click="applyConfig", :disabled="valideData", :elevation="hover ? 12 : 0").primary {{apply ? "edit": "apply"}}
 </template>
 
 <script>
@@ -35,7 +35,7 @@ export default {
     },
     repNegative: function(value) {
       if (value < 1) {
-        this.rep = 1
+        this.rep = ''
         this.$refs.rep.lazyValue = this.rep
       }
     }

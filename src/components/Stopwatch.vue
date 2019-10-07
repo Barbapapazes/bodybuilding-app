@@ -1,6 +1,6 @@
 <template lang="pug">
 
-  v-card(elevation="0")#stopwatch.background.lighten-2
+  v-card(elevation="0")#stopwatch.background
     v-card-title.pb-0
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0
