@@ -43,6 +43,7 @@ export default new Vuex.Store({
   actions: {
     allowVibrate({ commit }, payload) {
       commit('allowVibrate', payload)
+      Vue.localStorage.set('vibrate', payload)
     },
     resetRep({ commit }) {
       commit('resetRep')

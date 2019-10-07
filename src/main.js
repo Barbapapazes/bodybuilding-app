@@ -17,6 +17,8 @@ new Vue({
   render: h => h(App),
   mounted() {
     const theme = Vue.localStorage.get('dark-theme')
+    const vibrate = Vue.localStorage.get('vibrate')
     this.$store.dispatch('setTheme', JSON.parse(theme))
+    this.$store.dispatch('allowVibrate', JSON.parse(vibrate))
   }
 }).$mount('#app')

@@ -15,7 +15,7 @@
               v-icon(left) mdi-brightness-6
               | {{$vuetify.theme.dark ? 'dark' : 'light'}}
           v-col(cols="6", align="start")
-            v-btn(@click="vibrate = !vibrate", depressed, small)
+            v-btn(@click="setVibrate", depressed, small)
               v-icon(left) {{vibrate ? 'mdi-vibrate' : 'mdi-vibrate-off'}}
               | {{vibrate ? 'vibrate' :'quiet'}}
     v-app-bar(app).background.lighten-1
@@ -37,8 +37,7 @@
 export default {
   data() {
     return {
-      drawer: null,
-      vibrate: false
+      drawer: null
     }
   },
   mounted() {
@@ -50,11 +49,17 @@ export default {
     },
     setTheme() {
       this.$store.dispatch('setTheme')
+    },
+    setVibrate() {
+      this.$store.dispatch('allowVibrate', !this.vibrate)
     }
   },
   computed: {
     componentName() {
       return this.$store.getters.homeComponentName
+    },
+    vibrate() {
+      return this.$store.getters.allowVibrate
     }
   },
   watch: {
