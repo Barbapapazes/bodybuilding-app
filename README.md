@@ -10,14 +10,11 @@ That's why "Sport Companion" is made, **it counts for you, and lets you focus on
 
 ## Table of contents
 
-- Running
-  - Installation
-  - Light or Dark, Quiet or Vibrate
-  - Stopwatch & Countdown
-  - Set up the countdown
--
--
--
+- [Running](#running)
+  - [Installation](#installation)
+  - [Light or Dark, Quiet or Vibrate](#light-or-dark-quiet-or-vibrate)
+  - [Stopwatch & Countdown](#stopwatch-&-countdown)
+  - [Set up the countdown](#set-up-the-countdown)
 
 ## Running
 
@@ -50,3 +47,5 @@ If you set the time to "00:00:00", then you can simply count the series without 
 Do not forget to press the "Apply" button to apply the changes!
 
 You can then return to the screen by clicking on "Time" at the top right.
+
+**add other thing !**
