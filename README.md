@@ -13,7 +13,7 @@ That's why "Sport Companion" is made, **it counts for you, and lets you focus on
 - [Running](#running)
   - [Installation](#installation)
   - [Light or Dark, Quiet or Vibrate](#light-or-dark-quiet-or-vibrate)
-  - [Stopwatch & Countdown](#stopwatch-&-countdown)
+  - [Stopwatch and Countdown](#stopwatch-and-countdown)
   - [Set up the countdown](#set-up-the-countdown)
 
 ## Running
@@ -30,7 +30,7 @@ Then, go to the home screen where you will see the logo of the application.
 
 Unfold the navigation drawer. You can see 2 buttons at the top, "light" and "quiet". The first allows you to change the theme of the application, _light_ or _dark_, and the second allows you to choose if you wish to have vibrations (function poorly supported and only with firefox) when pressing some buttons.
 
-### Stopwatch & Countdown
+### Stopwatch and Countdown
 
 On the main screen, you can see the stopwatch with a "start" button to start it and a "reset" button to reset it. To pause it, you have to start it!
 
