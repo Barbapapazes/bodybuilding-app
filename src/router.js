@@ -12,6 +12,28 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/about',
+      name: 'about',
+      component: () =>
+        import(/* webpackChunkName: "About" */ '@/views/About.vue'),
+      children: [
+        {
+          path: 'privacy-cookies',
+          component: () =>
+            import(
+              /* webpackChunkName: "PrivacyCookies" */ '@/views/PrivacyCookies.vue'
+            )
+        },
+        {
+          path: 'terms-of-use',
+          component: () =>
+            import(
+              /* webpackChunkName: "TermsofUse" */ '@/views/TermsofUse.vue'
+            )
+        }
+      ]
     }
   ]
 })

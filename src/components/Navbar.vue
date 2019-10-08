@@ -3,11 +3,11 @@
     v-navigation-drawer(app, v-model="drawer")
       v-list(nav)
         v-list-item-group
-          v-list-item()
+          v-list-item(to='/about')
             v-list-item-icon
               v-icon(left)
             v-list-item-content
-              v-list-item-title
+              v-list-item-title about
       template(v-slot:prepend)
         v-row()
           v-col(cols="6", align="end")
@@ -20,14 +20,15 @@
               | {{vibrate ? 'vibrate' :'quiet'}}
     v-app-bar(app).background.lighten-1
       v-app-bar-nav-icon(@click.stop="drawer = !drawer", left)
-      v-toolbar-title.text-uppercase
-        span.font-weight-black.secondary--text sport
-        span.font-weight-thin companion
+      v-toolbar-title
+        v-btn(to="/", text, exact-active-class="home-title").text-uppercase
+          span.font-weight-black.secondary--text sport
+          span.font-weight-thin companion
       v-spacer
-      v-btn(@click="changeComponent('time-app')", outlined,v-if="componentName=='config-app'").secondary--text
+      v-btn(@click="changeComponent('time-app')", outlined,v-if="componentName=='config-app' && home").secondary--text
         v-icon(left) mdi-timer
         | time
-      v-btn(@click="changeComponent('config-app')", outlined, v-else).secondary--text
+      v-btn(@click="changeComponent('config-app')", outlined, v-else-if="componentName=='time-app' && home").secondary--text
         v-icon(left) mdi-settings
         | config
 
@@ -60,6 +61,9 @@ export default {
     },
     vibrate() {
       return this.$store.getters.allowVibrate
+    },
+    home() {
+      return this.$route.fullPath == '/'
     }
   },
   watch: {
@@ -69,3 +73,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.home-title::before {
+  background-color: transparent !important;
+}
+</style>

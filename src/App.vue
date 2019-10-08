@@ -3,28 +3,19 @@
     navbar-app
     v-content
       v-container(fluid)
-        router-view
+        transition(name="fade", mode="out-in", appear)
+          router-view
     footer-app
-    cookie-law
-      div(slot-scope="props")
-        button(class="skew" @click="props.accept")
-          span I accept
-        p This site uses 🍪
-        button(class="skew" @click="props.close")
-          span Ignore me
-  </div>
 </template>
 
 <script>
 import navbar from '@/components/Navbar'
 import footer from '@/components/Footer'
-import cookieLaw from 'vue-cookie-law'
 
 export default {
   components: {
     'navbar-app': navbar,
-    'footer-app': footer,
-    'cookie-law': cookieLaw
+    'footer-app': footer
   },
   data() {
     return {}
@@ -36,3 +27,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.22s cubic-bezier(0.84, 0.01, 1, 1);
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

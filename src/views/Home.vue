@@ -1,6 +1,6 @@
 <template lang="pug">
   #home
-    transition(name="fade", mode="out-in", appear)
+    transition(name="slide", mode="out-in", appear)
       keep-alive
         component(:is="componentName")
 </template>
@@ -31,12 +31,12 @@ export default {
 </script>
 
 <style>
-.fade-enter-active,
-.fade-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: all 0.22s cubic-bezier(0.84, 0.01, 1, 1);
 }
-.fade-enter,
-.fade-leave-to {
+.slide-enter,
+.slide-leave-to {
   transform: translateX(4px);
   opacity: 0;
 }
