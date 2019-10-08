@@ -1,29 +1,52 @@
-# bodybuilding-app
+# Sport Companion
 
-## Project setup
-```
-npm install
-```
+> **A web application to help you during your workout**
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Explanation
 
-### Compiles and minifies for production
-```
-npm run build
-```
+During a sport session, it is not uncommon to have a stopwatch, to count the series, and the recovery time. But you also have to think about concentrating to be efficient, and sometimes you forget about the number of sets or even the remaining recovery time.
 
-### Run your tests
-```
-npm run test
-```
+That's why "Sport Companion" is made, **it counts for you, and lets you focus on your exercises**!
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Table of contents
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+- Running
+  - Installation
+  - Light or Dark, Quiet or Vibrate
+  - Stopwatch & Countdown
+  - Set up the countdown
+-
+-
+-
+
+## Running
+
+### Installation
+
+First, _install the app_ on your phone!
+
+You should see a banner at the bottom of your browser asking if you want to install the application (If it does not appear, search for "add to home screen" in the browser menu). And follow the instructions.
+
+Then, go to the home screen where you will see the logo of the application.
+
+### Light or Dark, Quiet or Vibrate
+
+Unfold the navigation drawer. You can see 2 buttons at the top, "light" and "quiet". The first allows you to change the theme of the application, _light_ or _dark_, and the second allows you to choose if you wish to have vibrations (function poorly supported and only with firefox) when pressing some buttons.
+
+### Stopwatch & Countdown
+
+On the main screen, you can see the stopwatch with a "start" button to start it and a "reset" button to reset it. To pause it, you have to start it!
+
+You will then find the countdown and the button to count the series. When you click on the big round button, the serial number decreases by one and the countdown of the recovery time decreases. The reset button is used to put all of this component back to its original state.
+
+But to count the series, one must already have them defined
+
+### Set up the countdown
+
+Click on the "config" button at the top right. You will then see a page on which you can define the number of series and the recovery time between each series.
+
+If you set the time to "00:00:00", then you can simply count the series without having a countdown.
+
+Do not forget to press the "Apply" button to apply the changes!
+
+You can then return to the screen by clicking on "Time" at the top right.
