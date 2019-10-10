@@ -2,18 +2,19 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import vuetify from './plugins/vuetify'
 
+import config from '@/store/config'
+import appState from '@/store/appState'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
+  modules: {
+    config: config,
+    appState: appState
+  },
   state: {
     homeComponentName: 'time-app',
     darkTheme: false,
-    timerRunning: false,
-    config: {
-      timer: '00:00:00',
-      rep: 0
-    },
-    repRemaining: 0,
     allowVibrate: false
   },
   mutations: {
@@ -25,19 +26,6 @@ export default new Vuex.Store({
     },
     homeComponentName(state, payload) {
       state.homeComponentName = payload
-    },
-    changeConfig(state, payload) {
-      state.config = payload
-      state.repRemaining = payload.rep
-    },
-    decreaseRep(state, payload) {
-      state.repRemaining = payload
-    },
-    setRunning(state, payload) {
-      state.timerRunning = payload
-    },
-    resetRep(state) {
-      state.repRemaining = state.config.rep
     }
   },
   actions: {
@@ -45,9 +33,7 @@ export default new Vuex.Store({
       commit('allowVibrate', payload)
       Vue.localStorage.set('vibrate', payload)
     },
-    resetRep({ commit }) {
-      commit('resetRep')
-    },
+
     setTheme({ commit, state }, payload) {
       let newTheme
       if (payload == undefined) {
@@ -61,19 +47,6 @@ export default new Vuex.Store({
     },
     homeComponentName({ commit }, payload) {
       commit('homeComponentName', payload)
-    },
-    changeConfig({ commit, state }, payload) {
-      if (state.config == payload) return
-      if (payload.timer == '') payload.timer = '00:00:00'
-      if (payload.rep == '') payload.rep = 0
-      commit('changeConfig', payload)
-    },
-    decreaseRep({ commit, state }) {
-      const rep = (state.repRemaining -= 1)
-      commit('decreaseRep', rep)
-    },
-    setRunning({ commit }, payload) {
-      commit('setRunning', payload)
     }
   },
   getters: {
@@ -82,15 +55,6 @@ export default new Vuex.Store({
     },
     homeComponentName(state) {
       return state.homeComponentName
-    },
-    config(state) {
-      return state.config
-    },
-    repRemaining(state) {
-      return state.repRemaining
-    },
-    timerRunning(state) {
-      return state.timerRunning
     },
     allowVibrate(state) {
       return state.allowVibrate

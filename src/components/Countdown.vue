@@ -3,7 +3,7 @@
     v-card-title
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0
-          span.display-1.font-weight-light {{ remainingTime }}
+          span.display-1.font-weight-light {{ countdown }}
     v-card-actions
       v-row(no-gutters)
         v-col(cols="12", align="center")
@@ -20,7 +20,7 @@ export default {
   },
   data() {
     return {
-      remainingTime: '',
+      countdown: '',
       running: null,
       started: null,
       now: null,
@@ -30,8 +30,11 @@ export default {
     }
   },
   mounted() {
-    this.remainingTime = this.timer
     this.running = this.getRunning
+  },
+  created() {
+    this.countdown = this.$store.getters.appState.timer
+    console.log(this.countdown)
   },
   methods: {
     start: function() {
@@ -73,7 +76,8 @@ export default {
       this.stoppedDuration = 0
       this.timeBegan = null
       this.timeStopped = null
-      this.remainingTime = this.timer
+      this.countdown = this.timer
+      this.$store.dispatch('setCountdown', this.countdown)
     },
     timerRunning: function() {
       this.now = Math.trunc(Date.parse(new Date()) / 1000)
@@ -82,7 +86,8 @@ export default {
       const minutes = this.zeroPrefix(Math.trunc(deltaTime / 60) % 60, 2)
       const seconds = this.zeroPrefix(deltaTime % 60, 2)
 
-      this.remainingTime = `${hours}:${minutes}:${seconds}`
+      this.countdown = `${hours}:${minutes}:${seconds}`
+      this.$store.dispatch('setCountdown', this.countdown)
       if (hours == 0 && minutes == 0 && seconds <= 0) {
         if (this.allowVibrate) window.navigator.vibrate([300, 100, 500])
         this.reset()
@@ -108,12 +113,19 @@ export default {
     },
     allowVibrate() {
       return this.$store.getters.allowVibrate
+    },
+    getTimeRemaining() {
+      return this.$store.getters.appState.timer
     }
   },
   watch: {
     timer() {
-      this.remainingTime = this.$store.getters.config.timer
+      this.countdown = this.$store.getters.config.timer
       return this.$store.getters.config.timer
+    },
+    getTimeRemaining() {
+      this.countdown = this.$store.getters.appState.timer
+      return this.$store.getters.appState.timer
     },
     getRunning() {
       this.running = this.$store.getters.timerRunning

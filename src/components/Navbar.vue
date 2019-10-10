@@ -31,11 +31,15 @@
       v-btn(@click="changeComponent('config-app')", outlined, v-else-if="componentName=='time-app' && home").secondary--text
         v-icon(left) mdi-settings
         | config
-
 </template>
 
 <script>
 export default {
+  props: {
+    openDrawer: {
+      type: Boolean
+    }
+  },
   data() {
     return {
       drawer: null
@@ -69,6 +73,12 @@ export default {
   watch: {
     vibrate(a) {
       this.$store.dispatch('allowVibrate', a)
+    },
+    openDrawer(a) {
+      this.drawer = this.openDrawer
+    },
+    drawer(a) {
+      if (a == false) this.$emit('close-drawer')
     }
   }
 }

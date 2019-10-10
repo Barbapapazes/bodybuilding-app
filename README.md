@@ -8,23 +8,27 @@ During a sport session, it is not uncommon to have a stopwatch, to count the ser
 
 That's why "Sport Companion" is made, **it counts for you, and lets you focus on your exercises**!
 
+---
+
 ## Table of contents
 
-- [Running](#running)
-  - [Installation](#installation)
+- [Installation](#installation)
+- [Home](#home)
   - [Light or Dark, Quiet or Vibrate](#light-or-dark-quiet-or-vibrate)
   - [Stopwatch and Countdown](#stopwatch-and-countdown)
   - [Set up the countdown](#set-up-the-countdown)
 
-## Running
+---
 
-### Installation
+## Installation
 
 First, _install the app_ on your phone!
 
 You should see a banner at the bottom of your browser asking if you want to install the application (If it does not appear, search for "add to home screen" in the browser menu). And follow the instructions.
 
 Then, go to the home screen where you will see the logo of the application.
+
+## Home
 
 ### Light or Dark, Quiet or Vibrate
 

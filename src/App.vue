@@ -1,7 +1,7 @@
 <template lang="pug">
   v-app(:style="{background: $vuetify.theme.themes[theme].background}")
-    navbar-app
-    v-content
+    navbar-app(:openDrawer="openDrawer", @close-drawer="drawer")
+    v-content(v-touch="{right: drawer}", )
       v-container(fluid)
         transition(name="fade", mode="out-in", appear)
           router-view
@@ -18,7 +18,14 @@ export default {
     'footer-app': footer
   },
   data() {
-    return {}
+    return {
+      openDrawer: false
+    }
+  },
+  methods: {
+    drawer() {
+      this.openDrawer = !this.openDrawer
+    }
   },
   computed: {
     theme() {
