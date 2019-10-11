@@ -1,4 +1,7 @@
 const path = require('path')
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
+  .BundleAnalyzerPlugin
+const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
 module.exports = {
   publicPath:
@@ -18,5 +21,14 @@ module.exports = {
     workboxOptions: {
       swSrc: 'src/service-worker.js'
     }
+  },
+  configureWebpack: {
+    plugins: [
+      new BundleAnalyzerPlugin(),
+      new PrerenderSPAPlugin({
+        staticDir: path.join(__dirname, 'dist'),
+        routes: ['/about']
+      })
+    ]
   }
 }
