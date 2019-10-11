@@ -1,7 +1,7 @@
 <template lang="pug">
-  v-app(:style="{background: $vuetify.theme.themes[theme].background}")
-    navbar-app(:openDrawer="openDrawer", @close-drawer="drawer")
-    v-content(v-touch="{right: drawer}", )
+  v-app(:style="{background: $vuetify.theme.themes[getTheme].background}")
+    navbar-app(:openDrawer="openDrawer", @close-drawer="openDrawer = false")
+    v-content(v-touch="{right: () => openDrawer = true}")
       v-container(fluid)
         transition(name="fade", mode="out-in", appear)
           router-view
@@ -22,13 +22,8 @@ export default {
       openDrawer: false
     }
   },
-  methods: {
-    drawer() {
-      this.openDrawer = !this.openDrawer
-    }
-  },
   computed: {
-    theme() {
+    getTheme() {
       return this.$vuetify.theme.dark ? 'dark' : 'light'
     }
   }

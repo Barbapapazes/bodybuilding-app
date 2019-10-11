@@ -1,22 +1,26 @@
 <template lang="pug">
   v-card(elevation="0")#countdown.background
     v-card-title
+
       v-row(no-gutters).pa-0
         v-col(cols="12", align="center").pa-0
+
           span.display-1.font-weight-light {{ countdown }}
+
     v-card-actions
+
       v-row(no-gutters)
         v-col(cols="12", align="center")
-          button-rep-app
 
+          button-series-app
 </template>
 
 <script>
-import buttonRep from '@/components/ButtonRep'
+import buttonSeries from '@/components/ButtonSeries'
 
 export default {
   components: {
-    'button-rep-app': buttonRep
+    'button-series-app': buttonSeries
   },
   data() {
     return {
@@ -24,62 +28,37 @@ export default {
       running: null,
       started: null,
       now: null,
-      timeStopped: null,
-      stoppedDuration: 0,
       endTimer: null
     }
   },
   mounted() {
-    this.running = this.getRunning
-  },
-  created() {
-    this.countdown = this.$store.getters.appState.timer
-    console.log(this.countdown)
+    this.countdown = this.getAppState.timer
   },
   methods: {
-    start: function() {
-      if (this.now === null) {
-        this.reset()
-      }
+    start() {
+      let endTimer = new Date()
+      const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+      const groups = regexTime.exec(this.getAppState.timer)
+      const match = groups.map(element => new Number(element))
 
-      let endTimer = new Date(this.endTimer * 1000)
-      if (this.timeStopped !== null) {
-        this.stoppedDuration =
-          Math.trunc(Date.parse(new Date()) / 1000) - this.timeStopped
-      } else {
-        endTimer = new Date()
-        const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
-        const groups = regexTime.exec(this.timer)
-        const match = groups.map(element => new Number(element))
+      endTimer.setHours(endTimer.getHours() + match[1])
+      endTimer.setMinutes(endTimer.getMinutes() + match[2])
+      endTimer.setSeconds(endTimer.getSeconds() + match[3])
 
-        endTimer.setHours(endTimer.getHours() + match[1])
-        endTimer.setMinutes(endTimer.getMinutes() + match[2])
-        endTimer.setSeconds(endTimer.getSeconds() + match[3])
-      }
-
-      this.endTimer =
-        Math.trunc(Date.parse(endTimer) / 1000) + this.stoppedDuration
+      this.endTimer = Math.trunc(Date.parse(endTimer) / 1000)
 
       this.started = setInterval(this.timerRunning, 10)
-      this.setRunning(true)
+      this.$store.dispatch('setRunning', true)
     },
-    stop: function() {
-      this.setRunning(false)
-      this.timeStopped = Math.trunc(Date.parse(new Date()) / 1000)
-      clearInterval(this.started)
-    },
-    reset: function() {
-      this.setRunning(false)
+    reset() {
       clearInterval(this.started)
       this.now = null
       this.endTimer = null
-      this.stoppedDuration = 0
       this.timeBegan = null
-      this.timeStopped = null
-      this.countdown = this.timer
+      this.countdown = this.getConfig.timer
       this.$store.dispatch('setCountdown', this.countdown)
     },
-    timerRunning: function() {
+    timerRunning() {
       this.now = Math.trunc(Date.parse(new Date()) / 1000)
       const deltaTime = this.endTimer - this.now
       const hours = this.zeroPrefix(Math.trunc(deltaTime / 60 / 60) % 24, 2)
@@ -88,9 +67,9 @@ export default {
 
       this.countdown = `${hours}:${minutes}:${seconds}`
       this.$store.dispatch('setCountdown', this.countdown)
-      if (hours == 0 && minutes == 0 && seconds <= 0) {
-        if (this.allowVibrate) window.navigator.vibrate([300, 100, 500])
-        this.reset()
+      if (Number(hours) == 0 && Number(minutes) == 0 && Number(seconds) < 0) {
+        if (this.getVibrate) window.navigator.vibrate([300, 100, 500])
+        this.$store.dispatch('setRunning', false)
       }
     },
     zeroPrefix: function(num, digit) {
@@ -99,39 +78,29 @@ export default {
         zero += '0'
       }
       return (zero + num).slice(-digit)
-    },
-    setRunning(state) {
-      this.$store.dispatch('setRunning', state)
     }
   },
   computed: {
-    timer() {
-      return this.$store.getters.config.timer
+    getConfig() {
+      return this.$store.getters.config
+    },
+    getAppState() {
+      return this.$store.getters.appState
     },
     getRunning() {
       return this.$store.getters.timerRunning
     },
-    allowVibrate() {
-      return this.$store.getters.allowVibrate
-    },
-    getTimeRemaining() {
-      return this.$store.getters.appState.timer
+    getVibrate() {
+      return this.$store.getters.vibrate
     }
   },
   watch: {
-    timer() {
-      this.countdown = this.$store.getters.config.timer
-      return this.$store.getters.config.timer
+    getAppState(a) {
+      this.countdown = a.timer
     },
-    getTimeRemaining() {
-      this.countdown = this.$store.getters.appState.timer
-      return this.$store.getters.appState.timer
-    },
-    getRunning() {
-      this.running = this.$store.getters.timerRunning
-      if (!this.running) this.reset()
-      if (this.running) this.start()
-      return this.$store.getters.timerRunning
+    getRunning(a) {
+      if (!a) this.reset()
+      if (a) this.start()
     }
   }
 }

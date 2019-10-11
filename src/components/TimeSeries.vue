@@ -1,52 +1,56 @@
 <template lang="pug">
-  v-card(elevation="0").background#time-rep
+  v-card(elevation="0").background#time-series
+
     v-card-text
       v-row(no-gutters)
         v-col(cols="12", md="6", offset-md="3")
-          v-text-field(clearable, label="Repetitions", type="number", name="repetition", v-model="rep", :disabled="apply", :rules="repRules", ref="rep", @input="repNegative(rep)" @keyup.enter="setConfig")
+
+          v-text-field(clearable, label="Series", type="number", name="series", v-model="series", :disabled="apply", :rules="seriesRules", ref="series", @input="invalidValue(series)" @keyup.enter="setConfig")
+
         v-col(cols="12", md="10", offset-md="1", align="center")
+
           v-time-picker(use-seconds, format="24hr", scrollable, :allowed-seconds="allowedStep", v-model='time', :disabled="apply" color='primary')
+
     v-card-actions
       v-hover(v-slot:default="{hover}")
-        v-btn(@click="setConfig", :disabled="valideData", :elevation="hover ? 12 : 0").primary {{apply ? "edit": "apply"}}
+        v-btn(@click="setConfig", :disabled="validData", :elevation="hover ? 12 : 0").primary {{apply ? "edit": "apply"}}
 </template>
 
 <script>
 export default {
   data() {
     return {
-      rep: '',
+      series: '',
       time: '',
       apply: false,
-      valideData: true,
-      allowedStep: s => s % 5 === 0,
-      repRules: [value => !!value || 'Required']
+      validData: true,
+      seriesRules: [value => !!value || 'Required'],
+      allowedStep: s => s % 5 === 0
     }
   },
   mounted() {
     const config = this.getConfig
-    if (config.rep == 0) {
-      return
-    }
-    this.rep = config.rep
+    if (config.series == 0) return
+    this.series = config.series
     this.time = config.timer
     this.apply = true
   },
   methods: {
     setConfig() {
-      if (this.apply == true) {
+      if (this.apply == true || !this.$refs.series.validate()) {
         this.apply = false
         return
       }
-      if (!this.$refs.rep.validate()) return
       this.apply = true
-      const config = { rep: this.rep, timer: this.time }
+      const config = { series: this.series, timer: this.time }
+      this.$store.dispatch('setRunning', false)
       this.$store.dispatch('setConfig', config)
+      this.$store.dispatch('setAppState', config)
     },
-    repNegative: function(value) {
+    invalidValue(value) {
       if (value < 1) {
-        this.rep = ''
-        this.$refs.rep.lazyValue = this.rep
+        this.series = ''
+        this.$refs.series.lazyValue = this.series
       }
     }
   },
@@ -56,9 +60,9 @@ export default {
     }
   },
   watch: {
-    rep: function(a) {
+    series(a) {
       if (Number.isInteger(Number(a))) {
-        this.valideData = false
+        this.validData = false
       }
     }
   }

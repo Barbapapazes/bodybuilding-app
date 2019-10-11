@@ -2,7 +2,7 @@
   #home
     transition(name="slide", mode="out-in", appear)
       keep-alive
-        component(:is="componentName")
+        component(:is="getComponentsHome")
 </template>
 
 <script>
@@ -14,17 +14,14 @@ export default {
     'time-app': timeApp,
     'config-app': configApp
   },
-  data() {
-    return {}
-  },
   computed: {
-    componentName() {
-      return this.$store.getters.homeComponentName
+    getComponentsHome() {
+      return this.$store.getters.componentsHome
     }
   },
   watch: {
-    componentName() {
-      return this.$store.getters.homeComponentName
+    getComponentsHome() {
+      return this.$store.getters.componentsHome
     }
   }
 }

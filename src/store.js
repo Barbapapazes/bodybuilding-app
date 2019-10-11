@@ -13,27 +13,26 @@ export default new Vuex.Store({
     appState: appState
   },
   state: {
-    homeComponentName: 'time-app',
+    allowVibrate: false,
     darkTheme: false,
-    allowVibrate: false
+    componentsHome: 'time-app'
   },
   mutations: {
-    allowVibrate(state, payload) {
+    setVibrate(state, payload) {
       state.allowVibrate = payload
     },
     setTheme(state, payload) {
       state.darkTheme = payload
     },
-    homeComponentName(state, payload) {
-      state.homeComponentName = payload
+    componentsHome(state, payload) {
+      state.componentsHome = payload
     }
   },
   actions: {
-    allowVibrate({ commit }, payload) {
-      commit('allowVibrate', payload)
+    setVibrate({ commit }, payload) {
+      commit('setVibrate', payload)
       Vue.localStorage.set('vibrate', payload)
     },
-
     setTheme({ commit, state }, payload) {
       let newTheme
       if (payload == undefined) {
@@ -45,18 +44,15 @@ export default new Vuex.Store({
       Vue.localStorage.set('dark-theme', newTheme)
       commit('setTheme', newTheme)
     },
-    homeComponentName({ commit }, payload) {
-      commit('homeComponentName', payload)
+    componentsHome({ commit }, payload) {
+      commit('componentsHome', payload)
     }
   },
   getters: {
-    getTheme(state) {
-      return state.darkTheme
+    componentsHome(state) {
+      return state.componentsHome
     },
-    homeComponentName(state) {
-      return state.homeComponentName
-    },
-    allowVibrate(state) {
+    vibrate(state) {
       return state.allowVibrate
     }
   }

@@ -7,16 +7,19 @@ export default {
   state: {
     appState: {
       timer: '00:00:00',
-      rep: 0
+      series: 0
     },
     timerRunning: false
   },
   mutations: {
     setAppState(state, payload) {
-      state.appState = payload
+      state.appState = {
+        series: String(payload.series),
+        timer: String(payload.timer)
+      }
     },
-    setRep(state, payload) {
-      state.appState.rep = payload
+    setSeries(state, payload) {
+      state.appState.series = payload
     },
     setCountdown(state, payload) {
       state.appState.timer = payload
@@ -26,18 +29,19 @@ export default {
     },
     resetCountdown(state, payload) {
       state.appState = {
-        rep: payload.rep,
-        timer: payload.timer
+        series: String(payload.series),
+        timer: String(payload.timer)
       }
     }
   },
   actions: {
     setAppState({ dispatch, commit, state }, payload) {
       commit('setAppState', payload)
+      dispatch('saveAppState')
     },
-    setRep({ dispatch, commit, state, rootState }, payload) {
-      const rep = state.appState.rep - 1
-      commit('setRep', rep)
+    setSeries({ dispatch, commit, state, rootState }, payload) {
+      const series = String(state.appState.series - 1)
+      commit('setSeries', series)
       dispatch('saveAppState')
     },
     setCountdown({ dispatch, commit }, payload) {

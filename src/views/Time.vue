@@ -10,7 +10,7 @@
       v-col(cols="12", sm="6", lg="4").pa-0.mt-4
         v-row
           v-col(cols="12")
-            h2.text-capitalize.font-weight-light.secondary--text countdown	&amp; rep
+            h2.text-capitalize.font-weight-light.secondary--text countdown	&amp; series
           v-col(cols="12",align="center").pt-0
             countdown-app
 </template>

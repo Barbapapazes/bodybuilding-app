@@ -21,7 +21,7 @@ new Vue({
     const config = Vue.localStorage.get('config')
     const state = Vue.localStorage.get('state')
     this.$store.dispatch('setTheme', JSON.parse(theme))
-    this.$store.dispatch('allowVibrate', JSON.parse(vibrate))
+    this.$store.dispatch('setVibrate', JSON.parse(vibrate))
     this.$store.dispatch('setConfig', JSON.parse(config))
     this.$store.dispatch('setAppState', JSON.parse(state))
   }
