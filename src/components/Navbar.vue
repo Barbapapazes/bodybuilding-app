@@ -32,7 +32,7 @@
       v-toolbar-title
         v-btn(to="/", text, exact-active-class="home-title").text-uppercase
           span.font-weight-black.secondary--text sport
-          span.font-weight-thin companion {{drawer}}
+          span.font-weight-thin companion
 
       v-spacer
 

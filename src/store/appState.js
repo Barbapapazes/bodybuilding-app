@@ -52,12 +52,20 @@ export default {
       commit('resetCountdown', rootState.config.config)
       dispatch('saveAppState')
     },
-    saveAppState({ commit, state, rootState }, payload) {
+    saveAppState({ dispatch, commit, state, rootState }, payload) {
       const appState = state.appState
       Vue.localStorage.set('state', JSON.stringify(appState))
     },
     setRunning({ commit }, payload) {
       commit('setRunning', payload)
+    },
+    saveTime({ commit }, payload) {
+      const time = Date.parse(new Date())
+      Vue.localStorage.set('time', JSON.stringify(time))
+    },
+    saveRunning({ commit, state }, payload) {
+      const running = payload
+      Vue.localStorage.set('running', JSON.stringify(running))
     }
   },
   getters: {

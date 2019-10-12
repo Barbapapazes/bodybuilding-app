@@ -12,7 +12,7 @@
       v-row(no-gutters)
         v-col(cols="12", align="center")
 
-          button-series-app
+          button-series-app(@clickButtonSeries="buttonSeries = true")
 </template>
 
 <script>
@@ -24,6 +24,7 @@ export default {
   },
   data() {
     return {
+      buttonSeries: false,
       countdown: '',
       running: null,
       started: null,
@@ -36,19 +37,7 @@ export default {
   },
   methods: {
     start() {
-      let endTimer = new Date()
-      const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
-      const groups = regexTime.exec(this.getAppState.timer)
-      const match = groups.map(element => new Number(element))
-
-      endTimer.setHours(endTimer.getHours() + match[1])
-      endTimer.setMinutes(endTimer.getMinutes() + match[2])
-      endTimer.setSeconds(endTimer.getSeconds() + match[3])
-
-      this.endTimer = Math.trunc(Date.parse(endTimer) / 1000)
-
       this.started = setInterval(this.timerRunning, 10)
-      this.$store.dispatch('setRunning', true)
     },
     reset() {
       clearInterval(this.started)
@@ -67,9 +56,11 @@ export default {
 
       this.countdown = `${hours}:${minutes}:${seconds}`
       this.$store.dispatch('setCountdown', this.countdown)
+      this.$store.dispatch('saveTime')
       if (Number(hours) == 0 && Number(minutes) == 0 && Number(seconds) < 0) {
         if (this.getVibrate) window.navigator.vibrate([300, 100, 500])
         this.$store.dispatch('setRunning', false)
+        this.$store.dispatch('saveRunning', false)
       }
     },
     zeroPrefix: function(num, digit) {
@@ -100,7 +91,38 @@ export default {
     },
     getRunning(a) {
       if (!a) this.reset()
-      if (a) this.start()
+      else if (a && this.buttonSeries) {
+        let endTimer = new Date()
+        const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+        const groups = regexTime.exec(this.getAppState.timer)
+        const match = groups.map(element => new Number(element))
+
+        endTimer.setHours(endTimer.getHours() + match[1])
+        endTimer.setMinutes(endTimer.getMinutes() + match[2])
+        endTimer.setSeconds(endTimer.getSeconds() + match[3])
+
+        this.endTimer = Math.trunc(Date.parse(endTimer) / 1000)
+        this.start()
+        this.buttonSeries = false
+      } else {
+        let endTimer = new Date()
+        const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+        const groups = regexTime.exec(this.getAppState.timer)
+        const match = groups.map(element => new Number(element))
+
+        const oldTime = new Date(JSON.parse(this.$localStorage.get('time')))
+
+        endTimer.setHours(oldTime.getHours() + match[1])
+        endTimer.setMinutes(oldTime.getMinutes() + match[2])
+        endTimer.setSeconds(oldTime.getSeconds() + match[3])
+
+        if (endTimer > Date.parse(new Date())) {
+          this.endTimer = Math.trunc(Date.parse(endTimer) / 1000)
+          this.start()
+        } else {
+          this.reset()
+        }
+      }
     }
   }
 }

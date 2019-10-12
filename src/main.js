@@ -20,9 +20,11 @@ new Vue({
     const vibrate = Vue.localStorage.get('vibrate')
     const config = Vue.localStorage.get('config')
     const state = Vue.localStorage.get('state')
+    const running = Vue.localStorage.get('running')
     this.$store.dispatch('setTheme', JSON.parse(theme))
     this.$store.dispatch('setVibrate', JSON.parse(vibrate))
     this.$store.dispatch('setConfig', JSON.parse(config))
     this.$store.dispatch('setAppState', JSON.parse(state))
+    this.$store.dispatch('setRunning', JSON.parse(running))
   }
 }).$mount('#app')

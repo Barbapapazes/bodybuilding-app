@@ -12,7 +12,7 @@
 
           v-btn(@click="resetSeries", outlined, :elevation="hover ? 12 : 0")
             span.font-weight-normal reset-
-            span.font-weight-light {{getConfig.series}} {{$store.getters.config.series}}
+            span.font-weight-light {{getConfig.series}}
 </template>
 
 <script>
@@ -27,13 +27,16 @@ export default {
     setSeries() {
       if (this.seriesRemaining == 0 || this.timerRunning) return
       if (this.getVibrate) window.navigator.vibrate(50)
+      this.$emit('clickButtonSeries')
       if (this.getConfig.timer !== '00:00:00') {
         this.$store.dispatch('setRunning', true)
+        this.$store.dispatch('saveRunning', true)
       }
       this.$store.dispatch('setSeries')
     },
     resetSeries() {
       this.$store.dispatch('setRunning', false)
+      this.$store.dispatch('saveRunning', false)
       this.$store.dispatch('resetCountdown')
     }
   },
