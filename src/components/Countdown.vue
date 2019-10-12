@@ -32,9 +32,6 @@ export default {
       endTimer: null
     }
   },
-  mounted() {
-    this.countdown = this.getAppState.timer
-  },
   methods: {
     start() {
       this.started = setInterval(this.timerRunning, 10)
@@ -56,11 +53,11 @@ export default {
 
       this.countdown = `${hours}:${minutes}:${seconds}`
       this.$store.dispatch('setCountdown', this.countdown)
-      this.$store.dispatch('saveTime')
+      this.$store.dispatch('saveTimeCountdown')
       if (Number(hours) == 0 && Number(minutes) == 0 && Number(seconds) < 0) {
         if (this.getVibrate) window.navigator.vibrate([300, 100, 500])
-        this.$store.dispatch('setRunning', false)
-        this.$store.dispatch('saveRunning', false)
+        this.$store.dispatch('setCountdownRunning', false)
+        this.$store.dispatch('saveCountdownRunning', false)
       }
     },
     zeroPrefix: function(num, digit) {
@@ -79,7 +76,7 @@ export default {
       return this.$store.getters.appState
     },
     getRunning() {
-      return this.$store.getters.timerRunning
+      return this.$store.getters.countdownRunning
     },
     getVibrate() {
       return this.$store.getters.vibrate
@@ -110,7 +107,9 @@ export default {
         const groups = regexTime.exec(this.getAppState.timer)
         const match = groups.map(element => new Number(element))
 
-        const oldTime = new Date(JSON.parse(this.$localStorage.get('time')))
+        const oldTime = new Date(
+          JSON.parse(this.$localStorage.get('timeCountdown'))
+        )
 
         endTimer.setHours(oldTime.getHours() + match[1])
         endTimer.setMinutes(oldTime.getMinutes() + match[2])

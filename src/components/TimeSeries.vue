@@ -42,8 +42,12 @@ export default {
         return
       }
       this.apply = true
-      const config = { series: this.series, timer: this.time }
-      this.$store.dispatch('setRunning', false)
+      const config = {
+        series: this.series,
+        timer: this.time,
+        stopwatch: this.getStopwatch
+      }
+      this.$store.dispatch('setCountdownRunning', false)
       this.$store.dispatch('setConfig', config)
       this.$store.dispatch('setAppState', config)
     },
@@ -57,6 +61,9 @@ export default {
   computed: {
     getConfig() {
       return this.$store.getters.config
+    },
+    getStopwatch() {
+      return this.$store.getters.appState.stopwatch
     }
   },
   watch: {

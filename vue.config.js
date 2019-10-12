@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 
-module.exports = {
+let config = {
   publicPath:
     process.env.NODE_ENV === 'production' ? '/bodybuilding-app/' : '/',
 
@@ -23,12 +23,17 @@ module.exports = {
     }
   },
   configureWebpack: {
-    plugins: [
-      new BundleAnalyzerPlugin(),
-      new PrerenderSPAPlugin({
-        staticDir: path.join(__dirname, 'dist'),
-        routes: ['/about']
-      })
-    ]
+    plugins: [new BundleAnalyzerPlugin()]
   }
 }
+
+if (process.env.NODE_ENV === 'production') {
+  config.configureWebpack.plugins.push(
+    new PrerenderSPAPlugin({
+      staticDir: path.join(__dirname, 'dist'),
+      routes: ['/about']
+    })
+  )
+}
+
+module.exports = config

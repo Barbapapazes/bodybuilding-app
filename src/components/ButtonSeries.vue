@@ -25,18 +25,18 @@ export default {
   },
   methods: {
     setSeries() {
-      if (this.seriesRemaining == 0 || this.timerRunning) return
+      if (this.seriesRemaining == 0 || this.countdownRunning) return
       if (this.getVibrate) window.navigator.vibrate(50)
       this.$emit('clickButtonSeries')
       if (this.getConfig.timer !== '00:00:00') {
-        this.$store.dispatch('setRunning', true)
-        this.$store.dispatch('saveRunning', true)
+        this.$store.dispatch('setCountdownRunning', true)
+        this.$store.dispatch('saveCountdownRunning', true)
       }
       this.$store.dispatch('setSeries')
     },
     resetSeries() {
-      this.$store.dispatch('setRunning', false)
-      this.$store.dispatch('saveRunning', false)
+      this.$store.dispatch('setCountdownRunning', false)
+      this.$store.dispatch('saveCountdownRunning', false)
       this.$store.dispatch('resetCountdown')
     }
   },
@@ -50,8 +50,8 @@ export default {
     seriesRemaining() {
       return this.$store.getters.appState.series
     },
-    timerRunning() {
-      return this.$store.getters.timerRunning
+    countdownRunning() {
+      return this.$store.getters.countdownRunning
     }
   },
   watch: {
