@@ -8,13 +8,26 @@ export default new Vuetify({
   theme: {
     themes: {
       light: {
-        primary: '#ee44aa',
-        secondary: '#424242',
-        accent: '#82B1FF',
-        error: '#FF5252',
-        info: '#2196F3',
-        success: '#4CAF50',
-        warning: '#FFC107'
+        primary: colors.blue.darken3,
+        secondary: colors.purple,
+        accent: colors.deepPurple.base,
+        error: colors.red.base,
+        warning: colors.amber.base,
+        info: colors.cyan.base,
+        success: colors.green.base,
+        background: '#ffffff',
+        text: '#000000'
+      },
+      dark: {
+        primary: colors.blue.darken3,
+        secondary: colors.purple,
+        accent: colors.deepPurple.base,
+        error: colors.red.base,
+        warning: colors.amber.base,
+        info: colors.cyan.base,
+        success: colors.green.base,
+        background: '#000000',
+        text: '#ffffff'
       }
     }
   },
