@@ -6,11 +6,11 @@ Vue.use(Vuex)
 export default {
   namespaced: true,
   state: {
-    time: '00:00',
+    time: '00.00',
     timeBegan: null,
-    timeStopped: null,
+    timeStopped: null, // when the button stop is click
     timeSaved: 0,
-    stopTime: 0,
+    stopTime: 0, // when the page is refresh
     intervalID: undefined,
     running: undefined
   },

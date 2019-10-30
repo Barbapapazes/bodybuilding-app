@@ -1,24 +1,24 @@
 <template lang="pug">
-  v-card#stopwatch
-    v-card-title
-      v-row
+  v-card(elevation="0").background#stopwatch
+    v-card-title.pb-0
+      v-row(no-gutters).pa-0
 
-        v-col(cols="12")
-          span  {{ getTime }}
+        v-col(cols="12", align="center").pa-0
+          span.display-1.font-weight-light  {{ getTime }}
     
-    v-card-actions
+    v-card-actions.pt-0
       v-row
 
-        v-col(cols="6", v-if="getInterval == undefined")
-          v-btn(@click="start()")
+        v-col(cols="6", md="4", offset-md="2", align="center", v-if="getInterval == undefined")
+          v-btn(text, @click="start()")
             span start
 
-        v-col(cols="6", v-else)
-          v-btn(@click="stop()")
+        v-col(cols="6", md="4", offset-md="2", align="center", v-else)
+          v-btn(text, @click="stop()")
             span stop
 
-        v-col(cols="6")
-          v-btn(@click="reset()")
+        v-col(cols="6", md="4", align="center")
+          v-btn(text, @click="reset()")
             span reset
 </template>
 
@@ -89,7 +89,7 @@ export default {
       console.log('reset')
 
       this.setInterval(clearInterval(this.getInterval))
-      this.setTime('00:00')
+      this.setTime('00.00')
       this.setTimeBegan(null)
       this.setTimeStopped(null)
       this.setTimeSaved(0)
