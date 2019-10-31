@@ -7,15 +7,16 @@ v-card(elevation="0").background#countdown
         span.display-1.font-weight-light {{ getCountdown }}
   
   v-card-actions
-    v-row(no-gutters)
+    v-row()
 
-      v-col(cols="12", align="center", v-if="getIntervalID == undefined")
-        v-btn(@click="start()")
-          span start
+      v-col(cols="12", align="center").pa-0
+        v-btn(fab, width="150", height="150", elevation="0", @click="decreaseSeriesStart").primary
+          span.text-center.display-1.font-weight-bold {{ getSeriesRemaining}}
 
-      v-col(cols="12", align="center", v-else)
-        v-btn(@click="reset()")
-          span reset         
+      v-col(cols="12", align="center")
+        v-btn(outlined, @click="reset(), setSeriesRemaining(getSeries)")
+          span.font-weight-normal reset
+          span.font-weight-light {{ getSeries == '0' ? '' : '-' + getSeries }} 
 </template>
 
 <script>
@@ -31,8 +32,20 @@ export default {
       setIntervalID: 'countdown/intervalID',
       setNow: 'countdown/now',
       setEnd: 'countdown/end',
-      setRunning: 'countdown/running'
+      setRunning: 'countdown/running',
+      setSeriesRemaining: 'countdown/series'
     }),
+    decreaseSeriesStart: function() {
+      if (this.getSeriesRemaining === '0' || this.getRunning) {
+        console.log('return')
+        return
+      } else if (!/^(0{2}:)?0{2}:0{2}$/gm.test(this.getCountdown)) {
+        // if countdown > 00:00
+        console.log('start')
+        this.start()
+      }
+      this.setSeriesRemaining(String(this.getSeriesRemaining - 1))
+    },
     start: function() {
       console.log('start')
 
@@ -57,7 +70,9 @@ export default {
     reset: function() {
       console.log('reset')
 
-      this.setIntervalID(clearInterval(this.getIntervalID))
+      if (this.getIntervalID != undefined) {
+        this.setIntervalID(clearInterval(this.getIntervalID))
+      }
       this.setRunning(false)
       this.setCountdown(this.getTime)
       this.setEnd(null)
@@ -104,7 +119,9 @@ export default {
       getNow: 'countdown/now',
       getEnd: 'countdown/end',
       getRunning: 'countdown/running',
-      getTime: 'timeSeries/time'
+      getSeriesRemaining: 'countdown/series',
+      getTime: 'timeSeries/time',
+      getSeries: 'timeSeries/series'
     })
   }
 }

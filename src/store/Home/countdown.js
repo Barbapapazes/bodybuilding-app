@@ -10,7 +10,8 @@ export default {
     intervalID: undefined,
     now: null,
     end: null,
-    running: undefined
+    running: undefined,
+    series: 0
   },
   mutations: {
     countdown: (state, payload) => {
@@ -27,6 +28,9 @@ export default {
     },
     running: (state, payload) => {
       state.running = payload
+    },
+    series: (state, payload) => {
+      state.series = payload
     }
   },
   actions: {
@@ -44,6 +48,9 @@ export default {
     },
     running: ({ commit }, payload) => {
       commit('running', payload)
+    },
+    series: ({ commit }, payload) => {
+      commit('series', payload)
     }
   },
   getters: {
@@ -67,6 +74,9 @@ export default {
     },
     running: state => {
       return state.running
+    },
+    series: state => {
+      return state.series
     }
   }
 }
