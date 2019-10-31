@@ -5,6 +5,9 @@ import stopwatch from '@/store/home/stopwatch'
 import countdown from '@/store/home/countdown'
 import timeSeries from '@/store/home/timeSeries'
 
+import navbar from '@/store/shell/navbar'
+import popups from '@/store/shell/popups'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -15,6 +18,8 @@ export default new Vuex.Store({
   modules: {
     stopwatch: stopwatch,
     countdown: countdown,
-    timeSeries: timeSeries
+    timeSeries: timeSeries,
+    navbar: navbar,
+    popups: popups
   }
 })

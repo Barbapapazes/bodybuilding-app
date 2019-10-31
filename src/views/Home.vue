@@ -2,19 +2,23 @@
 #home
   transition(name="slide-up", mode="out-in", appear)
     keep-alive
-      components(:is="'time-app'")
-  keep-alive
-      components(:is="'config-app'")
+      components(:is="getHomeComponentName")
 </template>
 
 <script>
 import Time from '@/components/home/Time'
 import Config from '@/components/home/Config'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
     'time-app': Time,
     'config-app': Config
+  },
+  computed: {
+    ...mapGetters({
+      getHomeComponentName: 'navbar/homeComponentName'
+    })
   }
 }
 </script>
