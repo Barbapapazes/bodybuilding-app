@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default {
   namespaced: true,
   state: {
-    countdown: '00:00',
+    countdown: '00:00:00',
     intervalID: undefined,
     now: null,
     end: null,
@@ -25,7 +25,6 @@ export default {
     end: (state, payload) => {
       state.end = payload
     },
-
     running: (state, payload) => {
       state.running = payload
     }
@@ -49,7 +48,13 @@ export default {
   },
   getters: {
     countdown: state => {
-      return state.countdown
+      const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+      const groups = regexTime.exec(state.countdown)
+      if (groups[1] == '00') {
+        return groups[2] + ':' + groups[3]
+      } else {
+        return state.countdown
+      }
     },
     intervalID: state => {
       return state.intervalID

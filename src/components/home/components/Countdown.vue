@@ -36,40 +36,57 @@ export default {
     start: function() {
       console.log('start')
 
-      this.setEnd(
-        new Date(new Date().setUTCSeconds(new Date().getUTCSeconds() + 5))
-      )
+      // set the end of the countdown
+      let endCountdown = new Date()
+      const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+      const groups = regexTime.exec(this.getTime)
+      const match = groups.map(element => {
+        if (element == undefined) element = 0
+        return new Number(element)
+      })
+
+      endCountdown.setHours(endCountdown.getHours() + match[1])
+      endCountdown.setMinutes(endCountdown.getMinutes() + match[2])
+      endCountdown.setSeconds(endCountdown.getSeconds() + match[3])
+
+      this.setEnd(endCountdown)
+
       this.setRunning(true)
-      this.setIntervalID(setInterval(this.countdown, 1000))
+      this.setIntervalID(setInterval(this.countdown, 200))
     },
     reset: function() {
       console.log('reset')
 
       this.setIntervalID(clearInterval(this.getIntervalID))
       this.setRunning(false)
-      this.setCountdown('00:00')
+      this.setCountdown(this.getTime)
       this.setEnd(null)
       this.setNow(null)
     },
     countdown: function() {
       console.log('countdown')
 
-      this.setNow(new Date())
-      const deltaTime = new Date(this.getEnd - this.getNow),
-        hour = deltaTime.getUTCHours(),
-        min = deltaTime.getUTCMinutes(),
-        sec = deltaTime.getUTCSeconds()
-
-      const time =
-        (this.zeroPrefix(hour, 2) == 0 ? '' : this.zeroPrefix(hour, 2) + ':') +
-        this.zeroPrefix(min, 2) +
-        ':' +
-        this.zeroPrefix(sec, 2)
-
-      if (hour == 0 && min == 0 && sec == 0) {
+      if (!this.getRunning) {
         this.reset()
       } else {
-        this.setCountdown(time)
+        this.setNow(new Date())
+        const deltaTime = new Date(this.getEnd - this.getNow),
+          hour = deltaTime.getUTCHours(),
+          min = deltaTime.getUTCMinutes(),
+          sec = deltaTime.getUTCSeconds()
+
+        const time =
+          this.zeroPrefix(hour, 2) +
+          ':' +
+          this.zeroPrefix(min, 2) +
+          ':' +
+          this.zeroPrefix(sec, 2)
+
+        if (hour == 0 && min == 0 && sec == 0) {
+          this.reset()
+        } else {
+          this.setCountdown(time)
+        }
       }
     },
     zeroPrefix: function(num, digit) {
@@ -86,7 +103,8 @@ export default {
       getIntervalID: 'countdown/intervalID',
       getNow: 'countdown/now',
       getEnd: 'countdown/end',
-      getRunning: 'countdown/running'
+      getRunning: 'countdown/running',
+      getTime: 'timeSeries/time'
     })
   }
 }
