@@ -31,6 +31,7 @@ export default {
     },
     theme: ({ commit }, payload) => {
       vuetify.framework.theme.dark = payload
+      Vue.localStorage.set('theme', JSON.stringify(payload))
       commit('theme', payload)
     }
   },

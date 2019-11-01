@@ -6,7 +6,7 @@ const publicPath =
   process.env.NODE_ENV === 'production' ? '/bodybuilding-app/' : '/'
 
 const config = {
-  transpileDependencies: ['vuetify'],
+  //transpileDependencies: ['vuetify'],
 
   publicPath: publicPath,
 
@@ -33,6 +33,9 @@ const config = {
 
       swSrc: 'src/service-worker.js'
     }
+  },
+  configureWebpack: {
+    plugins: []
   }
 }
 
@@ -41,9 +44,9 @@ if (process.env.NODE_ENV === 'production') {
     new PrerenderSPAPlugin({
       staticDir: path.join(__dirname, 'dist'),
       routes: ['/about']
-    }),
-    new BundleAnalyzerPlugin()
+    })
   )
+  config.configureWebpack.plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = config

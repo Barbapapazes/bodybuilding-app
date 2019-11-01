@@ -5,13 +5,13 @@ v-card(elevation="0").background#time-series
 
       v-col(cols="12", align="center")
         v-form(ref="form")
-          v-text-field(clearable, type="number", ref="series", :rules="seriesRules", @input="invalidValue(series)", :disabled="getApply", required, v-model="series")
+          v-text-field(clearable, type="number", ref="series", :rules="seriesRules", @input="invalidValue(series)", :disabled="getApply", required, v-model="series").mb-2
 
-          v-time-picker(use-seconds, format="24hr", :disabled="getApply", :allowed-seconds="allowedStep", v-model="time")
+          v-time-picker(use-seconds, format="24hr", scrollable, color="primary",:disabled="getApply", :allowed-seconds="allowedStep", v-model="time")
 
   v-card-actions
     v-spacer
-    v-btn(elevation="0", @click="setConfig()").primary {{getApply ? "edit": "apply"}}
+    v-btn(depressed, @click="applyConfig()").primary {{getApply ? "edit": "apply"}}
 </template>
 
 <script>
@@ -25,23 +25,40 @@ export default {
       allowedStep: s => s % 5 === 0
     }
   },
+  mounted() {
+    this.time = this.getTime
+    this.series = this.getSeries
+  },
   methods: {
     ...mapActions({
-      setTime: 'timeSeries/time',
-      setSeries: 'timeSeries/series',
-      setApply: 'timeSeries/apply',
+      setConfig: 'timeSeries/config',
       setCountdown: 'countdown/countdown',
       setRunningCountdown: 'countdown/running',
       setSeriesCountdown: 'countdown/series'
     }),
-    setConfig: function() {
-      if (this.getApply || !this.$refs.form.validate()) {
-        this.setApply(false)
+    applyConfig: function() {
+      if (!this.$refs.form.validate()) {
+        const config = {
+          time: '00:00:00',
+          series: 0,
+          apply: false
+        }
+        this.setConfig(config)
+      } else if (this.getApply) {
+        const config = {
+          time: this.time,
+          series: this.series,
+          apply: false
+        }
+        this.setConfig(config)
       } else {
-        this.setApply(true)
+        const config = {
+          time: this.time,
+          series: this.series,
+          apply: true
+        }
+        this.setConfig(config)
         this.setRunningCountdown(false)
-        this.setTime(this.time)
-        this.setSeries(this.series)
         this.setCountdown(this.time)
         this.setSeriesCountdown(this.series)
       }

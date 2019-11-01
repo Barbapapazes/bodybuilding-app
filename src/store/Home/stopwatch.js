@@ -17,6 +17,7 @@ export default {
   mutations: {
     time: (state, payload) => {
       state.time = payload
+      Vue.localStorage.set('time', payload)
     },
     timeBegan: (state, payload) => {
       state.timeBegan = payload
@@ -35,6 +36,7 @@ export default {
     },
     running: (state, payload) => {
       state.running = payload
+      Vue.localStorage.set('stopwatchRunning', payload)
     }
   },
   actions: {

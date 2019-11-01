@@ -22,14 +22,11 @@ export default {
     }
   },
   actions: {
-    time: ({ commit }, payload) => {
-      commit('time', payload)
-    },
-    series: ({ commit }, payload) => {
-      commit('series', payload)
-    },
-    apply: ({ commit }, payload) => {
-      commit('apply', payload)
+    config: ({ commit }, payload) => {
+      commit('time', payload.time)
+      commit('series', payload.series)
+      commit('apply', payload.apply)
+      Vue.localStorage.set('config', JSON.stringify(payload))
     }
   },
   getters: {

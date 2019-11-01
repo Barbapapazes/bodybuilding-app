@@ -40,6 +40,7 @@ export default {
   },
   mounted() {
     if (this.getRunning) {
+      // add stoptime here
       this.start()
     }
   },
