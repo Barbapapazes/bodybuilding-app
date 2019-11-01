@@ -7,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
     ready() {
       console.log(
         'App is being served from cache by a service worker.\n' +
-        'For more details, visit https://goo.gl/AFskqB'
+          'For more details, visit https://goo.gl/AFskqB'
       )
     },
     registered() {
@@ -19,11 +19,20 @@ if (process.env.NODE_ENV === 'production') {
     updatefound() {
       console.log('New content is downloading.')
     },
-    updated() {
+    updated(reg) {
       console.log('New content is available; please refresh.')
+      const updateSW = new Event('updateSW')
+      window.dispatchEvent(updateSW)
+      window.addEventListener('refreshSW', function() {
+        console.log('update SW')
+        reg.waiting.postMessage({ type: 'SKIP_WAITING' })
+        window.location.reload()
+      })
     },
     offline() {
-      console.log('No internet connection found. App is running in offline mode.')
+      console.log(
+        'No internet connection found. App is running in offline mode.'
+      )
     },
     error(error) {
       console.error('Error during service worker registration:', error)

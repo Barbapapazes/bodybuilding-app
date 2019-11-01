@@ -1,21 +1,31 @@
 <template lang="pug">
 #settings-app
   v-container
-    v-row
+    v-row(no-gutters)
 
-      v-col(cols="6")
-        v-btn(depressed, small, @click="setTheme(!getTheme)") {{getTheme ? 'dark' : 'light'}}
+      v-col(cols="12", align="center").mb-2
+        v-btn(depressed, small, @click="setTheme(!getTheme)")
+          v-icon(left, small).text--text {{ svgPath.mdiBrightness6 }}
+          span {{getTheme ? 'dark' : 'light'}}
 
 
-      v-col(cols="12")
-        v-btn(depressed, small, @click="setNotification") {{allowNotification ? 'Notification On': 'Notification Off'}}
+      v-col(cols="12", align="center")
+        v-btn(depressed, small, @click="setNotification")
+          v-icon(left, small) {{allowNotification ? svgPath.mdiBell : svgPath.mdiBellOff}}
+          span {{allowNotification ? 'Notification On': 'Notification Off'}}
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { mdiBrightness6, mdiBell, mdiBellOff } from '@mdi/js'
 export default {
   data() {
     return {
+      svgPath: {
+        mdiBrightness6,
+        mdiBell,
+        mdiBellOff
+      },
       allowNotification: false
     }
   },

@@ -14,7 +14,15 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
+import { mdiRefresh } from '@mdi/js'
 export default {
+  data() {
+    return {
+      svgPath: {
+        mdiRefresh
+      }
+    }
+  },
   mounted() {
     window.addEventListener('updateSW', () => {
       this.snackbar = true

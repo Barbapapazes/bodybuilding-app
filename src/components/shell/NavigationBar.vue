@@ -1,6 +1,6 @@
 <template lang="pug">
 #navigation-bar
-  v-app-bar(app).background.lighten-1
+  v-app-bar(app, flat).background.lighten-1
     v-app-bar-nav-icon(@click.stop="setDrawer(!getDrawer)", left)
 
     v-toolbar-title
@@ -10,14 +10,27 @@
 
     v-spacer
 
-    v-btn(outlined, @click="setHomeComponentName('time-app')",v-if="getHomeComponentName == 'config-app' && $route.fullPath == '/'").secondary--text time
+    v-btn(outlined, @click="setHomeComponentName('time-app')",v-if="getHomeComponentName == 'config-app' && $route.fullPath == '/'").secondary--text
+      v-icon(left) {{ svgPath.mdiTimer }}
+      span time
 
-    v-btn(outlined, @click="setHomeComponentName('config-app')",v-else-if="getHomeComponentName == 'time-app' && $route.fullPath == '/'").secondary--text config
+    v-btn(outlined, @click="setHomeComponentName('config-app')",v-else-if="getHomeComponentName == 'time-app' && $route.fullPath == '/'").secondary--text
+      v-icon(left) {{ svgPath.mdiSettings }}
+      span config
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { mdiTimer, mdiSettings } from '@mdi/js'
 export default {
+  data() {
+    return {
+      svgPath: {
+        mdiTimer,
+        mdiSettings
+      }
+    }
+  },
   methods: {
     ...mapActions({
       setHomeComponentName: 'navbar/homeComponentName',

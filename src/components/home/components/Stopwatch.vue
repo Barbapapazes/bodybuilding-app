@@ -10,24 +10,33 @@
       v-row
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-if="getInterval == undefined")
-          v-btn(text, @click="start()")
+          v-btn(text, @click="start()").primary
+            v-icon(left) {{ svgPath.mdiPlay }}
             span start
 
         v-col(cols="6", md="4", offset-md="2", align="center", v-else)
-          v-btn(text, @click="stop()")
+          v-btn(text, @click="stop()").primary
+            v-icon(left) {{ svgPath.mdiPause }}
             span stop
 
         v-col(cols="6", md="4", align="center")
-          v-btn(text, @click="reset()")
+          v-btn(text, @click="reset()").primary
+            v-icon(left) {{ svgPath.mdiStop }}
             span reset
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-
+import { mdiPlay, mdiPause, mdiStop } from '@mdi/js'
 export default {
   data() {
-    return {}
+    return {
+      svgPath: {
+        mdiPlay,
+        mdiPause,
+        mdiStop
+      }
+    }
   },
   mounted() {
     if (this.getRunning) {
@@ -76,7 +85,7 @@ export default {
         this.setStopTime(this.getStopTime + (new Date() - this.getTimeStopped))
       }
 
-      this.setInterval(setInterval(this.clock, 1000))
+      this.setInterval(setInterval(this.clock, 100))
     },
     stop: function() {
       console.log('stop')

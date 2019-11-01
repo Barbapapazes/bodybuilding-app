@@ -6,23 +6,24 @@
 
         v-list-item(:to="{name: 'home'}", exact)
           v-list-item-icon
-
+            v-icon(left).text--text {{ svgPath.mdiHome }}
           v-list-item-content
             v-list-item-title.text-capitalize.title.primary--text.font-weight-bold home
 
         v-list-item(:to="{name: 'about'}")
           v-list-item-icon
-
+            v-icon(left).text--text {{ svgPath.mdiInformationOutline }}            
           v-list-item-content
             v-list-item-title.text-capitalize.title.primary--text.font-weight-bold about
 
     template(v-slot:prepend)
       settings-app
-      v-divider.background.lighten-2.ma-2
+      v-divider.background.lighten-2.mt-2.mb-3
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
+import { mdiHome, mdiInformationOutline } from '@mdi/js'
 import SettingsApp from '@/components/shell/components/SettingsApp'
 
 export default {
@@ -30,7 +31,12 @@ export default {
     'settings-app': SettingsApp
   },
   data() {
-    return {}
+    return {
+      svgPath: {
+        mdiHome,
+        mdiInformationOutline
+      }
+    }
   },
   methods: {
     ...mapActions({
