@@ -16,6 +16,15 @@ new Vue({
   store,
   vuetify,
   created() {
+    // get timeSaved before set the time because setTime save a new timeSaved
+    const timeSaved = Vue.localStorage.get('timeSaved', '0')
+
+    this.setTimeSaved(
+      Date.parse(new Date()) +
+        new Date().getMilliseconds() -
+        JSON.parse(timeSaved)
+    )
+
     // theme
     const theme = Vue.localStorage.get('theme', false)
     this.setTheme(JSON.parse(theme))
@@ -40,7 +49,8 @@ new Vue({
       setTheme: 'navbar/theme',
       setConfig: 'timeSeries/config',
       setTime: 'stopwatch/time',
-      setStopwatchRunning: 'stopwatch/running'
+      setStopwatchRunning: 'stopwatch/running',
+      setTimeSaved: 'stopwatch/timeSaved'
     })
   },
   render: h => h(App)

@@ -38,10 +38,11 @@ export default {
       }
     }
   },
-  mounted() {
+  async mounted() {
     if (this.getRunning) {
-      // add stoptime here
       this.start()
+    } else {
+      this.setTimeSaved(0)
     }
   },
   methods: {

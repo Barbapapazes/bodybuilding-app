@@ -18,6 +18,10 @@ export default {
     time: (state, payload) => {
       state.time = payload
       Vue.localStorage.set('time', payload)
+      Vue.localStorage.set(
+        'timeSaved',
+        JSON.stringify(Date.parse(new Date()) + new Date().getMilliseconds())
+      )
     },
     timeBegan: (state, payload) => {
       state.timeBegan = payload
