@@ -4,7 +4,7 @@
     v-app-bar-nav-icon(@click.stop="setDrawer(!getDrawer)", left)
 
     v-toolbar-title
-      v-btn(:to="{name: 'home'}", text, exact-active-class="home-title", large).text-uppercase
+      v-btn(to="/", text, exact-active-class="home-title", large).text-uppercase
         span.font-weight-bold.secondary--text sport
         span.font-weight-thin companion
 
