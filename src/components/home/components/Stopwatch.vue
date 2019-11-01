@@ -38,7 +38,7 @@ export default {
       }
     }
   },
-  async mounted() {
+  mounted() {
     if (this.getRunning) {
       this.start()
     } else {
