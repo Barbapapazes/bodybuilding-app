@@ -10,8 +10,9 @@ v-card(elevation="0").background#countdown
     v-row()
 
       v-col(cols="12", align="center").pa-0
-        v-btn(fab, width="150", height="150", elevation="0", @click="decreaseSeriesStart").primary
-          span.text-center.display-1.font-weight-bold {{ getSeriesRemaining}}
+        v-btn(fab, width="150", height="150", elevation="0", @click="decreaseSeriesStart").primary.text-center.display-1.font-weight-bold
+          transition(name="number", mode="out-in")
+            span(:key="getSeriesRemaining") {{ getSeriesRemaining}}
 
       v-col(cols="12", align="center")
         v-btn(outlined, @click="reset(), setSeriesRemaining(getSeries)")
@@ -151,3 +152,18 @@ export default {
   }
 }
 </script>
+
+<style>
+.number-enter-active,
+.number-leave-active {
+  transition: all 0.3s ease-in-out;
+}
+.number-enter {
+  transform: translateY(-6px);
+  opacity: 0;
+}
+.number-leave-to {
+  transform: translateY(6px);
+  opacity: 0;
+}
+</style>

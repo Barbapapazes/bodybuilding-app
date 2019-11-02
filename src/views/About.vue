@@ -14,8 +14,8 @@
 
     v-row(v-else)
 
-      v-col(cols="12", align="end")
-        v-menu(offset-y)
+      v-col(cols="12", align="end").pa-0
+        v-menu(transition="scale-transition", origin="top right")
           template(v-slot:activator="{ on }")
             v-btn(depressed, v-on="on") choose a page
           v-list(flat).primary--text.text-capitalize
@@ -25,5 +25,6 @@
               v-list-item-title privacy &amp; cookies
             v-list-item(:to="{name: 'terms-of-use'}")
               v-list-item-title terms of use
-  router-view
+  transition(name="fade", mode="out-in")
+    router-view
 </template>

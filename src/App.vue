@@ -4,7 +4,8 @@ v-app(:style="{background: $vuetify.theme.themes[getTheme ? 'dark': 'light'].bac
   v-content(v-touch="{right: () => setDrawer(true)}")
     v-container(fluid)
       popups-app
-      router-view
+      transition(name="fade", mode="out-in")
+        router-view
   footer-app
 </template>
 
@@ -32,3 +33,14 @@ export default {
   }
 }
 </script>
+
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.3s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

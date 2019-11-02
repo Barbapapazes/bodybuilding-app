@@ -1,7 +1,7 @@
 <template lang="pug">
 #privacy_cookies
   v-container
-    v-row
+    v-row(no-gutters)
     
       v-col(cols="12", md="8", offset-md="2")
         h1.title.text-uppercase.font-weight-bold.secondary--text privacy

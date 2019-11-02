@@ -10,13 +10,11 @@
 
     v-spacer
 
-    v-btn(outlined, @click="setHomeComponentName('time-app')",v-if="getHomeComponentName == 'config-app' && $route.fullPath == '/'").secondary--text
-      v-icon(left) {{ svgPath.mdiTimer }}
-      span time
-
-    v-btn(outlined, @click="setHomeComponentName('config-app')",v-else-if="getHomeComponentName == 'time-app' && $route.fullPath == '/'").secondary--text
-      v-icon(left) {{ svgPath.mdiSettings }}
-      span config
+    transition(name="slide-x", mode="out-in", appear)
+      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/'", @click="setHomeComponentName(buttonSwitchComponent.component)").secondary--text
+        v-icon(left) {{ buttonSwitchComponent.icon }}
+        span {{ buttonSwitchComponent.name }}
+      
 </template>
 
 <script>
@@ -41,7 +39,25 @@ export default {
     ...mapGetters({
       getHomeComponentName: 'navbar/homeComponentName',
       getDrawer: 'navbar/drawer'
-    })
+    }),
+    buttonSwitchComponent: function() {
+      switch (this.getHomeComponentName) {
+        case 'time-app':
+          return {
+            name: 'config',
+            icon: this.svgPath.mdiSettings,
+            component: 'config-app'
+          }
+        case 'config-app':
+          return {
+            name: 'time',
+            icon: this.svgPath.mdiTimer,
+            component: 'time-app'
+          }
+        default:
+          return 'error'
+      }
+    }
   }
 }
 </script>
@@ -49,5 +65,14 @@ export default {
 <style scoped>
 .home-title::before {
   background-color: transparent !important;
+}
+.slide-x-enter-active,
+.slide-x-leave-active {
+  transition: all 0.4s cubic-bezier(0.08, 0.24, 0, 0.72);
+}
+.slide-x-enter,
+.slide-x-leave-to {
+  transform: translateX(-4px);
+  opacity: 0;
 }
 </style>
