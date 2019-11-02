@@ -17,19 +17,23 @@ export default {
   },
   methods: {
     ...mapActions({
-      setStopwatchInterval: 'stopwatch/intervalID'
+      setStopwatchInterval: 'stopwatch/intervalID',
+      setCountdownInterval: 'countdown/intervalID'
     })
   },
 
   computed: {
     ...mapGetters({
       getHomeComponentName: 'navbar/homeComponentName',
-      getStopwatchInterval: 'stopwatch/intervalID'
+      getStopwatchInterval: 'stopwatch/intervalID',
+      getCountdownInterval: 'countdown/intervalID'
     })
   },
   beforeRouteLeave: function(to, from, next) {
     console.log('leave home')
     this.setStopwatchInterval(clearInterval(this.getStopwatchInterval))
+    next()
+    this.setCountdownInterval(clearInterval(this.getCountdownInterval))
     next()
   }
 }
