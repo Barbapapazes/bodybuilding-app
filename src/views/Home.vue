@@ -8,17 +8,29 @@
 <script>
 import Time from '@/components/home/Time'
 import Config from '@/components/home/Config'
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
   components: {
     'time-app': Time,
     'config-app': Config
   },
+  methods: {
+    ...mapActions({
+      setStopwatchInterval: 'stopwatch/intervalID'
+    })
+  },
+
   computed: {
     ...mapGetters({
-      getHomeComponentName: 'navbar/homeComponentName'
+      getHomeComponentName: 'navbar/homeComponentName',
+      getStopwatchInterval: 'stopwatch/intervalID'
     })
+  },
+  beforeRouteLeave: function(to, from, next) {
+    console.log('leave home')
+    this.setStopwatchInterval(clearInterval(this.getStopwatchInterval))
+    next()
   }
 }
 </script>

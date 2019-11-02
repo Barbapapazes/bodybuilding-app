@@ -26,6 +26,24 @@ export default {
   data() {
     return {}
   },
+  mounted() {
+    const timeRemaining = Date.parse(new Date()) - Date.parse(this.getEnd)
+    // check if the countdown is over
+    console.log(
+      'mounted countdown',
+      this.getRunning,
+      timeRemaining,
+      this.getTime
+    )
+    if (this.getRunning && timeRemaining < 0) {
+      console.log('running and time not over')
+      this.start(new Date(this.getEnd))
+    } else if (this.getRunning && timeRemaining >= 0) {
+      console.log('running but time is over')
+      this.setCountdown(this.getTime)
+      this.setRunning(false)
+    }
+  },
   methods: {
     ...mapActions({
       setCountdown: 'countdown/countdown',
@@ -36,7 +54,7 @@ export default {
       setSeriesRemaining: 'countdown/series'
     }),
     decreaseSeriesStart: function() {
-      if (this.getSeriesRemaining === '0' || this.getRunning) {
+      if (this.getSeriesRemaining == '0' || this.getRunning) {
         console.log('return')
         return
       } else if (!/^(0{2}:)?0{2}:0{2}$/gm.test(this.getCountdown)) {
@@ -46,23 +64,30 @@ export default {
       }
       this.setSeriesRemaining(String(this.getSeriesRemaining - 1))
     },
-    start: function() {
-      console.log('start')
+    start: function(value) {
+      console.log('start', value)
 
       // set the end of the countdown
-      let endCountdown = new Date()
-      const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
-      const groups = regexTime.exec(this.getTime)
-      const match = groups.map(element => {
-        if (element == undefined) element = 0
-        return new Number(element)
-      })
+      if (value == undefined) {
+        // if user press the button
+        let endCountdown = new Date()
+        const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
+        const groups = regexTime.exec(this.getTime)
+        const match = groups.map(element => {
+          if (element == undefined) element = 0
+          return new Number(element)
+        })
 
-      endCountdown.setHours(endCountdown.getHours() + match[1])
-      endCountdown.setMinutes(endCountdown.getMinutes() + match[2])
-      endCountdown.setSeconds(endCountdown.getSeconds() + match[3])
+        endCountdown.setHours(endCountdown.getHours() + match[1])
+        endCountdown.setMinutes(endCountdown.getMinutes() + match[2])
+        endCountdown.setSeconds(endCountdown.getSeconds() + match[3])
 
-      this.setEnd(endCountdown)
+        this.setEnd(endCountdown)
+      } else {
+        // if countdown was running in previous sesion and end time is > now, we set the previous end date as the actual date end
+        console.log('value is a date')
+        this.setEnd(value)
+      }
 
       this.setRunning(true)
       this.setIntervalID(setInterval(this.countdown, 200))
@@ -97,7 +122,7 @@ export default {
           ':' +
           this.zeroPrefix(sec, 2)
 
-        if (hour == 0 && min == 0 && sec == 0) {
+        if (Date.parse(deltaTime) < 0) {
           this.reset()
         } else {
           this.setCountdown(time)

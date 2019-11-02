@@ -37,12 +37,28 @@ new Vue({
     this.setConfig(JSON.parse(config))
 
     // time
-    const time = Vue.localStorage.get('time', '00:00')
+    const time = Vue.localStorage.get('time', '00.00')
     this.setTime(time)
 
     // stopwatch running
-    const stopwatchRunning = Vue.localStorage.get('stopwatchRunning', 'false')
+    const stopwatchRunning = Vue.localStorage.get('stopwatchRunning', false)
     this.setStopwatchRunning(JSON.parse(stopwatchRunning))
+
+    // countdown
+    const countdown = Vue.localStorage.get('countdown', '00:00:00')
+    this.setCountdown(countdown)
+
+    // countdown running
+    const countdownRunning = Vue.localStorage.get('countdownRunning', false)
+    this.setCountdownRunning(JSON.parse(countdownRunning))
+
+    // end countdown
+    const endCountdown = Vue.localStorage.get('endCountdown', null)
+    this.setEndCountdown(endCountdown)
+
+    // series remaining
+    const seriesRemaining = Vue.localStorage.get('seriesRemaining', 0)
+    this.setSeriesCountdown(seriesRemaining)
   },
   methods: {
     ...mapActions({
@@ -50,7 +66,11 @@ new Vue({
       setConfig: 'timeSeries/config',
       setTime: 'stopwatch/time',
       setStopwatchRunning: 'stopwatch/running',
-      setTimeSaved: 'stopwatch/timeSaved'
+      setTimeSaved: 'stopwatch/timeSaved',
+      setCountdown: 'countdown/countdown',
+      setCountdownRunning: 'countdown/running',
+      setEndCountdown: 'countdown/end',
+      setSeriesCountdown: 'countdown/series'
     })
   },
   render: h => h(App)

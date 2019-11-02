@@ -16,6 +16,7 @@ export default {
   mutations: {
     countdown: (state, payload) => {
       state.countdown = payload
+      Vue.localStorage.set('countdown', payload)
     },
     intervalID: (state, payload) => {
       state.intervalID = payload
@@ -25,12 +26,15 @@ export default {
     },
     end: (state, payload) => {
       state.end = payload
+      Vue.localStorage.set('endCountdown', payload)
     },
     running: (state, payload) => {
       state.running = payload
+      Vue.localStorage.set('countdownRunning', payload)
     },
     series: (state, payload) => {
       state.series = payload
+      Vue.localStorage.set('seriesRemaining', payload)
     }
   },
   actions: {
