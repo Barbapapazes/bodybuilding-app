@@ -10,8 +10,16 @@ if (process.env.NODE_ENV === 'production') {
           'For more details, visit https://goo.gl/AFskqB'
       )
     },
-    registered() {
+    registered(reg) {
       console.log('Service worker has been registered.')
+      window.addEventListener('emitNotification', e => {
+        console.log('emitNotification')
+        reg.waiting.postMessage({ data: e.data, type: 'EMIT_NOTIFICATION' })
+      })
+      window.addEventListener('stopNotification', () => {
+        console.log('stopNotification')
+        reg.waiting.postMessage({ type: 'STOP_NOTIFICATION' })
+      })
     },
     cached() {
       console.log('Content has been cached for offline use.')

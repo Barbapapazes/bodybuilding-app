@@ -30,12 +30,6 @@ export default {
   mounted() {
     const timeRemaining = Date.parse(new Date()) - Date.parse(this.getEnd)
     // check if the countdown is over
-    console.log(
-      'mounted countdown',
-      this.getRunning,
-      timeRemaining,
-      this.getTime
-    )
     if (this.getRunning && timeRemaining < 0) {
       console.log('running and time not over')
       this.start(new Date(this.getEnd))
@@ -44,6 +38,20 @@ export default {
       this.setCountdown(this.getTime)
       this.setRunning(false)
     }
+    window.addEventListener('blur', () => {
+      if (Notification.permission === 'granted' && this.getRunning) {
+        console.log('blur and granted')
+        const event = new CustomEvent('emitNotification', { data: this.getEnd })
+        window.dispatchEvent(event)
+      }
+    })
+    window.addEventListener('focus', () => {
+      if (Notification.permission === 'granted') {
+        console.log('focus and granted')
+        const event = new CustomEvent('stopNotification')
+        window.dispatchEvent(event)
+      }
+    })
   },
   methods: {
     ...mapActions({
