@@ -42,7 +42,7 @@ export default {
       if (Notification.permission === 'granted' && this.getRunning) {
         console.log('blur and granted, sending event for sw')
         navigator.serviceWorker.ready.then(reg => {
-          reg.waiting.postMessage({
+          reg.active.postMessage({
             data: this.getEnd,
             type: 'EMIT_NOTIFICATION'
           })
@@ -53,7 +53,7 @@ export default {
       if (Notification.permission === 'granted') {
         console.log('focus and granted, sending event for sw')
         navigator.serviceWorker.ready.then(reg => {
-          reg.waiting.postMessage({ type: 'STOP_NOTIFICATION' })
+          reg.active.postMessage({ type: 'STOP_NOTIFICATION' })
         })
       }
     })
