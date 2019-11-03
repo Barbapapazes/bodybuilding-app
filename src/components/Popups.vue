@@ -7,7 +7,7 @@
       v-card-actions
         v-spacer
         v-btn(depressed, @click="dialog = false") Close
-  v-snackbar(right, :timeout="0", color="secondary", v-model="snackbar").secondary
+  v-snackbar(right, :timeout="0", color="secondary", v-model="snackbar")
     span new content available
     v-btn(small, depressed, @click="snackbar = false, emitSkipWaiting()").background.text--text refresh
 </template>
