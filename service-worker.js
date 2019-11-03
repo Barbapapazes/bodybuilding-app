@@ -1,4 +1,4 @@
-importScripts("/bodybuilding-app/precache-manifest.7079b9ca5c2cbd9cc0ed1cf7fb443514.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/bodybuilding-app/precache-manifest.5d025d2145f4bcd191a5a11222244044.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 // eslint-disable-next-line
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
