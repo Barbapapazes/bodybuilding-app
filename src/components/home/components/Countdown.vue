@@ -40,16 +40,21 @@ export default {
     }
     window.addEventListener('blur', () => {
       if (Notification.permission === 'granted' && this.getRunning) {
-        console.log('blur and granted')
-        const event = new CustomEvent('emitNotification', { data: this.getEnd })
-        window.dispatchEvent(event)
+        console.log('blur and granted, sending event for sw')
+        navigator.serviceWorker.ready.then(reg => {
+          reg.waiting.postMessage({
+            data: this.getEnd,
+            type: 'EMIT_NOTIFICATION'
+          })
+        })
       }
     })
     window.addEventListener('focus', () => {
       if (Notification.permission === 'granted') {
-        console.log('focus and granted')
-        const event = new CustomEvent('stopNotification')
-        window.dispatchEvent(event)
+        console.log('focus and granted, sending event for sw')
+        navigator.serviceWorker.ready.then(reg => {
+          reg.waiting.postMessage({ type: 'STOP_NOTIFICATION' })
+        })
       }
     })
   },
