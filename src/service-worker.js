@@ -42,18 +42,24 @@ self.addEventListener('message', event => {
           min = deltaTime.getUTCMinutes(),
           sec = deltaTime.getUTCSeconds()
 
-        console.log(hour, min, sec, event.data.data)
-        event.waitUntil(
-          self.registration.showNotification('Sport Companion', {
-            body: hour + ' ' + min + ' ' + sec,
-            tag: 'notif'
-          })
-        )
+        const time =
+          this.zeroPrefix(hour, 2) +
+          ':' +
+          this.zeroPrefix(min, 2) +
+          ':' +
+          this.zeroPrefix(sec, 2)
+
+        console.log(hour, min, sec, event.data.data, Date.parse(deltaTime))
+        self.registration.showNotification('Sport Companion', {
+          body: time,
+          tag: 'notif'
+        })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
             body: 'countdown is over',
-            tag: 'notif'
+            tag: 'notif',
+            renotify: true
           })
           interval = clearInterval(interval)
         }
@@ -71,3 +77,11 @@ self.addEventListener('message', event => {
     interval = clearInterval(interval)
   }
 })
+
+zeroPrefix = function(num, digit) {
+  let zero = ''
+  for (let index = 0; index < digit; index++) {
+    zero += '0'
+  }
+  return (zero + num).slice(-digit)
+}
