@@ -13,7 +13,7 @@ self.addEventListener('message', event => {
         min = deltaTime.getUTCMinutes(),
         sec = deltaTime.getUTCSeconds()
 
-      console.log(hour, min, sec)
+      console.log(hour, min, sec, event.data.data)
       self.registration.showNotification('Sport Companion', {
         body: hour + ' ' + min + ' ' + sec,
         tag: 'notif'
