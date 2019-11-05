@@ -43,7 +43,12 @@ if (process.env.NODE_ENV === 'production') {
   config.configureWebpack.plugins.push(
     new PrerenderSPAPlugin({
       staticDir: path.join(__dirname, 'dist'),
-      routes: ['/about']
+      routes: [
+        '/about',
+        '/about/this-website',
+        '/about/privacy-cookies',
+        '/about/terms-of-use'
+      ]
     })
   )
   config.configureWebpack.plugins.push(new BundleAnalyzerPlugin())

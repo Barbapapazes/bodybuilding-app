@@ -10,6 +10,12 @@
           v-list-item-content
             v-list-item-title.text-capitalize.title.primary--text.font-weight-bold home
 
+        v-list-item(:to="{name: 'training'}")
+          v-list-item-icon
+            v-icon(left).text--text {{ svgPath.mdiLibraryBooks  }}            
+          v-list-item-content
+            v-list-item-title.text-capitalize.title.primary--text.font-weight-bold training
+
         v-list-item(:to="{name: 'about'}")
           v-list-item-icon
             v-icon(left).text--text {{ svgPath.mdiInformationOutline }}            
@@ -23,7 +29,7 @@
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { mdiHome, mdiInformationOutline } from '@mdi/js'
+import { mdiHome, mdiInformationOutline, mdiLibraryBooks } from '@mdi/js'
 import SettingsApp from '@/components/shell/components/SettingsApp'
 
 export default {
@@ -34,7 +40,8 @@ export default {
     return {
       svgPath: {
         mdiHome,
-        mdiInformationOutline
+        mdiInformationOutline,
+        mdiLibraryBooks
       }
     }
   },
