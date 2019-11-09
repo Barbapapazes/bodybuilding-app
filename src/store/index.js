@@ -8,6 +8,8 @@ import timeSeries from '@/store/home/timeSeries'
 import navbar from '@/store/shell/navbar'
 import popups from '@/store/shell/popups'
 
+import trainings from '@/store/training/index'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -20,6 +22,7 @@ export default new Vuex.Store({
     countdown: countdown,
     timeSeries: timeSeries,
     navbar: navbar,
-    popups: popups
+    popups: popups,
+    trainings: trainings
   }
 })

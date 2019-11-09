@@ -59,6 +59,10 @@ new Vue({
     // series remaining
     const seriesRemaining = Vue.localStorage.get('seriesRemaining', 0)
     this.setSeriesCountdown(seriesRemaining)
+
+    // trainings
+    const trainings = Vue.localStorage.get('trainings', [])
+    this.setTrainings(JSON.parse(trainings))
   },
   methods: {
     ...mapActions({
@@ -70,7 +74,8 @@ new Vue({
       setCountdown: 'countdown/countdown',
       setCountdownRunning: 'countdown/running',
       setEndCountdown: 'countdown/end',
-      setSeriesCountdown: 'countdown/series'
+      setSeriesCountdown: 'countdown/series',
+      setTrainings: 'trainings/uploadTrainings'
     })
   },
   render: h => h(App)
