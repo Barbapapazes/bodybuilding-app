@@ -50,6 +50,14 @@ export default {
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
       )
+    },
+    spliceTable: (state, payload) => {
+      const tableSelected = state.trainings.splice(payload.oldIndex, 1)[0]
+      state.trainings.splice(payload.newIndex, 0, tableSelected)
+      Vue.localStorage.set(
+        'trainings',
+        JSON.stringify(Object.assign([], state.trainings))
+      )
     }
   },
   actions: {
@@ -65,6 +73,9 @@ export default {
     },
     spliceTraining: ({ commit }, payload) => {
       commit('spliceTraining', payload)
+    },
+    spliceTable: ({ commit }, payload) => {
+      commit('spliceTable', payload)
     },
     uploadTrainings: ({ commit }, payload) => {
       commit('uploadTrainings', payload)

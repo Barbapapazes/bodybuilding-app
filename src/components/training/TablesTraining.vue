@@ -1,6 +1,7 @@
 <template lang="pug">
-#creation-training
-    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="index", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-2
+#tables-training
+  div#listTables
+    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-2
 
       template(v-slot:item.data-table-drag="{item}")
           td(style="width: 28px;").handle ::
@@ -53,6 +54,8 @@ export default {
       Sortable.create(table, {
         handle: '.handle',
         ghostClass: 'ghost',
+        forceFallback: true,
+        fallbackClass: 'dragRow',
         onEnd: function({ newIndex, oldIndex }) {
           const payload = {
             tableIndex: index,
@@ -62,6 +65,19 @@ export default {
           _self.setSpliceTraining(payload)
         }
       })
+    })
+    let listTables = document.getElementById('listTables')
+    Sortable.create(listTables, {
+      ghostClass: 'ghost',
+      forceFallback: true,
+      fallbackClass: 'dragTable',
+      onEnd: function({ newIndex, oldIndex }) {
+        const payload = {
+          newIndex: newIndex,
+          oldIndex: oldIndex
+        }
+        _self.setSpliceTable(payload)
+      }
     })
   },
   data() {
@@ -102,7 +118,8 @@ export default {
     ...mapActions({
       setTrainings: 'trainings/trainings',
       setSpliceTraining: 'trainings/spliceTraining',
-      setDeleteTraining: 'trainings/deleteTraining'
+      setDeleteTraining: 'trainings/deleteTraining',
+      setSpliceTable: 'trainings/spliceTable'
     }),
     editItem: function(item, index) {
       this.editedIndex = this.getTrainings[index].exercises.indexOf(item)
@@ -162,5 +179,13 @@ export default {
 }
 .ghost {
   opacity: 0.2;
+}
+.dragRow {
+  opacity: 1;
+  background-color: #414141;
+}
+.dragTable {
+  opacity: 1;
+  background-color: #414141;
 }
 </style>
