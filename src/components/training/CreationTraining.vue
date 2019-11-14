@@ -1,4 +1,33 @@
 <template lang="pug">
 #creation-training
-  p hello from creation
+  v-form(v-model="valid", ref="form")
+    v-container
+      v-row
+
+        v-col(cols="12")
+          v-text-field(label="name of the training", required, v-model="nameTraning", :rules="nameRules", clearable)
+        
+        v-col(cols="12")
+          v-btn(:disabled="!valid", @click="validate") Validate
+        
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      valid: false,
+      nameTraning: '',
+      nameRules: [v => !!v || 'Name is required']
+    }
+  },
+  methods: {
+    validate() {
+      if (this.$refs.form.validate()) {
+        console.log('form is valid')
+        this.$refs.form.reset()
+      }
+    }
+  }
+}
+</script>
