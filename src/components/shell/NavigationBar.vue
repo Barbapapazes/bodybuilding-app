@@ -11,37 +11,37 @@
     v-spacer
 
     transition(name="slide-x", mode="out-in", appear)
-      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/'", @click="setHomeComponentName(buttonSwitchComponent.component)").secondary--text
-        v-icon(left) {{ buttonSwitchComponent.icon }}
-        span {{ buttonSwitchComponent.name }}
-      
+      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/'", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)").secondary--text
+        v-icon(left) {{ buttonSwitchComponent(getHomeComponentName).icon }}
+        span {{ buttonSwitchComponent(getHomeComponentName).name }}
+
+      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/training'", @click="setTrainingComponentName(buttonSwitchComponent(getTrainingComponentName).component)").secondary--text
+        v-icon(left) {{ buttonSwitchComponent(getTrainingComponentName).icon }}
+        span {{ buttonSwitchComponent(getTrainingComponentName).name }}
 </template>
 
 <script>
 import { mapGetters, mapActions } from 'vuex'
-import { mdiTimer, mdiSettings } from '@mdi/js'
+import { mdiTimer, mdiSettings, mdiTableEdit, mdiTablePlus } from '@mdi/js'
 export default {
   data() {
     return {
       svgPath: {
         mdiTimer,
-        mdiSettings
+        mdiSettings,
+        mdiTableEdit,
+        mdiTablePlus
       }
     }
   },
   methods: {
     ...mapActions({
       setHomeComponentName: 'navbar/homeComponentName',
+      setTrainingComponentName: 'navbar/trainingComponentName',
       setDrawer: 'navbar/drawer'
-    })
-  },
-  computed: {
-    ...mapGetters({
-      getHomeComponentName: 'navbar/homeComponentName',
-      getDrawer: 'navbar/drawer'
     }),
-    buttonSwitchComponent: function() {
-      switch (this.getHomeComponentName) {
+    buttonSwitchComponent: function(componentName) {
+      switch (componentName) {
         case 'time-app':
           return {
             name: 'config',
@@ -54,10 +54,29 @@ export default {
             icon: this.svgPath.mdiTimer,
             component: 'time-app'
           }
+        case 'tables-training-app':
+          return {
+            name: 'creations',
+            icon: this.svgPath.mdiTablePlus,
+            component: 'creation-training-app'
+          }
+        case 'creation-training-app':
+          return {
+            name: 'tables',
+            icon: this.svgPath.mdiTableEdit,
+            component: 'tables-training-app'
+          }
         default:
           return 'error'
       }
     }
+  },
+  computed: {
+    ...mapGetters({
+      getHomeComponentName: 'navbar/homeComponentName',
+      getTrainingComponentName: 'navbar/trainingComponentName',
+      getDrawer: 'navbar/drawer'
+    })
   }
 }
 </script>

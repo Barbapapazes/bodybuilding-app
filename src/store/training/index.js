@@ -12,7 +12,7 @@ export default {
     uploadTrainings: (state, payload) => {
       state.trainings = payload
     },
-    changeTraining: (state, payload) => {
+    changeExercice: (state, payload) => {
       Object.assign(
         state.trainings[payload.tableIndex].exercises[payload.editedIndex],
         payload.editedItem
@@ -22,21 +22,21 @@ export default {
         JSON.stringify(Object.assign([], state.trainings))
       )
     },
-    addTraining: (state, payload) => {
+    addExercice: (state, payload) => {
       state.trainings[payload.tableIndex].exercises.push(payload.editedItem)
       Vue.localStorage.set(
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
       )
     },
-    deleteTraining: (state, payload) => {
+    deleteExercice: (state, payload) => {
       state.trainings[payload.tableIndex].exercises.splice(payload.index, 1)
       Vue.localStorage.set(
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
       )
     },
-    spliceTraining: (state, payload) => {
+    spliceExercice: (state, payload) => {
       const rowSelected = state.trainings[payload.tableIndex].exercises.splice(
         payload.oldIndex,
         1
@@ -58,27 +58,50 @@ export default {
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
       )
+    },
+    addTable: (state, payload) => {
+      state.trainings.push({
+        name: payload,
+        exercises: []
+      })
+      Vue.localStorage.set(
+        'trainings',
+        JSON.stringify(Object.assign([], state.trainings))
+      )
+    },
+    deleteTable: (state, payload) => {
+      state.trainings.splice(payload, 1)
+      Vue.localStorage.set(
+        'trainings',
+        JSON.stringify(Object.assign([], state.trainings))
+      )
     }
   },
   actions: {
-    trainings: ({ commit }, payload) => {
+    exercices: ({ commit }, payload) => {
       if (payload.editedIndex > -1) {
-        commit('changeTraining', payload)
+        commit('changeExercice', payload)
       } else {
-        commit('addTraining', payload)
+        commit('addExercice', payload)
       }
     },
-    deleteTraining: ({ commit }, payload) => {
-      commit('deleteTraining', payload)
+    deleteExercice: ({ commit }, payload) => {
+      commit('deleteExercice', payload)
     },
-    spliceTraining: ({ commit }, payload) => {
-      commit('spliceTraining', payload)
+    spliceExercice: ({ commit }, payload) => {
+      commit('spliceExercice', payload)
     },
     spliceTable: ({ commit }, payload) => {
       commit('spliceTable', payload)
     },
+    addTable: ({ commit }, payload) => {
+      commit('addTable', payload)
+    },
     uploadTrainings: ({ commit }, payload) => {
       commit('uploadTrainings', payload)
+    },
+    deleteTable: ({ commit }, payload) => {
+      commit('deleteTable', payload)
     }
   },
   getters: {

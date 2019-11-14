@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   data() {
     return {
@@ -22,9 +23,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions({
+      setAddTable: 'trainings/addTable'
+    }),
     validate() {
       if (this.$refs.form.validate()) {
         console.log('form is valid')
+        this.setAddTable(this.nameTraning)
         this.$refs.form.reset()
       }
     }

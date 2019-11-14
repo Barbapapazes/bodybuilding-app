@@ -1,6 +1,10 @@
 <template lang="pug">
 #about
   v-container
+    v-row
+      v-col(cols="12")
+        title-app about
+
     v-row(v-if="$vuetify.breakpoint.smAndUp")
 
       v-col(cols="4", align="center")
@@ -28,3 +32,13 @@
   transition(name="fade", mode="out-in")
     router-view
 </template>
+
+<script>
+import TitleSlot from '@/components/TitleSlot'
+
+export default {
+  components: {
+    'title-app': TitleSlot
+  }
+}
+</script>

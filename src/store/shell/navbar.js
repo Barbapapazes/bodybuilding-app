@@ -8,12 +8,16 @@ export default {
   namespaced: true,
   state: {
     homeComponentName: 'time-app',
+    trainingComponentName: 'tables-training-app',
     drawer: false,
     theme: false
   },
   mutations: {
     homeComponentName: (state, payload) => {
       state.homeComponentName = payload
+    },
+    trainingComponentName: (state, payload) => {
+      state.trainingComponentName = payload
     },
     drawer: (state, payload) => {
       state.drawer = payload
@@ -25,6 +29,9 @@ export default {
   actions: {
     homeComponentName: ({ commit }, payload) => {
       commit('homeComponentName', payload)
+    },
+    trainingComponentName: ({ commit }, payload) => {
+      commit('trainingComponentName', payload)
     },
     drawer: ({ commit }, payload) => {
       commit('drawer', payload)
@@ -38,6 +45,9 @@ export default {
   getters: {
     homeComponentName: state => {
       return state.homeComponentName
+    },
+    trainingComponentName: state => {
+      return state.trainingComponentName
     },
     drawer: state => {
       return state.drawer

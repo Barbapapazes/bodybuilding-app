@@ -6,17 +6,19 @@
       v-col(cols="12", md="6", lg="4", align="center", offset-md="3", offset-lg="4").pa-0
       
         v-col(cols="12", align="center")
-          h2.text-capitalize.font-weight-light.secondary--text setup series &amp; time
+          title-app setup series &amp; time
         v-col(cols="12", align="center")
           time-series-app
 </template>
 
 <script>
 import TimeSeries from '@/components/home/components/TimeSeries'
+import TitleSlot from '@/components/TitleSlot'
 
 export default {
   components: {
-    'time-series-app': TimeSeries
+    'time-series-app': TimeSeries,
+    'title-app': TitleSlot
   }
 }
 </script>

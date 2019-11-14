@@ -10,6 +10,7 @@
         v-toolbar(flat)
           v-toolbar-title {{training.name}}
           v-divider(vertical, inset).mx-4
+          v-icon(@click="deleteTable(index)") {{svgPath.mdiTrashCan}}
           v-spacer
           v-dialog(v-model="dialog" max-width="500px")
             template(v-slot:activator="{ on }")
@@ -62,7 +63,7 @@ export default {
             newIndex: newIndex,
             oldIndex: oldIndex
           }
-          _self.setSpliceTraining(payload)
+          _self.setSpliceExercice(payload)
         }
       })
     })
@@ -116,10 +117,11 @@ export default {
   },
   methods: {
     ...mapActions({
-      setTrainings: 'trainings/trainings',
-      setSpliceTraining: 'trainings/spliceTraining',
-      setDeleteTraining: 'trainings/deleteTraining',
-      setSpliceTable: 'trainings/spliceTable'
+      setExercices: 'trainings/exercices',
+      setSpliceExercice: 'trainings/spliceExercice',
+      setDeleteExercice: 'trainings/deleteExercice',
+      setSpliceTable: 'trainings/spliceTable',
+      setDeleteTable: 'trainings/deleteTable'
     }),
     editItem: function(item, index) {
       this.editedIndex = this.getTrainings[index].exercises.indexOf(item)
@@ -141,7 +143,8 @@ export default {
         editedIndex: this.editedIndex,
         tableIndex: this.tableIndex
       }
-      this.setTrainings(payload)
+      console.log(payload)
+      this.setExercices(payload)
       this.close()
     },
     deleteItem: function(item, index) {
@@ -150,7 +153,14 @@ export default {
           tableIndex: index,
           index: this.getTrainings[index].exercises.indexOf(item)
         }
-        this.setDeleteTraining(payload)
+        this.setDeleteExercice(payload)
+      } else {
+        return
+      }
+    },
+    deleteTable: function(index) {
+      if (confirm('Are you sure you want to delete this item?')) {
+        this.setDeleteTable(index)
       } else {
         return
       }
@@ -187,5 +197,8 @@ export default {
 .dragTable {
   opacity: 1;
   background-color: #414141;
+}
+.dragTable > div > * {
+  display: none;
 }
 </style>
