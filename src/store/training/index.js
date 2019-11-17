@@ -6,7 +6,8 @@ Vue.use(Vuex)
 export default {
   namespaced: true,
   state: {
-    trainings: []
+    trainings: [],
+    selectedTraining: ''
   },
   mutations: {
     uploadTrainings: (state, payload) => {
@@ -75,6 +76,9 @@ export default {
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
       )
+    },
+    selectedTraining: (state, payload) => {
+      state.selectedTraining = payload
     }
   },
   actions: {
@@ -102,11 +106,27 @@ export default {
     },
     deleteTable: ({ commit }, payload) => {
       commit('deleteTable', payload)
+    },
+    selectedTraining: ({ commit }, payload) => {
+      commit('selectedTraining', payload)
     }
   },
   getters: {
     trainings: state => {
       return state.trainings
+    },
+    nameTrainings: state => {
+      const nameTrainings = state.trainings.map(element => {
+        return element.name
+      })
+      return nameTrainings
+    },
+    selectedTraining: state => {
+      return state.trainings.filter(training => {
+        if (training.name == state.selectedTraining) {
+          return true
+        }
+      })
     }
   }
 }

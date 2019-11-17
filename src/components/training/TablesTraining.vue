@@ -4,7 +4,8 @@
     v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-2
 
       template(v-slot:item.data-table-drag="{item}")
-          td(style="width: 28px;").handle ::
+          td(style="width: 28px;").handle 
+            v-icon(small) {{svgPath.mdiSelectAll}}
 
       template(v-slot:top)
         v-toolbar(flat)
@@ -16,26 +17,39 @@
             template(v-slot:activator="{ on }")
               v-btn(v-on="on", @click="tableIndex = index").primary new item
             v-card
-              v-card-title  {{formTitle}}
-              v-card-text
-                v-container
-                  v-row
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.name" label="name")
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.description" label="description")
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.repetitions" label="repetitions")
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.series" label="series")
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.countdown" label="countdown")
-                    v-col(cols="12", sm="6", md="4")
-                      v-text-field(v-model="editedItem.weight" label="weight")
-              v-card-actions
-                v-spacer
-                v-btn(@click="close()") cancel
-                v-btn(@click="save()") save
+              form(v-model="valid", lazy-validation)
+                v-card-title
+                  title-app {{formTitle}}
+                v-card-text
+                  v-container
+                    v-row
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(v-model="editedItem.name" label="name", :rules="rules.name")
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(v-model="editedItem.description" label="description")
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(v-model="editedItem.repetitions" label="repetitions", type="number")
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(v-model="editedItem.series" label="series", type="number")
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(@click="countdownDialog = !countdownDialog", v-model="editedItem.countdown", readonly, label="countdown")
+                        v-dialog(v-model="countdownDialog", width="500")
+                          v-card
+                            v-card-title
+                              title-app countdown
+                            v-card-text
+                              v-row
+                                v-col(cols="12", align="center")
+                                  v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :allowed-seconds="allowedStep", v-model="editedItem.countdown")
+                            v-card-actions
+                              v-spacer
+                              v-btn(@click="countdownDialog = false", depressed) close
+                      v-col(cols="12", sm="6", md="4")
+                        v-text-field(v-model="editedItem.weight" label="weight", type="number")
+                v-card-actions
+                  v-spacer
+                  v-btn(@click="close()", depressed).primary cancel
+                  v-btn(@click="save()", depressed, :disabled="!valid").primary save
 
       template(v-slot:item.action="{item}")  
         v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
@@ -44,29 +58,18 @@
 
 <script>
 import Sortable from 'sortablejs'
-import { mdiPencil, mdiTrashCan } from '@mdi/js'
+import { mdiPencil, mdiTrashCan, mdiSelectAll } from '@mdi/js'
 import { mapGetters, mapActions } from 'vuex'
 
+import TitleSlot from '@/components/TitleSlot'
+
 export default {
+  components: {
+    'title-app': TitleSlot
+  },
   mounted() {
-    let tables = document.querySelectorAll('.v-data-table tbody')
-    const _self = this
-    tables.forEach((table, index) => {
-      Sortable.create(table, {
-        handle: '.handle',
-        ghostClass: 'ghost',
-        forceFallback: true,
-        fallbackClass: 'dragRow',
-        onEnd: function({ newIndex, oldIndex }) {
-          const payload = {
-            tableIndex: index,
-            newIndex: newIndex,
-            oldIndex: oldIndex
-          }
-          _self.setSpliceExercice(payload)
-        }
-      })
-    })
+    this.sortableRows(true)
+    let _self = this
     let listTables = document.getElementById('listTables')
     Sortable.create(listTables, {
       ghostClass: 'ghost',
@@ -78,6 +81,7 @@ export default {
           oldIndex: oldIndex
         }
         _self.setSpliceTable(payload)
+        _self.sortableRows(false)
       }
     })
   },
@@ -85,9 +89,11 @@ export default {
     return {
       svgPath: {
         mdiPencil,
-        mdiTrashCan
+        mdiTrashCan,
+        mdiSelectAll
       },
       dialog: false,
+      countdownDialog: false,
       editedIndex: -1,
       tableIndex: -1,
       editedItem: {
@@ -112,7 +118,13 @@ export default {
         { text: 'countdown', value: 'countdown' },
         { text: 'weight', value: 'weight' },
         { text: 'Actions', value: 'action', sortable: false }
-      ]
+      ],
+      sortables: [],
+      allowedStep: s => s % 5 === 0,
+      valid: true,
+      rules: {
+        name: [v => !!v || 'name is required']
+      }
     }
   },
   methods: {
@@ -138,6 +150,7 @@ export default {
       }, 300)
     },
     save: function() {
+      console.log(this.$refs)
       const payload = {
         editedItem: this.editedItem,
         editedIndex: this.editedIndex,
@@ -164,13 +177,41 @@ export default {
       } else {
         return
       }
+    },
+    sortableRows: function(firstTime) {
+      let tables = document.querySelectorAll('.v-data-table tbody')
+      const _self = this
+      if (!firstTime) {
+        this.sortables.forEach(sortable => {
+          sortable.destroy()
+        })
+        this.sortables = []
+      }
+      tables.forEach((table, index) => {
+        this.sortables.push(
+          Sortable.create(table, {
+            handle: '.handle',
+            ghostClass: 'ghost',
+            forceFallback: true,
+            fallbackClass: 'dragRow',
+            onEnd: function({ newIndex, oldIndex }) {
+              const payload = {
+                tableIndex: index,
+                newIndex: newIndex,
+                oldIndex: oldIndex
+              }
+              _self.setSpliceExercice(payload)
+            }
+          })
+        )
+      })
     }
   },
   computed: {
     ...mapGetters({
       getTrainings: 'trainings/trainings'
     }),
-    formTitle() {
+    formTitle: function() {
       return this.editedIndex === -1 ? 'new item' : 'edit item'
     }
   },

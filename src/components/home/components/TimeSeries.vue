@@ -37,6 +37,7 @@ export default {
       setSeriesCountdown: 'countdown/series'
     }),
     applyConfig: function() {
+      console.log(this.$refs)
       if (!this.$refs.form.validate()) {
         const config = {
           time: '00:00:00',

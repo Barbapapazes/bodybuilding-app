@@ -61,7 +61,7 @@ new Vue({
     this.setSeriesCountdown(seriesRemaining)
 
     // trainings
-    const trainings = Vue.localStorage.get('trainings', [])
+    const trainings = Vue.localStorage.get('trainings', JSON.stringify([]))
     this.setTrainings(JSON.parse(trainings))
   },
   methods: {
