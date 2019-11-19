@@ -63,6 +63,10 @@ new Vue({
     // trainings
     const trainings = Vue.localStorage.get('trainings', JSON.stringify([]))
     this.setTrainings(JSON.parse(trainings))
+
+    // selected training
+    const selectedTraining = Vue.localStorage.get('selectedTraining', '')
+    this.setSelectedTraining(selectedTraining)
   },
   methods: {
     ...mapActions({
@@ -75,7 +79,8 @@ new Vue({
       setCountdownRunning: 'countdown/running',
       setEndCountdown: 'countdown/end',
       setSeriesCountdown: 'countdown/series',
-      setTrainings: 'trainings/uploadTrainings'
+      setTrainings: 'trainings/uploadTrainings',
+      setSelectedTraining: 'trainings/selectedTraining'
     })
   },
   render: h => h(App)

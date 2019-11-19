@@ -79,6 +79,7 @@ export default {
     },
     selectedTraining: (state, payload) => {
       state.selectedTraining = payload
+      Vue.localStorage.set('selectedTraining', state.selectedTraining)
     }
   },
   actions: {

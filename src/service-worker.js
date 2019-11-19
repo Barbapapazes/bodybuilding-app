@@ -50,14 +50,14 @@ self.addEventListener('message', event => {
           this.zeroPrefix(sec, 2)
 
         console.log(hour, min, sec, event.data.data, Date.parse(deltaTime))
-        self.registration.showNotification('Sport Companion', {
+        self.registration.showNotification('Countdown', {
           body: time,
           tag: 'notif'
         })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
-            body: 'countdown is over',
+            body: 'Countdown is Over !',
             tag: 'notif',
             renotify: true
           })
@@ -68,8 +68,8 @@ self.addEventListener('message', event => {
   } else if (event.data && event.data.type === 'STOP_NOTIFICATION') {
     console.log('clear interval')
     event.waitUntil(
-      self.registration.showNotification('Hello world', {
-        body: "le's train",
+      self.registration.showNotification('Sport Companion', {
+        body: "Let's Train ! 💪",
         tag: 'notif'
       })
     )
