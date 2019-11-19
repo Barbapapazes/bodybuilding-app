@@ -3,9 +3,9 @@
   v-container
     v-row(no-guetters)
 
-      v-col(cols="12", md="6", lg="4", align="center", offset-md="3", offset-lg="4").pa-0
+      v-col(cols="12", md="6", lg="4", offset-md="3", offset-lg="4").pa-0
       
-        v-col(cols="12", align="center")
+        v-col(cols="12", align="start")
           title-app setup series &amp; time
         v-col(cols="12", align="center")
           time-series-app

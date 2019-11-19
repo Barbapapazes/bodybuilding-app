@@ -1,11 +1,8 @@
 <template lang="pug">
 #tables-training
+  title-app organise and create exercises
   div#listTables
-    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-2
-
-      template(v-slot:item.data-table-drag="{item}")
-          td(style="width: 28px;").handle 
-            v-icon(small) {{svgPath.mdiSelectAll}}
+    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-3
 
       template(v-slot:top)
         v-toolbar(flat)
@@ -15,8 +12,8 @@
           v-spacer
           v-dialog(v-model="dialog" max-width="500px")
             template(v-slot:activator="{ on }")
-              v-btn(v-on="on", @click="tableIndex = index").primary new item
-            v-card
+              v-btn(v-on="on", @click="tableIndex = index", depressed).primary new exercice
+            v-card(@keyup.enter="save()")
               form(v-model="valid", lazy-validation)
                 v-card-title
                   title-app {{formTitle}}
@@ -24,7 +21,7 @@
                   v-container
                     v-row
                       v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.name" label="name", :rules="rules.name")
+                        v-text-field(v-model="editedItem.name" label="name", :rules="rules.name", autofocus)
                       v-col(cols="12", sm="6", md="4")
                         v-text-field(v-model="editedItem.description" label="description")
                       v-col(cols="12", sm="6", md="4")
@@ -50,6 +47,10 @@
                   v-spacer
                   v-btn(@click="close()", depressed).primary cancel
                   v-btn(@click="save()", depressed, :disabled="!valid").primary save
+      
+      template(v-slot:item.data-table-drag="{item}")
+        td(style="width: 28px;").handle 
+          v-icon(small) {{svgPath.mdiSelectAll}}
 
       template(v-slot:item.action="{item}")  
         v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
@@ -75,6 +76,8 @@ export default {
       ghostClass: 'ghost',
       forceFallback: true,
       fallbackClass: 'dragTable',
+      animation: 200,
+      easing: 'cubic-bezier(0.08, 0.24, 0, 0.72)',
       onEnd: function({ newIndex, oldIndex }) {
         const payload = {
           newIndex: newIndex,
@@ -150,6 +153,7 @@ export default {
       }, 300)
     },
     save: function() {
+      // ajouter une vérification et donc 1 bouton pour toutes les tables
       console.log(this.$refs)
       const payload = {
         editedItem: this.editedItem,
@@ -194,6 +198,7 @@ export default {
             ghostClass: 'ghost',
             forceFallback: true,
             fallbackClass: 'dragRow',
+            animation: 200,
             onEnd: function({ newIndex, oldIndex }) {
               const payload = {
                 tableIndex: index,
@@ -212,7 +217,7 @@ export default {
       getTrainings: 'trainings/trainings'
     }),
     formTitle: function() {
-      return this.editedIndex === -1 ? 'new item' : 'edit item'
+      return this.editedIndex === -1 ? 'new exercice' : 'edit item'
     }
   },
   watch: {
@@ -241,5 +246,8 @@ export default {
 }
 .dragTable > div > * {
   display: none;
+}
+.dragTable {
+  height: 0 !important;
 }
 </style>
