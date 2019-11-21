@@ -1,7 +1,10 @@
 <template lang="pug">
 #tables-training
-  title-app organise and create exercises
-  add-exercise-app
+  v-row
+    v-col(cols="8").pt-0
+      title-app organise and create exercises
+    v-col(cols="4", align="end").pb-0
+      add-exercise-app
   div#listTables
     v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).background.lighten-2.my-3
 
@@ -10,8 +13,8 @@
           v-toolbar-title {{training.name}}
           v-divider(vertical, inset).mx-4
           v-icon(@click="deleteTable(index)") {{svgPath.mdiTrashCan}}
-          v-spacer
-          v-dialog(v-model="dialog" max-width="500px")
+          //v-spacer
+          //v-dialog(v-model="dialog" max-width="500px")
             template(v-slot:activator="{ on }")
               v-btn(v-on="on", @click="tableIndex = index", depressed).primary new exercice
             v-card(@keyup.enter="save()")
