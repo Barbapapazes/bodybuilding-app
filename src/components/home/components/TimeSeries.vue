@@ -7,7 +7,7 @@ v-card(elevation="0").background#time-series
         v-form(ref="form")
           v-text-field(clearable, type="number", ref="series", :rules="seriesRules", @input="invalidValue(series)", :disabled="getApply", required, v-model="series").mb-2
 
-          v-time-picker(use-seconds, format="24hr", scrollable, color="primary",:disabled="getApply", :allowed-seconds="allowedStep", v-model="time")
+          v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :disabled="getApply", :allowed-seconds="allowedStep", v-model="time")
 
   v-card-actions
     v-spacer
@@ -39,7 +39,6 @@ export default {
       setSeriesCountdown: 'countdown/series'
     }),
     applyConfig: function() {
-      console.log(this.$refs)
       if (!this.$refs.form.validate()) {
         const config = {
           time: '00:00:00',

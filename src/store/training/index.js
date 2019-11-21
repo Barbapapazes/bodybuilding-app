@@ -24,7 +24,11 @@ export default {
       )
     },
     addExercice: (state, payload) => {
-      state.trainings[payload.tableIndex].exercises.push(payload.editedItem)
+      state.trainings.forEach((element, index) => {
+        if (element.name == payload.trainingName) {
+          state.trainings[index].exercises.push(payload.editedItem)
+        }
+      })
       Vue.localStorage.set(
         'trainings',
         JSON.stringify(Object.assign([], state.trainings))
@@ -83,12 +87,22 @@ export default {
     }
   },
   actions: {
-    exercices: ({ commit }, payload) => {
-      if (payload.editedIndex > -1) {
+    exercice: ({ commit }, payload) => {
+      if (payload.new) {
+        payload['selectedTrainings'].forEach(element => {
+          commit('addExercice', {
+            trainingName: element,
+            editedItem: payload.editedItem
+          })
+        })
+      } else {
+        console.log('edit item')
+      }
+      /*       if (payload.editedIndex > -1) {
         commit('changeExercice', payload)
       } else {
         commit('addExercice', payload)
-      }
+      } */
     },
     deleteExercice: ({ commit }, payload) => {
       commit('deleteExercice', payload)
