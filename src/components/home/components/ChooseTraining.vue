@@ -1,8 +1,8 @@
 <template lang="pug">
 #choose-training
-  v-menu(v-if="getNameTrainings.length > 0", offset-y, transition="slide-y-transition")
+  v-menu(v-if="getNameTrainings.length > 0", offset-y, transition="scale-transition", origin="top right")
     template(v-slot:activator="{on}")
-      v-btn(v-on="on", depressed).primary select a training
+      v-btn(v-on="on", depressed, small).primary select a training
     v-list
       v-list-item(v-for="(name, index) in getNameTrainings", :key="index", @click="setSelectedTraining(name)")
         v-list-item-title.text-capitalize {{ name }}

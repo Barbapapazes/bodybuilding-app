@@ -2,29 +2,31 @@
   #time
     v-row
 
-      v-col(cols="12", md="6", xl="3")
+      v-col(cols="12", md="6", xl="3").py-0
+        v-row
+          v-col(cols="12").py-0
+            title-app stopwatch
+        v-row
+          v-col(cols="12",align="center")
+            stopwatch-app
 
-        v-col(cols="12").px-0
-          title-app stopwatch
-        v-col(cols="12",align="center").pt-0
-          stopwatch-app
-
-      v-col(cols="12", md="6", xl="3")
-
-        v-col(cols="12").px-0
-          title-app countdown
-        v-col(cols="12",align="center").pt-0
-          countdown-app
+      v-col(cols="12", md="6", xl="3").py-0
+        v-row
+          v-col(cols="12").py-0
+            title-app countdown
+        v-row
+          v-col(cols="12", align="center")
+            countdown-app
         
-      v-col(cols="12", md="12", xl="6")
+      v-col(cols="12", md="12", xl="6").py-0
 
         v-row
-          v-col(cols="6")
+          v-col(cols="6").py-0
             title-app training
           v-col(cols="6", align="end")
             choose-training-app
         v-row
-          v-col(cols="12",align="center").pt-0
+          v-col(cols="12",align="center").py-0
             training-app
 </template>
 

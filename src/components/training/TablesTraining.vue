@@ -1,6 +1,7 @@
 <template lang="pug">
 #tables-training
   title-app organise and create exercises
+  add-exercise-app
   div#listTables
     v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).background.lighten-2.my-3
 
@@ -63,10 +64,12 @@ import { mdiPencil, mdiTrashCan, mdiSelectAll } from '@mdi/js'
 import { mapGetters, mapActions } from 'vuex'
 
 import TitleSlot from '@/components/TitleSlot'
+import AddExercise from '@/components/training/components/addExercise'
 
 export default {
   components: {
-    'title-app': TitleSlot
+    'title-app': TitleSlot,
+    'add-exercise-app': AddExercise
   },
   mounted() {
     this.sortableRows(true)
