@@ -165,18 +165,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.number-enter-active,
-.number-leave-active {
-  transition: all 0.3s ease-in-out;
-}
-.number-enter {
-  transform: translateY(-6px);
-  opacity: 0;
-}
-.number-leave-to {
-  transform: translateY(6px);
-  opacity: 0;
-}
-</style>

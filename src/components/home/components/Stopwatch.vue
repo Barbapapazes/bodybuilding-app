@@ -4,20 +4,17 @@
       v-row(no-gutters).pa-0
 
         v-col(cols="12", align="center").pa-0
-          span.display-1.font-weight-light  {{ getTime }}
+          span(key="time").display-1.font-weight-light  {{ getTime }}
     
     v-card-actions.pt-0
       v-row
 
-        v-col(cols="6", md="4", offset-md="2", align="center", v-if="getInterval == undefined")
-          v-btn(text, @click="start()").primary
-            v-icon(left) {{ svgPath.mdiPlay }}
-            span start
-
-        v-col(cols="6", md="4", offset-md="2", align="center", v-else)
-          v-btn(text, @click="stop()").primary
-            v-icon(left) {{ svgPath.mdiPause }}
-            span stop
+        v-col(cols="6", md="4", offset-md="2", align="center")
+          v-btn(text, @click="startStop()", ).primary
+            transition(name="rotate-btn", mode="out-in")
+              div(:key="btnStopwatch.icon")
+                v-icon(left) {{btnStopwatch.icon}}
+                span {{btnStopwatch.name}}
 
         v-col(cols="6", md="4", align="center")
           v-btn(text, @click="reset()").primary
@@ -31,6 +28,7 @@ import { mdiPlay, mdiPause, mdiStop } from '@mdi/js'
 export default {
   data() {
     return {
+      animation: true,
       svgPath: {
         mdiPlay,
         mdiPause,
@@ -56,8 +54,6 @@ export default {
       setRunning: 'stopwatch/running'
     }),
     start: function() {
-      console.log('start')
-
       this.setRunning(true)
 
       // add the time from previous session to the stopwatch
@@ -90,15 +86,11 @@ export default {
       this.setInterval(setInterval(this.clock, 100))
     },
     stop: function() {
-      console.log('stop')
-
       this.setInterval(clearInterval(this.getInterval))
       this.setTimeStopped(new Date())
       this.setRunning(false)
     },
     reset: function() {
-      console.log('reset')
-
       this.setInterval(clearInterval(this.getInterval))
       this.setTime('00.00')
       this.setTimeBegan(null)
@@ -108,8 +100,6 @@ export default {
       this.setRunning(false)
     },
     clock: function() {
-      console.log('clock')
-
       let currentTime = new Date(
           Date.parse(new Date()) +
             new Date().getUTCMilliseconds() +
@@ -138,6 +128,13 @@ export default {
         zero += '0'
       }
       return (zero + num).slice(-digit)
+    },
+    startStop() {
+      if (!this.getRunning) {
+        this.start()
+      } else {
+        this.stop()
+      }
     }
   },
   computed: {
@@ -149,7 +146,18 @@ export default {
       getStopTime: 'stopwatch/stopTime',
       getInterval: 'stopwatch/intervalID',
       getRunning: 'stopwatch/running'
-    })
+    }),
+    btnStopwatch: function() {
+      let btn = {}
+      if (!this.getRunning) {
+        btn.icon = this.svgPath.mdiPlay
+        btn.name = 'start'
+      } else {
+        btn.icon = this.svgPath.mdiPause
+        btn.name = 'pause'
+      }
+      return btn
+    }
   }
 }
 </script>

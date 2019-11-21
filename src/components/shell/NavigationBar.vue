@@ -10,12 +10,13 @@
 
     v-spacer
 
-    transition(name="slide-x", mode="out-in", appear)
-      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/'", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)").secondary--text
+    transition(name="slide-x", mode="out-in", appear, v-if="$route.fullPath == '/'")
+      v-btn(outlined, :key="getHomeComponentName", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)").secondary--text
         v-icon(left) {{ buttonSwitchComponent(getHomeComponentName).icon }}
         span {{ buttonSwitchComponent(getHomeComponentName).name }}
 
-      v-btn(outlined, :key="getHomeComponentName", v-if="$route.fullPath == '/training'", @click="setTrainingComponentName(buttonSwitchComponent(getTrainingComponentName).component)").secondary--text
+    transition(name="slide-x", mode="out-in", appear, v-if="$route.fullPath == '/training'")
+      v-btn(outlined, :key="getTrainingComponentName", @click="setTrainingComponentName(buttonSwitchComponent(getTrainingComponentName).component)").secondary--text
         v-icon(left) {{ buttonSwitchComponent(getTrainingComponentName).icon }}
         span {{ buttonSwitchComponent(getTrainingComponentName).name }}
 </template>
@@ -81,17 +82,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .home-title::before {
   background-color: transparent !important;
-}
-.slide-x-enter-active,
-.slide-x-leave-active {
-  transition: all 0.4s cubic-bezier(0.08, 0.24, 0, 0.72);
-}
-.slide-x-enter,
-.slide-x-leave-to {
-  transform: translateX(-4px);
-  opacity: 0;
 }
 </style>

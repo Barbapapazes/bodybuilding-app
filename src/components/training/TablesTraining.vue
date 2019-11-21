@@ -2,10 +2,10 @@
 #tables-training
   title-app organise and create exercises
   div#listTables
-    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).my-3
+    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).background.lighten-2.my-3
 
       template(v-slot:top)
-        v-toolbar(flat)
+        v-toolbar(flat).background
           v-toolbar-title {{training.name}}
           v-divider(vertical, inset).mx-4
           v-icon(@click="deleteTable(index)") {{svgPath.mdiTrashCan}}
@@ -116,10 +116,10 @@ export default {
         weight: 0
       },
       headers: [
-        { text: '', value: 'data-table-drag' },
-        { text: 'name', value: 'name' },
-        { text: 'countdown', value: 'countdown' },
-        { text: 'weight', value: 'weight' },
+        { text: '', value: 'data-table-drag', sortable: false },
+        { text: 'name', value: 'name', sortable: false },
+        { text: 'countdown', value: 'countdown', sortable: false },
+        { text: 'weight', value: 'weight', sortable: false },
         { text: 'Actions', value: 'action', sortable: false }
       ],
       sortables: [],
@@ -234,13 +234,9 @@ export default {
   cursor: grabbing !important;
 }
 .ghost {
-  opacity: 0.2;
+  opacity: 0.35;
 }
 .dragRow {
-  opacity: 1;
-  background-color: #414141;
-}
-.dragTable {
   opacity: 1;
   background-color: #414141;
 }

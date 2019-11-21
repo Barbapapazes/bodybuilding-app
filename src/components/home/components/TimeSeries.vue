@@ -11,7 +11,9 @@ v-card(elevation="0").background#time-series
 
   v-card-actions
     v-spacer
-    v-btn(depressed, @click="applyConfig()").primary {{getApply ? "edit": "apply"}}
+    v-btn(depressed, @click="applyConfig()").primary
+      transition(name="rotate-btn", mode="out-in")
+        span(:key="getApply") {{getApply ? "edit": "apply"}}
 </template>
 
 <script>

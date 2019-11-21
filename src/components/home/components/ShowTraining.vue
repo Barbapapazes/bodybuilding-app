@@ -1,7 +1,7 @@
 <template lang="pug">
 #show-training
-  transition(name="fade", mode="out-in")
-    v-data-table(:headers="headers",  :items="getSelectedTraining[0].exercises", item-key="name",denses, :expanded.sync="expanded",  v-if="getSelectedTraining.length > 0", :key="getSelectedTraining[0].name").background
+  transition(name="slide-up", mode="out-in")
+    v-data-table(:headers="headers",  :items="getSelectedTraining[0].exercises", item-key="name", denses, :expanded.sync="expanded",  v-if="getSelectedTraining.length > 0", :key="getSelectedTraining[0].name").background
       template(v-slot:top)
         v-toolbar(flat).background
           v-toolbar-title {{getSelectedTraining[0].name}}
@@ -21,16 +21,15 @@
       template(v-slot:item.weight="{ item }")
         v-chip.font-weight-bold.text-capitalize.primary {{ item.weight }}
 
-      template(v-slot:item.data-table-expand="{ item }")
-        v-btn(@click="expanded = [item]" v-if="!expanded.includes(item)", x-small, text, key="down")
-            v-icon(small) {{svgPath.mdiChevronDown}}
-        v-btn(@click="expanded = []" v-if="expanded.includes(item)", x-small, text, key="up")
-            v-icon(small) {{svgPath.mdiChevronUp}}
+      template(v-slot:item.data-table-expand="{ item }", tag="div")
+          v-btn(text, small, @click="expandRow(item)")
+            transition(name="rotate", mode="out-in")
+              v-icon(:key="iconExpand(item)") {{ iconExpand(item) }}
 
       template(v-slot:expanded-item="{ headers, item }")
         td(:colspan="headers.length").background.lighten-1
-          span.font-weight-bold.text-capitalize {{item.name}}&#58; 
-          span {{item.description == '' ? 'No description' : item.description}}
+          span().font-weight-bold.text-capitalize {{item.name}}&#58; 
+          span() {{item.description == '' ? 'No description' : item.description}}
 </template>
 
 <script>
@@ -64,7 +63,23 @@ export default {
       ]
     }
   },
-  methods: {},
+  methods: {
+    expandRow: function(value) {
+      if (this.expanded.length == 0) {
+        this.expanded.push(value)
+      } else if (this.expanded[0] == value) {
+        this.expanded.pop()
+      } else {
+        this.expanded.pop()
+        this.expanded.push(value)
+      }
+    },
+    iconExpand: function(value) {
+      return this.expanded[0] && this.expanded[0] == value
+        ? this.svgPath.mdiChevronUp
+        : this.svgPath.mdiChevronDown
+    }
+  },
   computed: {
     ...mapGetters({
       getSelectedTraining: 'trainings/selectedTraining'

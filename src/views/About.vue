@@ -29,7 +29,7 @@
               v-list-item-title privacy &amp; cookies
             v-list-item(:to="{name: 'terms-of-use'}")
               v-list-item-title terms of use
-  transition(name="fade", mode="out-in")
+  transition(name="slide-up", mode="out-in")
     router-view
 </template>
 

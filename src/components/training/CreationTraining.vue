@@ -7,7 +7,7 @@
         v-text-field(label="Name of the Training", required, v-model="nameTraning", :rules="nameRules", clearable, autofocus, @keyup.enter="validate")
         
       v-col(cols="12", align="end")
-        v-btn(:disabled="!valid", @click="validate") Validate
+        v-btn(:disabled="!valid", @click="validate").primary Validate
   title-app name of the trainings
   v-list(v-if="getNametranings.length > 0").background.mt-3
     transition-group(name="fade")
@@ -59,13 +59,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.5s;
-}
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
-  opacity: 0;
-}
-</style>
