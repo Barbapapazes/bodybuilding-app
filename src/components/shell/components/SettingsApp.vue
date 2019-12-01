@@ -13,12 +13,20 @@
         v-btn(depressed, small, @click="setNotification")
           v-icon(left, small) {{allowNotification ? svgPath.mdiBell : svgPath.mdiBellOff}}
           span {{allowNotification ? 'Notification On': 'Notification Off'}}
+  
+  dialog-app
+    template(v-slot:title) disable notification
+    template(v-slot:text) To disable notifications, you must go to the browser settings and then to the site permissions and finally "Notifications". Then reload the page!
 </template>
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import { mdiBrightness6, mdiBell, mdiBellOff } from '@mdi/js'
+import DialogSlot from '@/components/shell/components/Dialog'
 export default {
+  components: {
+    'dialog-app': DialogSlot
+  },
   data() {
     return {
       svgPath: {

@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const publicPath =
-  process.env.NODE_ENV === 'production' ? '/bodybuilding-app/' : '/'
+  process.env.NODE_ENV === 'production' ? /*'/bodybuilding-app/'*/ '/' : '/'
 
 const config = {
   //transpileDependencies: ['vuetify'],
@@ -27,8 +27,8 @@ const config = {
       globDirectory: './public',
       globPatterns: ['**/*.{ico,svg,png}', 'img/icons/*.{png,svg}'],
       modifyURLPrefix: {
-        'img/icons/': '/bodybuilding-app/img/icons/',
-        '': '/bodybuilding-app/'
+        'img/icons/': publicPath + 'img/icons/',
+        '': publicPath
       },
 
       swSrc: 'src/service-worker.js'

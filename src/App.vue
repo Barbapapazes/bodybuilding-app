@@ -3,7 +3,9 @@ v-app(:style="{background: $vuetify.theme.themes[getTheme ? 'dark': 'light'].bac
   navbar-app
   v-content(v-touch="{right: () => setDrawer(true)}")
     v-container(fluid)
-      popups-app
+      snackbar-app(:icon="svgPath.mdiRefresh", skipWaiting)
+        template(v-slot:text) new content available
+        template(v-slot:btn-text) refresh
       transition(name="fade", mode="out-in", appear)
         router-view
   footer-app
@@ -12,14 +14,22 @@ v-app(:style="{background: $vuetify.theme.themes[getTheme ? 'dark': 'light'].bac
 <script>
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
-import Popups from '@/components/Popups'
 import { mapActions, mapGetters } from 'vuex'
+import SnackbarSlot from '@/components/shell/components/Snackbar'
+import { mdiRefresh } from '@mdi/js'
 
 export default {
   components: {
     'navbar-app': Navbar,
     'footer-app': Footer,
-    'popups-app': Popups
+    'snackbar-app': SnackbarSlot
+  },
+  data() {
+    return {
+      svgPath: {
+        mdiRefresh
+      }
+    }
   },
   methods: {
     ...mapActions({
