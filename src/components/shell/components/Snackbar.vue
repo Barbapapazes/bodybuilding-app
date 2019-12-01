@@ -3,7 +3,7 @@
   v-snackbar(right, :timeout="0", color="secondary", v-model="snackbar")
     span.text-capitalize.font-weight-bold
       slot(name="text")
-    v-btn(small, depressed, @click="snackbar = false, actions")
+    v-btn(small, depressed, @click="actions(), snackbar = false").text--text
       v-icon(left, small, v-if="icon") {{ icon }}
       span
         slot(name="btn-text") 
@@ -45,6 +45,7 @@ export default {
       if (this.cookies) {
         console.log('cookies is set to true')
       } else if (this.skipWaiting) {
+        console.log('skip waiting')
         this.emitSkipWaiting()
       } else {
         console.log('no props given')
