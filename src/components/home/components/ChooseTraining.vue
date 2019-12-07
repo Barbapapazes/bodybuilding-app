@@ -4,10 +4,10 @@
     template(v-slot:activator="{on}")
       v-btn(v-on="on", depressed, small).primary select a training
     v-list
-      v-list-item(v-for="(name, index) in getNameTrainings", :key="index", @click="setSelectedTraining(name)")
+      v-list-item(v-for="(name, index) in getNameTrainings", :key="index", @click="setSelectedTrainingName(name)")
         v-list-item-title.text-capitalize {{ name }}
-      v-list-item(key="remove", @click="setSelectedTraining('')")
-        v-list-item-title.text-capitalize remove training
+      v-list-item(key="remove", @click="setFollowTraining(false), setSelectedTrainingName('')")
+        v-list-item-title.text-capitalize unselect training
   v-btn(v-else, :to="{name: 'training'}", depressed).primary Create a training
 </template>
 
@@ -19,7 +19,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      setSelectedTraining: 'trainings/selectedTraining'
+      setSelectedTrainingName: 'trainings/selectedTrainingName',
+      setFollowTraining: 'trainings/followTraining'
     })
   },
   computed: {

@@ -1,10 +1,15 @@
 <template lang="pug">
 #show-training
   transition(name="slide-up", mode="out-in")
-    v-data-table(:headers="headers",  :items="getSelectedTraining[0].exercises", item-key="name", denses, :expanded.sync="expanded",  v-if="getSelectedTraining.length > 0", :key="getSelectedTraining[0].name").background
+    v-data-table(:headers="headers",  :items="getSelectedTraining.exercises", item-key="name", denses, :expanded.sync="expanded", :key="getSelectedTraining.name", v-if="getSelectedTraining != undefined").background
       template(v-slot:top)
-        v-toolbar(flat).background
-          v-toolbar-title {{getSelectedTraining[0].name}}
+        v-toolbar(flat, dense).background
+          v-container
+            v-row(align="start")
+              v-col(cols="6").pa-0
+                follow-training-app
+              v-col(cols="6", align="end").pa-0
+                v-toolbar-title {{getSelectedTraining.name}}
 
       template(v-slot:item.name="{ item }")
         span.font-weight-bold.text-uppercase {{ item.name }}
@@ -30,12 +35,19 @@
         td(:colspan="headers.length").background.lighten-1
           span().font-weight-bold.text-capitalize {{item.name}}&#58; 
           span() {{item.description == '' ? 'No description' : item.description}}
+    p(v-else) Select a training !
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import { mdiChevronDown, mdiChevronUp } from '@mdi/js'
+
+import FollowTraining from '@/components/home/components/FollowTraining'
+
 export default {
+  components: {
+    'follow-training-app': FollowTraining
+  },
   data() {
     return {
       svgPath: {

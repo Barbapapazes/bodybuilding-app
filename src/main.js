@@ -65,8 +65,11 @@ new Vue({
     this.setTrainings(JSON.parse(trainings))
 
     // selected training
-    const selectedTraining = Vue.localStorage.get('selectedTraining', '')
-    this.setSelectedTraining(selectedTraining)
+    const selectedTrainingName = Vue.localStorage.get(
+      'selectedTrainingName',
+      ''
+    )
+    this.setSelectedTrainingName(selectedTrainingName)
   },
   methods: {
     ...mapActions({
@@ -80,7 +83,7 @@ new Vue({
       setEndCountdown: 'countdown/end',
       setSeriesCountdown: 'countdown/series',
       setTrainings: 'trainings/uploadTrainings',
-      setSelectedTraining: 'trainings/selectedTraining'
+      setSelectedTrainingName: 'trainings/selectedTrainingName'
     })
   },
   render: h => h(App)

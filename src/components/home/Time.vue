@@ -20,14 +20,14 @@
         
       v-col(cols="12", md="12", xl="6").py-0
 
-        v-row
+        v-row(align="start")
           v-col(cols="6").py-0
             title-app training
-          v-col(cols="6", align="end")
+          v-col(align="end").py-0
             choose-training-app
         v-row
           v-col(cols="12",align="center").py-0
-            training-app
+            training-app.pt-4
 </template>
 
 <script>

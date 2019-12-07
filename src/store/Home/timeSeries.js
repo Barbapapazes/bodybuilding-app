@@ -27,6 +27,9 @@ export default {
       commit('series', payload.series)
       commit('apply', payload.apply)
       Vue.localStorage.set('config', JSON.stringify(payload))
+    },
+    series: ({ commit }, payload) => {
+      commit('series', payload)
     }
   },
   getters: {

@@ -15,7 +15,7 @@ v-card(elevation="0").background#countdown
             span(:key="getSeriesRemaining") {{ getSeriesRemaining}}
 
       v-col(cols="12", align="center")
-        v-btn(outlined, @click="reset(), setSeriesRemaining(getSeries)")
+        v-btn(outlined, @click="reset(), setSeriesRemaining(getSeries)", :disabled="getFollowTraining")
           span.font-weight-normal reset
           span.font-weight-light {{ getSeries == '0' ? '' : '-' + getSeries }} 
 </template>
@@ -65,7 +65,9 @@ export default {
       setNow: 'countdown/now',
       setEnd: 'countdown/end',
       setRunning: 'countdown/running',
-      setSeriesRemaining: 'countdown/series'
+      setSeriesRemaining: 'countdown/series',
+      setSeries: 'timeSeries/series',
+      setSpliceSelectedTraining: 'trainings/spliceSelectedTraining'
     }),
     decreaseSeriesStart: function() {
       if (this.getSeriesRemaining == '0' || this.getRunning) {
@@ -86,7 +88,14 @@ export default {
         // if user press the button
         let endCountdown = new Date()
         const regexTime = /(\d{2}):(\d{2}):(\d{2})$/gm
-        const groups = regexTime.exec(this.getTime)
+        let time = '00:00:00'
+        if (this.getFollowTraining) {
+          time = this.getSelectedTraining.exercises[0].countdown
+        } else {
+          time = this.getTime
+        }
+        console.log(time)
+        const groups = regexTime.exec(time)
         const match = groups.map(element => {
           if (element == undefined) element = 0
           return new Number(element)
@@ -96,6 +105,7 @@ export default {
         endCountdown.setMinutes(endCountdown.getMinutes() + match[2])
         endCountdown.setSeconds(endCountdown.getSeconds() + match[3])
 
+        console.log(Date.parse(new Date()), Date.parse(endCountdown))
         this.setEnd(endCountdown)
       } else {
         // if countdown was running in previous sesion and end time is > now, we set the previous end date as the actual date end
@@ -113,12 +123,18 @@ export default {
         this.setIntervalID(clearInterval(this.getIntervalID))
       }
       this.setRunning(false)
-      this.setCountdown(this.getTime)
+      let time = '00:00:00'
+      if (this.getFollowTraining) {
+        time = this.getSelectedTraining.exercises[0].countdown
+      } else {
+        time = this.getTime
+      }
+      this.setCountdown(time)
       this.setEnd(null)
       this.setNow(null)
     },
     countdown: function() {
-      console.log('countdown')
+      console.log('countdown', this.getRunning)
 
       if (!this.getRunning) {
         this.reset()
@@ -136,6 +152,7 @@ export default {
           ':' +
           this.zeroPrefix(sec, 2)
 
+        console.log(Date.parse(deltaTime))
         if (Date.parse(deltaTime) < 0) {
           this.reset()
         } else {
@@ -149,6 +166,18 @@ export default {
         zero += '0'
       }
       return (zero + num).slice(-digit)
+    },
+    setValueCountdown: function() {
+      if (this.getSelectedTraining != undefined) {
+        const series = this.getSelectedTraining.exercises[0].series
+        const countdown = this.getSelectedTraining.exercises[0].countdown
+        this.setSeriesRemaining(series)
+        this.setSeries(series)
+        console.log(countdown)
+        this.setCountdown(countdown)
+      } else {
+        alert('Training finished')
+      }
     }
   },
   computed: {
@@ -160,8 +189,24 @@ export default {
       getRunning: 'countdown/running',
       getSeriesRemaining: 'countdown/series',
       getTime: 'timeSeries/time',
-      getSeries: 'timeSeries/series'
+      getSeries: 'timeSeries/series',
+      getFollowTraining: 'trainings/followTraining',
+      getSelectedTraining: 'trainings/selectedTraining'
     })
+  },
+  watch: {
+    getFollowTraining(a) {
+      if (a && this.getSelectedTraining) {
+        this.setValueCountdown()
+      }
+    },
+    getSeriesRemaining(a) {
+      console.log(a)
+      if (a == 0 && this.getFollowTraining) {
+        this.setSpliceSelectedTraining()
+        this.setValueCountdown()
+      }
+    }
   }
 }
 </script>

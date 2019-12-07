@@ -7,7 +7,9 @@ export default {
   namespaced: true,
   state: {
     trainings: [],
-    selectedTraining: ''
+    selectedTrainingName: '',
+    followTraining: false,
+    selectedTraining: {}
   },
   mutations: {
     uploadTrainings: (state, payload) => {
@@ -81,9 +83,36 @@ export default {
         JSON.stringify(Object.assign([], state.trainings))
       )
     },
+    selectedTrainingName: (state, payload) => {
+      state.selectedTrainingName = payload
+      Vue.localStorage.set('selectedTrainingName', state.selectedTrainingName)
+    },
+    followTraining: (state, payload) => {
+      state.followTraining = payload
+    },
     selectedTraining: (state, payload) => {
-      state.selectedTraining = payload
-      Vue.localStorage.set('selectedTraining', state.selectedTraining)
+      const value = state.trainings.find(element => element.name == payload)
+      let name = ''
+      let exercises = []
+      if (value != undefined) {
+        name = value.name
+        value.exercises.forEach(el => {
+          exercises.push({
+            ...el
+          })
+        })
+      }
+      state.selectedTraining =
+        value == undefined ? undefined : { name, exercises }
+    },
+    spliceSelectedTraining: state => {
+      if (state.selectedTraining.exercises.length > 0) {
+        state.selectedTraining.exercises.splice(0, 1)
+      }
+      if (state.selectedTraining.exercises.length == 0) {
+        state.followTraining = false
+        state.selectedTraining = undefined
+      }
     }
   },
   actions: {
@@ -117,13 +146,31 @@ export default {
       commit('addTable', payload)
     },
     uploadTrainings: ({ commit }, payload) => {
+      console.log(payload)
       commit('uploadTrainings', payload)
     },
     deleteTable: ({ commit }, payload) => {
       commit('deleteTable', payload)
     },
-    selectedTraining: ({ commit }, payload) => {
+    selectedTrainingName: ({ commit, state }, payload) => {
+      commit('selectedTrainingName', payload)
       commit('selectedTraining', payload)
+      /* if (state.followTraining) {
+        commit('selectedTraining')
+      } */
+    },
+    followTraining: ({ commit, state }, payload) => {
+      commit('followTraining', payload)
+      if (
+        payload &&
+        state.selectedTrainingName &&
+        state.selectedTrainingName != state.selectedTraining.name
+      ) {
+        commit('selectedTraining')
+      }
+    },
+    spliceSelectedTraining: ({ commit }) => {
+      commit('spliceSelectedTraining')
     }
   },
   getters: {
@@ -131,17 +178,17 @@ export default {
       return state.trainings
     },
     nameTrainings: state => {
-      const nameTrainings = state.trainings.map(element => {
-        return element.name
-      })
+      const nameTrainings = state.trainings.map(element => element.name)
       return nameTrainings
     },
+    selectedTrainingName: state => {
+      return state.selectedTrainingName
+    },
+    followTraining: state => {
+      return state.followTraining
+    },
     selectedTraining: state => {
-      return state.trainings.filter(training => {
-        if (training.name == state.selectedTraining) {
-          return true
-        }
-      })
+      return state.selectedTraining
     }
   }
 }

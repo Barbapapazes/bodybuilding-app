@@ -11,7 +11,7 @@
     v-spacer
 
     transition(name="slide-x", mode="out-in", appear, v-if="$route.fullPath == '/'")
-      v-btn(outlined, :key="getHomeComponentName", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)").secondary--text
+      v-btn(outlined, :key="getHomeComponentName", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)", :disabled="getFollowTraining").secondary--text
         v-icon(left) {{ buttonSwitchComponent(getHomeComponentName).icon }}
         span {{ buttonSwitchComponent(getHomeComponentName).name }}
 
@@ -76,7 +76,8 @@ export default {
     ...mapGetters({
       getHomeComponentName: 'navbar/homeComponentName',
       getTrainingComponentName: 'navbar/trainingComponentName',
-      getDrawer: 'navbar/drawer'
+      getDrawer: 'navbar/drawer',
+      getFollowTraining: 'trainings/followTraining'
     })
   }
 }

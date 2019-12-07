@@ -12,7 +12,7 @@
               v-col(cols="12", align="center")
                 v-select(:items="getNameTrainings", label="Select", multiple, chips, hint="Add exercie to Training(s)", persistent-hint, v-model="selectedTrainings", clearable, :rules="rules.selectedTrainings", validate-on-blur)
               v-col(cols="12", sm="6", md="4")
-                v-text-field(label="name", v-model="editedItem.name", clearable, :rules="rules.name", counter="20")
+                v-text-field(label="name", v-model="editedItem.name", clearable, :rules="rules.name", counter="20", ref="name")
               v-col(cols="12", sm="6", md="4")
                 v-text-field(label="description", v-model="editedItem.description", clearable, :rules="rules.description", counter="200")
               v-col(cols="12", sm="6", md="4")
@@ -26,7 +26,7 @@
                     v-card-text
                       v-row
                         v-col(cols="12", align="center")
-                          //v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :allowed-seconds="allowedStep", v-model="editedItem.countdown")
+                          v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :allowed-seconds="allowedStep", v-model="editedItem.countdown")
                     v-card-actions
                       v-spacer
                       v-btn(depressed, @click="countdownDialog = false") close
@@ -35,8 +35,9 @@
               v-col(cols="12", sm="6", md="4")
                 v-text-field(label="weight", type="number", v-model="editedItem.weight", @input="invalidValue(editedItem.weight, 'weight')", ref="weight", clearable, :rules="rules.weight")
         v-card-actions
+          v-btn(@click="refresh()", depressed) refresh
           v-spacer
-          v-btn(@click="close()", depressed).primary cancel
+          v-btn(@click="close()", depressed) cancel
           v-btn(@click="save()", depressed, :disabled="!valid").primary save
 </template>
 
@@ -66,7 +67,34 @@ export default {
         ],
         name: [
           v => !!v || 'Name is required',
-          v => (v && v.length <= 20) || 'Name must be less than 20 characters'
+          v => (v && v.length <= 20) || 'Name must be less than 20 characters',
+          v => {
+            // check if the value is unique in the selected trainings)
+            let results = []
+            const value = v
+            this.getTrainings.forEach(training => {
+              if (this.selectedTrainings.includes(training.name)) {
+                results.push(
+                  training.exercises.find(exercise => exercise.name == value) ==
+                    undefined
+                    ? { exist: false, name: training.name }
+                    : { exist: true, name: training.name }
+                )
+              }
+            })
+
+            results = results.filter(result => result.exist)
+
+            let error = 'no error'
+            if (results.length > 0) {
+              error = value + ' is used in: '
+              results.forEach(result => {
+                error += result.name + ' '
+              })
+            }
+
+            return !(results.length > 0) || error
+          }
         ],
         description: [
           v =>
@@ -82,10 +110,10 @@ export default {
       },
       selectedTrainings: [],
       editedItem: {
-        name: 'a',
-        description: 'a',
-        repetitions: '1',
-        series: '1',
+        name: '',
+        description: '',
+        repetitions: '',
+        series: '',
         countdown: '00:00:00',
         weight: ''
       },
@@ -120,7 +148,11 @@ export default {
         this.close()
       }
     },
+    refresh: function() {
+      this.$refs.exerciseForm.validate()
+    },
     close: function() {
+      this.selectedTrainings = []
       this.dialog = false
       setTimeout(() => {
         this.editedItem = Object.assign({}, this.defaultItem)
@@ -136,7 +168,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getNameTrainings: 'trainings/nameTrainings'
+      getNameTrainings: 'trainings/nameTrainings',
+      getTrainings: 'trainings/trainings'
     })
   }
 }

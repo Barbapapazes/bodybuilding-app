@@ -7,7 +7,7 @@ export default {
   namespaced: true,
   state: {
     dialog: false,
-    snackbar: true
+    snackbar: false
   },
   mutations: {
     dialog: (state, payload) => {

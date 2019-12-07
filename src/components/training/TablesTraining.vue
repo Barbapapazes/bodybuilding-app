@@ -159,7 +159,6 @@ export default {
       }, 300)
     },
     save: function() {
-      // ajouter une vérification et donc 1 bouton pour toutes les tables
       console.log(this.$refs)
       const payload = {
         editedItem: this.editedItem,
