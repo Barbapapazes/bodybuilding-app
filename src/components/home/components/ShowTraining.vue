@@ -35,7 +35,8 @@
         td(:colspan="headers.length").background.lighten-1
           span().font-weight-bold.text-capitalize {{item.name}}&#58; 
           span() {{item.description == '' ? 'No description' : item.description}}
-    p(v-else) Select a training !
+    empty-data-app(v-else)
+      template {{getNameTrainings.length != 0 ?'select a training !': 'create your first training'}}
 </template>
 
 <script>
@@ -43,10 +44,12 @@ import { mapGetters } from 'vuex'
 import { mdiChevronDown, mdiChevronUp } from '@mdi/js'
 
 import FollowTraining from '@/components/home/components/FollowTraining'
+import EmptyData from '@/components/EmptyDataSlot'
 
 export default {
   components: {
-    'follow-training-app': FollowTraining
+    'follow-training-app': FollowTraining,
+    'empty-data-app': EmptyData
   },
   data() {
     return {
@@ -94,7 +97,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getSelectedTraining: 'trainings/selectedTraining'
+      getSelectedTraining: 'trainings/selectedTraining',
+      getNameTrainings: 'trainings/nameTrainings'
     })
   }
 }

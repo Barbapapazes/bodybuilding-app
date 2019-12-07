@@ -6,59 +6,62 @@
     v-col(cols="4", align="end").pb-0
       add-exercise-app
   div#listTables
-    v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer).background.lighten-2.my-3
+    transition(name="slide-up", mode="out-in")
+      empty-data-app(v-if="getTrainings.length == 0")
+        template no training
+      v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer, v-else).background.lighten-2.my-3
 
-      template(v-slot:top)
-        v-toolbar(flat).background
-          v-toolbar-title {{training.name}}
-          v-divider(vertical, inset).mx-4
-          v-icon(@click="deleteTable(index)") {{svgPath.mdiTrashCan}}
-          //v-spacer
-          //v-dialog(v-model="dialog" max-width="500px")
-            template(v-slot:activator="{ on }")
-              v-btn(v-on="on", @click="tableIndex = index", depressed).primary new exercice
-            v-card(@keyup.enter="save()")
-              form(v-model="valid", lazy-validation)
-                v-card-title
-                  title-app {{formTitle}}
-                v-card-text
-                  v-container
-                    v-row
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.name" label="name", :rules="rules.name", autofocus)
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.description" label="description")
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.repetitions" label="repetitions", type="number")
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.series" label="series", type="number")
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(@click="countdownDialog = !countdownDialog", v-model="editedItem.countdown", readonly, label="countdown")
-                        v-dialog(v-model="countdownDialog", width="500")
-                          v-card
-                            v-card-title
-                              title-app countdown
-                            v-card-text
-                              v-row
-                                v-col(cols="12", align="center")
-                                  v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :allowed-seconds="allowedStep", v-model="editedItem.countdown")
-                            v-card-actions
-                              v-spacer
-                              v-btn(@click="countdownDialog = false", depressed) close
-                      v-col(cols="12", sm="6", md="4")
-                        v-text-field(v-model="editedItem.weight" label="weight", type="number")
-                v-card-actions
-                  v-spacer
-                  v-btn(@click="close()", depressed).primary cancel
-                  v-btn(@click="save()", depressed, :disabled="!valid").primary save
-      
-      template(v-slot:item.data-table-drag="{item}")
-        td(style="width: 28px;").handle 
-          v-icon(small) {{svgPath.mdiSelectAll}}
+        template(v-slot:top)
+          v-toolbar(flat).background
+            v-toolbar-title {{training.name}}
+            v-divider(vertical, inset).mx-4
+            v-icon(@click="deleteTable(index)") {{svgPath.mdiTrashCan}}
+            //v-spacer
+            //v-dialog(v-model="dialog" max-width="500px")
+              template(v-slot:activator="{ on }")
+                v-btn(v-on="on", @click="tableIndex = index", depressed).primary new exercice
+              v-card(@keyup.enter="save()")
+                form(v-model="valid", lazy-validation)
+                  v-card-title
+                    title-app {{formTitle}}
+                  v-card-text
+                    v-container
+                      v-row
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(v-model="editedItem.name" label="name", :rules="rules.name", autofocus)
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(v-model="editedItem.description" label="description")
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(v-model="editedItem.repetitions" label="repetitions", type="number")
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(v-model="editedItem.series" label="series", type="number")
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(@click="countdownDialog = !countdownDialog", v-model="editedItem.countdown", readonly, label="countdown")
+                          v-dialog(v-model="countdownDialog", width="500")
+                            v-card
+                              v-card-title
+                                title-app countdown
+                              v-card-text
+                                v-row
+                                  v-col(cols="12", align="center")
+                                    v-time-picker(use-seconds, format="24hr", scrollable, color="primary", :allowed-seconds="allowedStep", v-model="editedItem.countdown")
+                              v-card-actions
+                                v-spacer
+                                v-btn(@click="countdownDialog = false", depressed) close
+                        v-col(cols="12", sm="6", md="4")
+                          v-text-field(v-model="editedItem.weight" label="weight", type="number")
+                  v-card-actions
+                    v-spacer
+                    v-btn(@click="close()", depressed).primary cancel
+                    v-btn(@click="save()", depressed, :disabled="!valid").primary save
+        
+        template(v-slot:item.data-table-drag="{item}")
+          td(style="width: 28px;").handle 
+            v-icon(small) {{svgPath.mdiSelectAll}}
 
-      template(v-slot:item.action="{item}")  
-        v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
-        v-icon(small, @click="deleteItem(item, index)").mr-2 {{svgPath.mdiTrashCan}}
+        template(v-slot:item.action="{item}")  
+          v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
+          v-icon(small, @click="deleteItem(item, index)").mr-2 {{svgPath.mdiTrashCan}}
 </template>
 
 <script>
@@ -68,11 +71,12 @@ import { mapGetters, mapActions } from 'vuex'
 
 import TitleSlot from '@/components/TitleSlot'
 import AddExercise from '@/components/training/components/addExercise'
-
+import EmptyDataSlot from '@/components/EmptyDataSlot'
 export default {
   components: {
     'title-app': TitleSlot,
-    'add-exercise-app': AddExercise
+    'add-exercise-app': AddExercise,
+    'empty-data-app': EmptyDataSlot
   },
   mounted() {
     this.sortableRows(true)

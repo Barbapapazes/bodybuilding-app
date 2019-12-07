@@ -57,13 +57,13 @@ export default {
           }
         case 'tables-training-app':
           return {
-            name: 'creations',
+            name: 'add trainings',
             icon: this.svgPath.mdiTablePlus,
             component: 'creation-training-app'
           }
         case 'creation-training-app':
           return {
-            name: 'tables',
+            name: 'view trainings',
             icon: this.svgPath.mdiTableEdit,
             component: 'tables-training-app'
           }

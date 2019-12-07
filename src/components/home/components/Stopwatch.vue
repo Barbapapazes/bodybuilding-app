@@ -4,7 +4,7 @@
       v-row(no-gutters).pa-0
 
         v-col(cols="12", align="center").pa-0
-          span(key="time").display-1.font-weight-light  {{ getTime }}
+          span(key="time").display-1.font-weight-light  {{ getTime }} 
     
     v-card-actions.pt-0
       v-row

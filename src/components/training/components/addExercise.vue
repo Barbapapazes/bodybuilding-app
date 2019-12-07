@@ -2,7 +2,7 @@
 #add-exercise
   v-dialog(max-width="500px", v-model="dialog")
     template(v-slot:activator="{ on }")
-      v-btn(v-on="on", depressed, small).primary new exercice
+      v-btn(v-on="on", depressed, small, :disabled="getTrainings.length == 0").primary new exercice
     v-card
         v-card-title.pb-0
           title-app new exercise

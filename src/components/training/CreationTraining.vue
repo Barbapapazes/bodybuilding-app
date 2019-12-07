@@ -4,7 +4,7 @@
   v-form(v-model="valid", ref="form")
     v-row
       v-col(cols="12")
-        v-text-field(label="Name of the Training", required, v-model="nameTraning", :rules="nameRules", clearable, autofocus, @keyup.enter="validate")
+        v-text-field(label="Name of the Training", required, v-model="nameTraning", :rules="nameRules", clearable, autofocus, @keyup.enter="validate()")
         
       v-col(cols="12", align="end")
         v-btn(:disabled="!valid", @click="validate").primary Validate
@@ -14,17 +14,19 @@
       v-list-item(v-for="item in getNametranings", :key="item")
         v-list-item-content
           v-list-item-title.text--text.font-weight-blod {{item}}
-  p(v-else) No training already saved
+  empty-data-app(v-else) No training already saved
         
 </template>
 
 <script>
 import TitleSlot from '@/components/TitleSlot'
+import EmptyDataSlot from '@/components/EmptyDataSlot'
 
 import { mapActions, mapGetters } from 'vuex'
 export default {
   components: {
-    'title-app': TitleSlot
+    'title-app': TitleSlot,
+    'empty-data-app': EmptyDataSlot
   },
   data() {
     return {

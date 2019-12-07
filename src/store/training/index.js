@@ -152,7 +152,7 @@ export default {
     deleteTable: ({ commit }, payload) => {
       commit('deleteTable', payload)
     },
-    selectedTrainingName: ({ commit, state }, payload) => {
+    selectedTrainingName: ({ commit }, payload) => {
       commit('selectedTrainingName', payload)
       commit('selectedTraining', payload)
       /* if (state.followTraining) {

@@ -56,7 +56,9 @@ export default {
           case 'granted':
             this.allowNotification = true
             break
-
+          case 'denied':
+            alert('Notifications are disable in your broswer settings !')
+            break
           default:
             this.allowNotification = false
             break

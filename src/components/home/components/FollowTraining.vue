@@ -1,6 +1,6 @@
 <template lang="pug">
 #follow-training
-  v-switch(v-model="followTraining", label="Follow Training").my-0
+  v-switch(v-model="followTraining", label="Follow Training", color="secondary").my-0
 </template>
 
 <script>

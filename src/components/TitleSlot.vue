@@ -1,4 +1,4 @@
 <template lang="pug">
-h2.text-capitalize.font-weight-light.secondary--text 
+h2.text-uppercase.font-weight-light.secondary--text.title
   slot
 </template>
