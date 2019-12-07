@@ -11,7 +11,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      setFollowTraining: 'trainings/followTraining'
+      setFollowTraining: 'trainings/followTraining',
+      setRunningCountdown: 'countdown/running'
     })
   },
   computed: {
@@ -23,6 +24,8 @@ export default {
         return this.getFollowTraining
       },
       set: function(value) {
+        console.log('set follow training', value)
+        this.setRunningCountdown(false)
         this.setFollowTraining(value)
       }
     }
