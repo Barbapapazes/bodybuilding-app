@@ -21,9 +21,9 @@
       v-col(cols="12", md="12", xl="6").py-0
 
         v-row(align="start")
-          v-col(cols="6").py-0
+          v-col(cols="5").py-0
             title-app training
-          v-col(align="end").py-0
+          v-col(cols="7", align="end").py-0
             choose-training-app
         v-row
           v-col(cols="12",align="center").py-0
