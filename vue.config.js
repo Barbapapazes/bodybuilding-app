@@ -51,7 +51,7 @@ if (process.env.NODE_ENV === 'production') {
       ]
     })
   )
-  config.configureWebpack.plugins.push(new BundleAnalyzerPlugin())
+  //config.configureWebpack.plugins.push(new BundleAnalyzerPlugin())
 }
 
 module.exports = config
