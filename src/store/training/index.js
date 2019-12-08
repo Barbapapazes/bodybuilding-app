@@ -143,7 +143,7 @@ export default {
       commit('spliceTable', payload)
     },
     addTable: ({ commit }, payload) => {
-      commit('addTable', payload)
+      commit('addTable', payload.toLowerCase())
     },
     uploadTrainings: ({ commit }, payload) => {
       console.log(payload)

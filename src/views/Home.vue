@@ -18,7 +18,8 @@ export default {
   methods: {
     ...mapActions({
       setStopwatchInterval: 'stopwatch/intervalID',
-      setCountdownInterval: 'countdown/intervalID'
+      setCountdownInterval: 'countdown/intervalID',
+      setSelectedTrainingName: 'trainings/selectedTrainingName'
     })
   },
 
@@ -31,6 +32,7 @@ export default {
   },
   beforeRouteLeave: function(to, from, next) {
     console.log('leave home')
+    this.setSelectedTrainingName('')
     this.setStopwatchInterval(clearInterval(this.getStopwatchInterval))
     next()
     this.setCountdownInterval(clearInterval(this.getCountdownInterval))

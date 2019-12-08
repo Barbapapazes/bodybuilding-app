@@ -9,7 +9,7 @@
               v-col(cols="6").pa-0
                 follow-training-app
               v-col(cols="6", align="end").pa-0
-                v-toolbar-title {{getSelectedTraining.name}}
+                v-toolbar-title.text-capitalize {{getSelectedTraining.name}}
 
       template(v-slot:item.name="{ item }")
         span.font-weight-bold.text-uppercase {{ item.name }}

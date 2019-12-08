@@ -13,7 +13,7 @@
     transition-group(name="fade")
       v-list-item(v-for="item in getNametranings", :key="item")
         v-list-item-content
-          v-list-item-title.text--text.font-weight-blod {{item}}
+          v-list-item-title.text--text.font-weight-blod.text-capitalize {{item}}
   empty-data-app(v-else) No training already saved
         
 </template>
@@ -35,8 +35,10 @@ export default {
       nameRules: [
         v => !!v || 'Name is required',
         v => {
-          return this.getNametranings.find(element => element == v)
-            ? 'Already use'
+          return this.getNametranings.find(
+            element => element == v.toLowerCase()
+          )
+            ? 'Already use (non case sensitive)'
             : !!v
         }
       ]
