@@ -4,15 +4,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/404.html"
   },
   {
-    "revision": "ad32f74ba2bd2b713459",
+    "revision": "6f6e84d834f7a33a3f62",
     "url": "/bodybuilding-app/css/ThisWebsite.c22534a4.css"
   },
   {
-    "revision": "cb6c35e9d305fa049f09",
+    "revision": "9e6fef2bf151ac337ac2",
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "358d8e9d68980a1a594b",
+    "revision": "343ffef4279e2d57d212",
     "url": "/bodybuilding-app/css/app.d1a96626.css"
   },
   {
@@ -72,32 +72,32 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "90ff7b4642d41415ae6286243fd201b9",
+    "revision": "c0a4af8850475c2c5b2c7f2bba8fdc69",
     "url": "/bodybuilding-app/index.html"
   },
   {
-    "revision": "777252d3a79f598314e9",
-    "url": "/bodybuilding-app/js/About.d77ea37d.js"
+    "revision": "bea39953fd55b96c0cfb",
+    "url": "/bodybuilding-app/js/About.344fb96a.js"
   },
   {
-    "revision": "c1d57144ee00d33041bd",
-    "url": "/bodybuilding-app/js/PrivacyCookies.409cdc05.js"
+    "revision": "c3e9eddcc437eb955167",
+    "url": "/bodybuilding-app/js/PrivacyCookies.d175bec0.js"
   },
   {
-    "revision": "1dc6e786a261bdaf35e1",
-    "url": "/bodybuilding-app/js/TermsofUse.e2410c4f.js"
+    "revision": "504b35241ee36d209348",
+    "url": "/bodybuilding-app/js/TermsofUse.79d16ef2.js"
   },
   {
-    "revision": "ad32f74ba2bd2b713459",
-    "url": "/bodybuilding-app/js/ThisWebsite.3c837923.js"
+    "revision": "6f6e84d834f7a33a3f62",
+    "url": "/bodybuilding-app/js/ThisWebsite.689e4f0f.js"
   },
   {
-    "revision": "cb6c35e9d305fa049f09",
-    "url": "/bodybuilding-app/js/Training.1e3b3b4b.js"
+    "revision": "9e6fef2bf151ac337ac2",
+    "url": "/bodybuilding-app/js/Training.6a725750.js"
   },
   {
-    "revision": "358d8e9d68980a1a594b",
-    "url": "/bodybuilding-app/js/app.31af9fb1.js"
+    "revision": "343ffef4279e2d57d212",
+    "url": "/bodybuilding-app/js/app.6987d8de.js"
   },
   {
     "revision": "19e45b4b55969aa5794e",
