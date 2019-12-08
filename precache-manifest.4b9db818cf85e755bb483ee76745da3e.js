@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "343ffef4279e2d57d212",
+    "revision": "7b677894a1cd93bedff7",
     "url": "/bodybuilding-app/css/app.d1a96626.css"
   },
   {
@@ -72,7 +72,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "c0a4af8850475c2c5b2c7f2bba8fdc69",
+    "revision": "9fe54b3b4c709aee12ad8f4ff44cc5f1",
     "url": "/bodybuilding-app/index.html"
   },
   {
@@ -96,8 +96,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/js/Training.6a725750.js"
   },
   {
-    "revision": "343ffef4279e2d57d212",
-    "url": "/bodybuilding-app/js/app.6987d8de.js"
+    "revision": "7b677894a1cd93bedff7",
+    "url": "/bodybuilding-app/js/app.4a3afc18.js"
   },
   {
     "revision": "19e45b4b55969aa5794e",
