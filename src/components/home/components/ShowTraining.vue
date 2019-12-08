@@ -35,7 +35,7 @@
         td(:colspan="headers.length").background.lighten-1
           span().font-weight-bold.text-capitalize {{item.name}}&#58; 
           span() {{item.description == '' ? 'No description' : item.description}}
-    //empty-data-app(v-else)
+    empty-data-app(v-else)
       template {{getNameTrainings.length != 0 ?'select a training !': 'create your first training'}}
 </template>
 
