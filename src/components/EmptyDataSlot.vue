@@ -1,11 +1,11 @@
 <template lang="pug">
 .data-empty
-  v-row(justify="center")
+  v-row(justify="center", no-gutters)
     v-col(cols="6", align="center")
       v-divider.primary
     v-col(cols="12", align="center") 
-      h4.text-capitalize.title.font-weight-black
+      h4.text-capitalize.title.font-weight-black.ma-0.pa-0
         slot
-    v-col(cols="6")
+    v-col(cols="6", align="center")
       v-divider.primary
 </template>
