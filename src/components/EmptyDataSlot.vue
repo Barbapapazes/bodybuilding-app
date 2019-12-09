@@ -4,7 +4,7 @@
     v-col(cols="6", align="center")
       v-divider.primary
     v-col(cols="12", align="center") 
-      h4.text-capitalize.title.font-weight-black.ma-0.pa-0
+      h4.text-capitalize.title.font-weight-black.mx-0.px-0
         slot
     v-col(cols="6", align="center")
       v-divider.primary
