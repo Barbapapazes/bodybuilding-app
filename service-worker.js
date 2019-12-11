@@ -1,4 +1,4 @@
-importScripts("/bodybuilding-app/precache-manifest.9e56042014a310891cf8450ce8fa45ab.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/bodybuilding-app/precache-manifest.5f799e0e3d88fa019108a3f1f23458ae.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable*/
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
@@ -9,14 +9,15 @@ self.addEventListener('notificationclick', function(event) {
       for (let index = 0; index < clientList.length; index++) {
         const client = clientList[index]
         if (
-          client.url === 'https://barbapapazes.github.io/bodybuilding-app/' &&
+          client.url ===
+            'https://barbapapazes.github.io' + process.env.NODE_ENV &&
           'focus' in client
         ) {
           return client.focus()
         }
         if (clients.openWindow) {
           return clients.openWindow(
-            'https://barbapapazes.github.io/bodybuilding-app/'
+            'https://barbapapazes.github.io' + process.env.NODE_ENV
           )
         }
       }
@@ -51,28 +52,32 @@ self.addEventListener('message', event => {
           ':' +
           this.zeroPrefix(sec, 2)
 
-        console.log(hour, min, sec, event.data.data, Date.parse(deltaTime))
         self.registration.showNotification('Countdown', {
           body: time,
-          tag: 'notif'
+          tag: 'notif',
+          badge: process.env.NODE_ENV + 'favicon.ico',
+          icon: ''
         })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
             body: 'Countdown is Over !',
             tag: 'notif',
-            renotify: true
+            badge: process.env.NODE_ENV + 'favicon.ico',
+            renotify: true,
+            icon: ''
           })
           interval = clearInterval(interval)
         }
       }, 750))
     )
   } else if (event.data && event.data.type === 'STOP_NOTIFICATION') {
-    console.log('clear interval')
     event.waitUntil(
       self.registration.showNotification('Sport Companion', {
         body: "Let's Train ! 💪",
-        tag: 'notif'
+        tag: 'notif',
+        badge: process.env.NODE_ENV + 'favicon.ico',
+        icon: ''
       })
     )
 

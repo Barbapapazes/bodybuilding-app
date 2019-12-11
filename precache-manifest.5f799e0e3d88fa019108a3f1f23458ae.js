@@ -4,20 +4,20 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/404.html"
   },
   {
-    "revision": "6f6e84d834f7a33a3f62",
+    "revision": "45044d14af8d6ad3067a",
     "url": "/bodybuilding-app/css/ThisWebsite.c22534a4.css"
   },
   {
-    "revision": "9e6fef2bf151ac337ac2",
+    "revision": "835b34985298556aa567",
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "2426c7cb823851e81b5e",
-    "url": "/bodybuilding-app/css/app.d1a96626.css"
+    "revision": "59f508f25f792e8e922e",
+    "url": "/bodybuilding-app/css/app.edcba392.css"
   },
   {
-    "revision": "19e45b4b55969aa5794e",
-    "url": "/bodybuilding-app/css/chunk-vendors.ba136bf7.css"
+    "revision": "52fc79502d544c01e8c9",
+    "url": "/bodybuilding-app/css/chunk-vendors.ff26e635.css"
   },
   {
     "revision": "7ee029f5d27205c1f57344b29f27e3f1",
@@ -72,36 +72,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "93e8e9934258b3afd13db167b1257b5c",
+    "revision": "5ac03a359d14ba57fd040ee630821104",
     "url": "/bodybuilding-app/index.html"
   },
   {
-    "revision": "bea39953fd55b96c0cfb",
-    "url": "/bodybuilding-app/js/About.344fb96a.js"
+    "revision": "73f3ac38a1c4fa35a635",
+    "url": "/bodybuilding-app/js/About.64ff9aef.js"
   },
   {
-    "revision": "c3e9eddcc437eb955167",
-    "url": "/bodybuilding-app/js/PrivacyCookies.d175bec0.js"
+    "revision": "f4f042ab1576220d72ef",
+    "url": "/bodybuilding-app/js/PrivacyCookies.1a8a95d4.js"
   },
   {
-    "revision": "504b35241ee36d209348",
-    "url": "/bodybuilding-app/js/TermsofUse.79d16ef2.js"
+    "revision": "2c1f2e4aebb2e64e88ee",
+    "url": "/bodybuilding-app/js/TermsofUse.e6576c4d.js"
   },
   {
-    "revision": "6f6e84d834f7a33a3f62",
-    "url": "/bodybuilding-app/js/ThisWebsite.689e4f0f.js"
+    "revision": "45044d14af8d6ad3067a",
+    "url": "/bodybuilding-app/js/ThisWebsite.904f5729.js"
   },
   {
-    "revision": "9e6fef2bf151ac337ac2",
-    "url": "/bodybuilding-app/js/Training.6a725750.js"
+    "revision": "835b34985298556aa567",
+    "url": "/bodybuilding-app/js/Training.35fbd8d5.js"
   },
   {
-    "revision": "2426c7cb823851e81b5e",
-    "url": "/bodybuilding-app/js/app.c5b15fde.js"
+    "revision": "59f508f25f792e8e922e",
+    "url": "/bodybuilding-app/js/app.864cd69f.js"
   },
   {
-    "revision": "19e45b4b55969aa5794e",
-    "url": "/bodybuilding-app/js/chunk-vendors.597af15e.js"
+    "revision": "52fc79502d544c01e8c9",
+    "url": "/bodybuilding-app/js/chunk-vendors.55c9d49a.js"
   },
   {
     "revision": "0973ffed2faa7363be85b37a4349dd64",
