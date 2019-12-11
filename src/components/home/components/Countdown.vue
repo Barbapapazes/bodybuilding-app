@@ -198,6 +198,8 @@ export default {
     getFollowTraining(a) {
       if (a && this.getSelectedTraining) {
         this.setValueCountdown()
+      } else {
+        this.reset()
       }
     },
     getSeriesRemaining(a) {

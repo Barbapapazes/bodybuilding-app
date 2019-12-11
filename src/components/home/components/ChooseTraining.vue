@@ -1,8 +1,8 @@
 <template lang="pug">
 #choose-training
-  v-menu(v-if="getNameTrainings.length > 0", offset-y, transition="scale-transition", origin="top right")
+  v-menu(v-if="getNameTrainings.length > 0", offset-y, transition="scale-transition", origin="top right", :disabled="getFollowTraining")
     template(v-slot:activator="{on}")
-      v-btn(v-on="on", depressed, small).primary select a training
+      v-btn(v-on="on", depressed, small, :disabled="getFollowTraining").primary select a training
     v-list
       v-list-item(v-for="(name, index) in getNameTrainings", :key="index", @click="setSelectedTrainingName(name)")
         v-list-item-title.text-capitalize {{ name }}
@@ -25,7 +25,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      getNameTrainings: 'trainings/nameTrainings'
+      getNameTrainings: 'trainings/nameTrainings',
+      getFollowTraining: 'trainings/followTraining'
     })
   }
 }

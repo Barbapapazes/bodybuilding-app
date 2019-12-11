@@ -14,7 +14,7 @@
       v-list-item(v-for="item in getNametranings", :key="item")
         v-list-item-content
           v-list-item-title.text--text.font-weight-blod.text-capitalize {{item}}
-  empty-data-app(v-else) No training already saved
+  empty-data-app(v-else).pt-5 No training already saved
         
 </template>
 

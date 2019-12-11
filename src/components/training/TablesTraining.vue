@@ -1,12 +1,12 @@
 <template lang="pug">
 #tables-training
-  v-row
+  v-row(align="center")
     v-col(cols="8").pt-0
       title-app organise and create exercises
-    v-col(cols="4", align="end").pb-0
+    v-col(cols="4", align="end").pt-0
       add-exercise-app
   div#listTables
-      empty-data-app(v-if="getTrainings.length == 0")
+      empty-data-app(v-if="getTrainings.length == 0").pt-2
         template no training
       v-data-table(:headers="headers", :items="training.exercises", item-key="name", :key="training.name", v-for="(training, index) in getTrainings", dense, hide-default-footer, v-else).background.lighten-2.my-3
 

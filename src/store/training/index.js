@@ -89,6 +89,7 @@ export default {
     },
     followTraining: (state, payload) => {
       state.followTraining = payload
+      Vue.localStorage.set('followTraining', payload)
     },
     selectedTraining: (state, payload) => {
       const value = state.trainings.find(element => element.name == payload)
