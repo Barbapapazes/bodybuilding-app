@@ -31,16 +31,13 @@ export default {
     const timeRemaining = Date.parse(new Date()) - Date.parse(this.getEnd)
     // check if the countdown is over
     if (this.getRunning && timeRemaining < 0) {
-      console.log('running and time not over')
       this.start(new Date(this.getEnd))
     } else if (this.getRunning && timeRemaining >= 0) {
-      console.log('running but time is over')
       this.setCountdown(this.getTime)
       this.setRunning(false)
     }
     window.addEventListener('blur', () => {
       if (Notification.permission === 'granted' && this.getRunning) {
-        console.log('blur and granted, sending event for sw')
         navigator.serviceWorker.ready.then(reg => {
           reg.active.postMessage({
             data: this.getEnd,
@@ -51,7 +48,6 @@ export default {
     })
     window.addEventListener('focus', () => {
       if (Notification.permission === 'granted') {
-        console.log('focus and granted, sending event for sw')
         navigator.serviceWorker.ready.then(reg => {
           reg.active.postMessage({ type: 'STOP_NOTIFICATION' })
         })
@@ -71,18 +67,14 @@ export default {
     }),
     decreaseSeriesStart: function() {
       if (this.getSeriesRemaining == '0' || this.getRunning) {
-        console.log('return')
         return
       } else if (!/^(0{2}:)?0{2}:0{2}$/gm.test(this.getCountdown)) {
         // if countdown > 00:00
-        console.log('start')
         this.start()
       }
       this.setSeriesRemaining(String(this.getSeriesRemaining - 1))
     },
     start: function(value) {
-      console.log('start', value)
-
       // set the end of the countdown
       if (value == undefined) {
         // if user press the button
@@ -94,7 +86,6 @@ export default {
         } else {
           time = this.getTime
         }
-        console.log(time)
         const groups = regexTime.exec(time)
         const match = groups.map(element => {
           if (element == undefined) element = 0
@@ -105,11 +96,9 @@ export default {
         endCountdown.setMinutes(endCountdown.getMinutes() + match[2])
         endCountdown.setSeconds(endCountdown.getSeconds() + match[3])
 
-        console.log(Date.parse(new Date()), Date.parse(endCountdown))
         this.setEnd(endCountdown)
       } else {
         // if countdown was running in previous sesion and end time is > now, we set the previous end date as the actual date end
-        console.log('value is a date')
         this.setEnd(value)
       }
 
@@ -117,8 +106,6 @@ export default {
       this.setIntervalID(setInterval(this.countdown, 200))
     },
     reset: function() {
-      console.log('reset')
-
       if (this.getIntervalID != undefined) {
         this.setIntervalID(clearInterval(this.getIntervalID))
       }
@@ -134,8 +121,6 @@ export default {
       this.setNow(null)
     },
     countdown: function() {
-      console.log('countdown', this.getRunning)
-
       if (!this.getRunning) {
         this.reset()
       } else {
@@ -152,7 +137,6 @@ export default {
           ':' +
           this.zeroPrefix(sec, 2)
 
-        console.log(Date.parse(deltaTime))
         if (Date.parse(deltaTime) < 0) {
           this.reset()
         } else {
@@ -173,7 +157,6 @@ export default {
         const countdown = this.getSelectedTraining.exercises[0].countdown
         this.setSeriesRemaining(series)
         this.setSeries(series)
-        console.log(countdown)
         this.setCountdown(countdown)
       } else {
         alert('Training finished')
@@ -203,7 +186,6 @@ export default {
       }
     },
     getSeriesRemaining(a) {
-      console.log(a)
       if (a == 0 && this.getFollowTraining) {
         this.setSpliceSelectedTraining()
         this.setValueCountdown()

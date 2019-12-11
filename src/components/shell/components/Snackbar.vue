@@ -43,12 +43,11 @@ export default {
     },
     actions: function() {
       if (this.cookies) {
-        console.log('cookies is set to true')
+        //
       } else if (this.skipWaiting) {
-        console.log('skip waiting')
         this.emitSkipWaiting()
       } else {
-        console.log('no props given')
+        //
       }
     }
   },

@@ -50,7 +50,6 @@ export default {
     }),
     validate() {
       if (this.$refs.form.validate()) {
-        console.log('form is valid')
         this.setAddTable(this.nameTraning)
         this.$refs.form.reset()
       }

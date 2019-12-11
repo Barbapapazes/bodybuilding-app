@@ -147,7 +147,6 @@ export default {
       commit('addTable', payload.toLowerCase())
     },
     uploadTrainings: ({ commit }, payload) => {
-      console.log(payload)
       commit('uploadTrainings', payload)
     },
     deleteTable: ({ commit }, payload) => {

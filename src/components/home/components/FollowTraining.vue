@@ -25,7 +25,6 @@ export default {
         return this.getFollowTraining
       },
       set: function(value) {
-        console.log('set follow training', value)
         this.setRunningCountdown(false)
         this.setFollowTraining(value)
       }
