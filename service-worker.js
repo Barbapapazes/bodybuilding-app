@@ -10,14 +10,14 @@ self.addEventListener('notificationclick', function(event) {
         const client = clientList[index]
         if (
           client.url ===
-            'https://barbapapazes.github.io' + process.env.NODE_ENV &&
+            'https://barbapapazes.github.io' + process.env.BASE_URL &&
           'focus' in client
         ) {
           return client.focus()
         }
         if (clients.openWindow) {
           return clients.openWindow(
-            'https://barbapapazes.github.io' + process.env.NODE_ENV
+            'https://barbapapazes.github.io' + process.env.BASE_URL
           )
         }
       }
@@ -55,7 +55,7 @@ self.addEventListener('message', event => {
         self.registration.showNotification('Countdown', {
           body: time,
           tag: 'notif',
-          badge: process.env.NODE_ENV + 'favicon.ico',
+          badge: process.env.BASE_URL + 'favicon.ico',
           icon: ''
         })
 
@@ -63,7 +63,7 @@ self.addEventListener('message', event => {
           self.registration.showNotification('Sport Companion', {
             body: 'Countdown is Over !',
             tag: 'notif',
-            badge: process.env.NODE_ENV + 'favicon.ico',
+            badge: process.env.BASE_URL + 'favicon.ico',
             renotify: true,
             icon: ''
           })
@@ -76,7 +76,7 @@ self.addEventListener('message', event => {
       self.registration.showNotification('Sport Companion', {
         body: "Let's Train ! 💪",
         tag: 'notif',
-        badge: process.env.NODE_ENV + 'favicon.ico',
+        badge: process.env.BASE_URL + 'favicon.ico',
         icon: ''
       })
     )
