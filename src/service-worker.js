@@ -53,7 +53,7 @@ self.addEventListener('message', event => {
           body: time,
           tag: 'notif',
           badge: '/bodybuilding-app/favicon.ico',
-          icon: ''
+          icon: '⌚'
         })
 
         if (Date.parse(deltaTime) < 0) {
@@ -62,7 +62,7 @@ self.addEventListener('message', event => {
             tag: 'notif',
             badge: '/bodybuilding-app/favicon.ico',
             renotify: true,
-            icon: ''
+            icon: '🏋️‍♀️'
           })
           interval = clearInterval(interval)
         }
@@ -71,10 +71,10 @@ self.addEventListener('message', event => {
   } else if (event.data && event.data.type === 'STOP_NOTIFICATION') {
     event.waitUntil(
       self.registration.showNotification('Sport Companion', {
-        body: "Let's Train ! 💪",
+        body: "Let's Train !",
         tag: 'notif',
         badge: '/bodybuilding-app/favicon.ico',
-        icon: ''
+        icon: '💪'
       })
     )
 
