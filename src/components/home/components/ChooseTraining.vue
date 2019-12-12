@@ -8,7 +8,7 @@
         v-list-item-title.text-capitalize {{ name }}
       v-list-item(key="remove", @click="setFollowTraining(false), setSelectedTrainingName('')")
         v-list-item-title.text-capitalize unselect training
-  v-btn(v-else, :to="{name: 'training'}", depressed).primary Create a training
+  v-btn(v-else, :to="{name: 'training'}", depressed, small).primary Create a training
 </template>
 
 <script>
