@@ -12,7 +12,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "2b8e696a8f89c1b5622b",
+    "revision": "41bf0d6d842be14b29c1",
     "url": "/bodybuilding-app/css/app.e71b8650.css"
   },
   {
@@ -96,7 +96,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/notifications/weight-lifter.png"
   },
   {
-    "revision": "b50b2a166df4952b60f30d4fabbb27ba",
+    "revision": "d2609864e25ea32ee0e724e015ba5242",
     "url": "/bodybuilding-app/index.html"
   },
   {
@@ -120,8 +120,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/js/Training.8830fb18.js"
   },
   {
-    "revision": "2b8e696a8f89c1b5622b",
-    "url": "/bodybuilding-app/js/app.5519ea1b.js"
+    "revision": "41bf0d6d842be14b29c1",
+    "url": "/bodybuilding-app/js/app.f3362e34.js"
   },
   {
     "revision": "52fc79502d544c01e8c9",
