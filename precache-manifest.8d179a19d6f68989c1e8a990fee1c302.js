@@ -8,12 +8,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/css/ThisWebsite.c22534a4.css"
   },
   {
-    "revision": "835b34985298556aa567",
+    "revision": "bf1cd15f0cd2d68add1c",
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "59f508f25f792e8e922e",
-    "url": "/bodybuilding-app/css/app.edcba392.css"
+    "revision": "2b8e696a8f89c1b5622b",
+    "url": "/bodybuilding-app/css/app.e71b8650.css"
   },
   {
     "revision": "52fc79502d544c01e8c9",
@@ -72,12 +72,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/icons/safari-pinned-tab.svg"
   },
   {
-    "revision": "5ac03a359d14ba57fd040ee630821104",
+    "revision": "4620f6aa6b1826217ae4a89c3761423b",
+    "url": "/bodybuilding-app/img/notifications/timer-sand-empty.png"
+  },
+  {
+    "revision": "4620f6aa6b1826217ae4a89c3761423b",
+    "url": "/bodybuilding-app/img/notifications/timer-sand-empty.png"
+  },
+  {
+    "revision": "50e7a637ab40c60e1db1c7da5842c346",
+    "url": "/bodybuilding-app/img/notifications/timer.png"
+  },
+  {
+    "revision": "50e7a637ab40c60e1db1c7da5842c346",
+    "url": "/bodybuilding-app/img/notifications/timer.png"
+  },
+  {
+    "revision": "21b4fa268836095a09be85349ae8bdf7",
+    "url": "/bodybuilding-app/img/notifications/weight-lifter.png"
+  },
+  {
+    "revision": "21b4fa268836095a09be85349ae8bdf7",
+    "url": "/bodybuilding-app/img/notifications/weight-lifter.png"
+  },
+  {
+    "revision": "b50b2a166df4952b60f30d4fabbb27ba",
     "url": "/bodybuilding-app/index.html"
   },
   {
-    "revision": "73f3ac38a1c4fa35a635",
-    "url": "/bodybuilding-app/js/About.64ff9aef.js"
+    "revision": "813c3e76f762fdc2a988",
+    "url": "/bodybuilding-app/js/About.7438c184.js"
   },
   {
     "revision": "f4f042ab1576220d72ef",
@@ -92,12 +116,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/js/ThisWebsite.904f5729.js"
   },
   {
-    "revision": "835b34985298556aa567",
-    "url": "/bodybuilding-app/js/Training.35fbd8d5.js"
+    "revision": "bf1cd15f0cd2d68add1c",
+    "url": "/bodybuilding-app/js/Training.8830fb18.js"
   },
   {
-    "revision": "59f508f25f792e8e922e",
-    "url": "/bodybuilding-app/js/app.864cd69f.js"
+    "revision": "2b8e696a8f89c1b5622b",
+    "url": "/bodybuilding-app/js/app.5519ea1b.js"
   },
   {
     "revision": "52fc79502d544c01e8c9",

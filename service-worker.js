@@ -1,4 +1,4 @@
-importScripts("/bodybuilding-app/precache-manifest.5f799e0e3d88fa019108a3f1f23458ae.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/bodybuilding-app/precache-manifest.8d179a19d6f68989c1e8a990fee1c302.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable*/
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
@@ -55,16 +55,16 @@ self.addEventListener('message', event => {
           body: time,
           tag: 'notif',
           badge: '/bodybuilding-app/favicon.ico',
-          icon: '⌚'
+          icon: '/bodybuilding-app/img/notifications/timer.png'
         })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
-            body: 'Countdown is Over !',
+            body: 'Countdown is Over ! 🏋️‍♀️',
             tag: 'notif',
             badge: '/bodybuilding-app/favicon.ico',
             renotify: true,
-            icon: '🏋️‍♀️'
+            icon: '/bodybuilding-app/img/notifications/timer-sand-empty.png'
           })
           interval = clearInterval(interval)
         }
@@ -73,10 +73,10 @@ self.addEventListener('message', event => {
   } else if (event.data && event.data.type === 'STOP_NOTIFICATION') {
     event.waitUntil(
       self.registration.showNotification('Sport Companion', {
-        body: "Let's Train !",
+        body: "Let's Train ! 💪",
         tag: 'notif',
         badge: '/bodybuilding-app/favicon.ico',
-        icon: '💪'
+        icon: '/bodybuilding-app/img/notifications/weight-lifter.png'
       })
     )
 
