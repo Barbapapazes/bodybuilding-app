@@ -1,9 +1,9 @@
 <template lang="pug">
 #tables-training
   v-row(align="center")
-    v-col(cols="8").pt-0
+    v-col(cols="7").pt-0
       title-app organise and create exercises
-    v-col(cols="4", align="end").pt-0
+    v-col(cols="5", align="end").pt-0
       add-exercise-app
   div#listTables
       empty-data-app(v-if="getTrainings.length == 0").pt-2

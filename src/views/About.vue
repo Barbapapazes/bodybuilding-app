@@ -19,7 +19,7 @@
     v-row(v-else)
 
       v-col(cols="12", align="end").pa-0
-        v-menu(transition="scale-transition", origin="top right")
+        v-menu(transition="scale-transition", origin="top right", offset-y)
           template(v-slot:activator="{ on }")
             v-btn(depressed, v-on="on") choose a page
           v-list(flat).primary--text.text-capitalize

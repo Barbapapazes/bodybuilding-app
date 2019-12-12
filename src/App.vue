@@ -65,7 +65,7 @@ export default {
 }
 .slide-x-enter-active,
 .slide-x-leave-active {
-  transition: all 0.4s cubic-bezier(0.08, 0.24, 0, 0.72);
+  transition: all 0.6s cubic-bezier(0.08, 0.24, 0, 0.72);
 }
 .slide-x-enter,
 .slide-x-leave-to {

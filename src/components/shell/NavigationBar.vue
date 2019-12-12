@@ -4,7 +4,7 @@
     v-app-bar-nav-icon(@click.stop="setDrawer(!getDrawer)", left)
 
     v-toolbar-title
-      v-btn(to="/", text, exact-active-class="home-title", large).text-uppercase
+      v-btn(to="/", text, exact-active-class="home-title").text-uppercase
         span.font-weight-bold.secondary--text sport
         span.font-weight-thin companion
 
@@ -12,13 +12,20 @@
 
     transition(name="slide-x", mode="out-in", appear, v-if="$route.fullPath == '/'")
       v-btn(outlined, :key="getHomeComponentName", @click="setHomeComponentName(buttonSwitchComponent(getHomeComponentName).component)", :disabled="getFollowTraining").secondary--text
-        v-icon(left) {{ buttonSwitchComponent(getHomeComponentName).icon }}
-        span {{ buttonSwitchComponent(getHomeComponentName).name }}
+        div(v-if="$vuetify.breakpoint.smAndUp")
+          v-icon(left) {{ buttonSwitchComponent(getHomeComponentName).icon }}
+          span {{ buttonSwitchComponent(getHomeComponentName).name }}
+        div(v-else)
+          v-icon() {{ buttonSwitchComponent(getHomeComponentName).icon }}
+
 
     transition(name="slide-x", mode="out-in", appear, v-if="$route.fullPath == '/training'")
       v-btn(outlined, :key="getTrainingComponentName", @click="setTrainingComponentName(buttonSwitchComponent(getTrainingComponentName).component)").secondary--text
-        v-icon(left) {{ buttonSwitchComponent(getTrainingComponentName).icon }}
-        span {{ buttonSwitchComponent(getTrainingComponentName).name }}
+        div(v-if="$vuetify.breakpoint.smAndUp")
+          v-icon(left) {{ buttonSwitchComponent(getTrainingComponentName).icon }}
+          span {{ buttonSwitchComponent(getTrainingComponentName).name }}
+        div(v-else)
+          v-icon {{ buttonSwitchComponent(getTrainingComponentName).icon }}
 </template>
 
 <script>
