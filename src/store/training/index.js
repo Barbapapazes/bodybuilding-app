@@ -9,7 +9,17 @@ export default {
     trainings: [],
     selectedTrainingName: '',
     followTraining: false,
-    selectedTraining: {}
+    selectedTraining: {},
+    editExercise: {
+      name: '',
+      description: '',
+      repetitions: '',
+      series: '',
+      countdown: '00:00:00',
+      weight: '',
+      indexTable: undefined,
+      indexRow: undefined
+    }
   },
   mutations: {
     uploadTrainings: (state, payload) => {
@@ -114,19 +124,31 @@ export default {
         state.followTraining = false
         state.selectedTraining = undefined
       }
+    },
+    editExercise: (state, payload) => {
+      state.editExercise = payload
     }
   },
   actions: {
     exercice: ({ commit }, payload) => {
-      if (payload.new) {
+      if (payload.newExercise) {
         payload['selectedTrainings'].forEach(element => {
           commit('addExercice', {
             trainingName: element,
             editedItem: payload.editedItem
           })
         })
-      } else {
-        console.log('edit item')
+      } else if (!payload.newExercise) {
+        commit('deleteExercice', {
+          tableIndex: payload.editedItem.indexTable,
+          index: payload.editedItem.indexRow
+        })
+        payload['selectedTrainings'].forEach(element => {
+          commit('addExercice', {
+            trainingName: element,
+            editedItem: payload.editedItem
+          })
+        })
       }
       /*       if (payload.editedIndex > -1) {
         commit('changeExercice', payload)
@@ -155,9 +177,6 @@ export default {
     selectedTrainingName: ({ commit }, payload) => {
       commit('selectedTrainingName', payload)
       commit('selectedTraining', payload)
-      /* if (state.followTraining) {
-        commit('selectedTraining')
-      } */
     },
     followTraining: ({ commit, state }, payload) => {
       commit('followTraining', payload)
@@ -171,6 +190,9 @@ export default {
     },
     spliceSelectedTraining: ({ commit }) => {
       commit('spliceSelectedTraining')
+    },
+    editExercise: ({ commit }, payload) => {
+      commit('editExercise', payload)
     }
   },
   getters: {
@@ -189,6 +211,9 @@ export default {
     },
     selectedTraining: state => {
       return state.selectedTraining
+    },
+    editExercise: state => {
+      return state.editExercise
     }
   }
 }

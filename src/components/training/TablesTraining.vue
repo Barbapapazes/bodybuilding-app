@@ -4,7 +4,8 @@
     v-col(cols="7").pt-0
       title-app organise and create exercises
     v-col(cols="5", align="end").pt-0
-      add-exercise-app
+      v-btn(depressed, small, :disabled="getTrainings.length == 0",  @click="exerciseDialog=!exerciseDialog").primary new exercise
+      exercise-app(:dialog="exerciseDialog", :newExercise="newExercise", @exercise-dialog="onExerciseDialog")
   div#listTables
       empty-data-app(v-if="getTrainings.length == 0").pt-2
         template no training
@@ -20,8 +21,8 @@
           td(style="width: 28px;").handle 
             v-icon(small) {{svgPath.mdiSelectAll}}
 
-        template(v-slot:item.action="{item}")  
-          //v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
+        template(v-slot:item.action="{item}") 
+          v-icon(small, @click="editItem(item, index)").mr-2 {{svgPath.mdiPencil}}
           v-icon(small, @click="deleteItem(item, index)").mr-2 {{svgPath.mdiTrashCan}}
 </template>
 
@@ -31,12 +32,13 @@ import { mdiPencil, mdiTrashCan, mdiSelectAll } from '@mdi/js'
 import { mapGetters, mapActions } from 'vuex'
 
 import TitleSlot from '@/components/TitleSlot'
-import AddExercise from '@/components/training/components/addExercise'
+import Exercise from '@/components/training/components/Exercise'
+
 import EmptyDataSlot from '@/components/EmptyDataSlot'
 export default {
   components: {
     'title-app': TitleSlot,
-    'add-exercise-app': AddExercise,
+    'exercise-app': Exercise,
     'empty-data-app': EmptyDataSlot
   },
   mounted() {
@@ -66,8 +68,8 @@ export default {
         mdiTrashCan,
         mdiSelectAll
       },
-      dialog: false,
-      countdownDialog: false,
+      exerciseDialog: false,
+      newExercise: true,
       headers: [
         { text: '', value: 'data-table-drag', sortable: false },
         { text: 'name', value: 'name', sortable: false },
@@ -85,7 +87,8 @@ export default {
       setSpliceExercice: 'trainings/spliceExercice',
       setDeleteExercice: 'trainings/deleteExercice',
       setSpliceTable: 'trainings/spliceTable',
-      setDeleteTable: 'trainings/deleteTable'
+      setDeleteTable: 'trainings/deleteTable',
+      setEditExercise: 'trainings/editExercise'
     }),
     deleteItem: function(item, index) {
       if (confirm('Are you sure you want to delete this item?')) {
@@ -104,6 +107,37 @@ export default {
       } else {
         return
       }
+    },
+    editItem: function(item, tableIndex) {
+      const exerciseIndex = this.getTrainings[tableIndex].exercises.indexOf(
+        item
+      )
+
+      let editExercise = {
+        name: item.name,
+        description: item.description,
+        repetitions: item.repetitions,
+        series: item.series,
+        countdown: item.countdown,
+        weight: item.weight,
+        indexTable: tableIndex,
+        indexRow: exerciseIndex
+      }
+      this.setEditExercise(editExercise)
+      this.newExercise = false
+      this.exerciseDialog = true
+    },
+    onExerciseDialog: function(value) {
+      this.setEditExercise({
+        name: '',
+        description: '',
+        repetitions: '',
+        series: '',
+        countdown: '00:00:00',
+        weight: ''
+      })
+      this.newExercise = true
+      this.exerciseDialog = value
     },
     sortableRows: function(firstTime) {
       let tables = document.querySelectorAll('.v-data-table tbody')

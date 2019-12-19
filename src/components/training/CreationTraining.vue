@@ -35,6 +35,10 @@ export default {
       nameRules: [
         v => !!v || 'Name is required',
         v => {
+          console.log(v)
+          if (v == undefined) {
+            v = ''
+          }
           return this.getNametranings.find(
             element => element == v.toLowerCase()
           )
