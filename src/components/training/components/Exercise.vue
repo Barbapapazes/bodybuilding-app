@@ -37,7 +37,6 @@
           v-spacer
           v-btn(@click="close()", depressed) cancel
           v-btn(@click="save()", depressed, :disabled="!valid").primary save
-          p {{editedItem}}
 </template>
 
 <script>
