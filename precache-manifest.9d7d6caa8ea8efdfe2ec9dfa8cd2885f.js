@@ -8,11 +8,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/css/ThisWebsite.c22534a4.css"
   },
   {
-    "revision": "6de0469f9dfbb3bf107c",
+    "revision": "7fa2cf718f7246d82b73",
     "url": "/bodybuilding-app/css/Training.233c2fbb.css"
   },
   {
-    "revision": "e8c35c31ae346e3d434a",
+    "revision": "0808a253bd130b0b18a1",
     "url": "/bodybuilding-app/css/app.e71b8650.css"
   },
   {
@@ -96,7 +96,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/img/notifications/weight-lifter.png"
   },
   {
-    "revision": "46df8da1d0ae50a635b73f4ce83450ae",
+    "revision": "ff8d48b55ff12737ca07c96f5b099b58",
     "url": "/bodybuilding-app/index.html"
   },
   {
@@ -116,12 +116,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/bodybuilding-app/js/ThisWebsite.2f118f1a.js"
   },
   {
-    "revision": "6de0469f9dfbb3bf107c",
-    "url": "/bodybuilding-app/js/Training.6b1a12d0.js"
+    "revision": "7fa2cf718f7246d82b73",
+    "url": "/bodybuilding-app/js/Training.93243791.js"
   },
   {
-    "revision": "e8c35c31ae346e3d434a",
-    "url": "/bodybuilding-app/js/app.bd857dae.js"
+    "revision": "0808a253bd130b0b18a1",
+    "url": "/bodybuilding-app/js/app.4737cc63.js"
   },
   {
     "revision": "52fc79502d544c01e8c9",
