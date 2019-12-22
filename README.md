@@ -1,29 +1,5 @@
 # sport-companion
 
-## Project setup
+> A web application to help you during your workout !
 
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-
-```
-npm run build
-```
-
-### Lints and fixes files
-
-```
-npm run lint
-```
-
-### Customize configuration
-
-See [Configuration Reference](https://cli.vuejs.org/config/).
+It's a full front-end project written with [Vue.js](https://vuejs.org/), a javascript framework, and [Vuetify](https://vuetifyjs.com/en/), a UI librairy !
