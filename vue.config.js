@@ -3,7 +3,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer')
   .BundleAnalyzerPlugin
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const publicPath =
-  process.env.NODE_ENV === 'production' ? '/bodybuilding-app/' : '/'
+  process.env.NODE_ENV === 'production' ? '/' : '/'
 
 const config = {
   //transpileDependencies: ['vuetify'],
