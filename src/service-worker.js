@@ -70,7 +70,7 @@ self.addEventListener('message', event => {
       self.registration.showNotification('Sport Companion', {
         body: "Let's Train ! 💪",
         tag: 'notif',
-        badge: `${path}bodybuilding-app/favicon.ico`,
+        badge: `${path}favicon.ico`,
         icon: `${path}img/notifications/weight-lifter.png`
       })
     )
