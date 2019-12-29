@@ -3,21 +3,18 @@ importScripts("/precache-manifest.35cf695721b74dc420f259f0725a0710.js", "https:/
 /* eslint-disable*/
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
 
+const path = '/'
+
 self.addEventListener('notificationclick', function(event) {
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(function(clientList) {
       for (let index = 0; index < clientList.length; index++) {
         const client = clientList[index]
-        if (
-          client.url === 'https://barbapapazes.github.io/bodybuilding-app/' &&
-          'focus' in client
-        ) {
+        if (client.url === path && 'focus' in client) {
           return client.focus()
         }
         if (clients.openWindow) {
-          return clients.openWindow(
-            'https://barbapapazes.github.io/bodybuilding-app/'
-          )
+          return clients.openWindow(path)
         }
       }
     })
@@ -54,17 +51,17 @@ self.addEventListener('message', event => {
         self.registration.showNotification('Countdown', {
           body: time,
           tag: 'notif',
-          badge: '/bodybuilding-app/favicon.ico',
-          icon: '/bodybuilding-app/img/notifications/timer.png'
+          badge: `${path}favicon.ico`,
+          icon: `${path}img/notifications/timer.png`
         })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
             body: 'Countdown is Over ! 🏋️‍♀️',
             tag: 'notif',
-            badge: '/bodybuilding-app/favicon.ico',
+            badge: `${path}favicon.ico`,
             renotify: true,
-            icon: '/bodybuilding-app/img/notifications/timer-sand-empty.png'
+            icon: `${path}img/notifications/timer-sand-empty.png`
           })
           interval = clearInterval(interval)
         }
@@ -75,8 +72,8 @@ self.addEventListener('message', event => {
       self.registration.showNotification('Sport Companion', {
         body: "Let's Train ! 💪",
         tag: 'notif',
-        badge: '/bodybuilding-app/favicon.ico',
-        icon: '/bodybuilding-app/img/notifications/weight-lifter.png'
+        badge: `${path}bodybuilding-app/favicon.ico`,
+        icon: `${path}img/notifications/weight-lifter.png`
       })
     )
 
