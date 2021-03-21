@@ -1,20 +1,23 @@
-importScripts("/precache-manifest.35cf695721b74dc420f259f0725a0710.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/bodybuilding-app/precache-manifest.a825cf4f3e1bf92856af4ae794da3968.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /* eslint-disable*/
 workbox.precaching.precacheAndRoute(self.__precacheManifest)
-
-const path = '/'
 
 self.addEventListener('notificationclick', function(event) {
   event.waitUntil(
     clients.matchAll({ type: 'window' }).then(function(clientList) {
       for (let index = 0; index < clientList.length; index++) {
         const client = clientList[index]
-        if (client.url === path && 'focus' in client) {
+        if (
+          client.url === 'https://barbapapazes.github.io/bodybuilding-app/' &&
+          'focus' in client
+        ) {
           return client.focus()
         }
         if (clients.openWindow) {
-          return clients.openWindow(path)
+          return clients.openWindow(
+            'https://barbapapazes.github.io/bodybuilding-app/'
+          )
         }
       }
     })
@@ -51,17 +54,17 @@ self.addEventListener('message', event => {
         self.registration.showNotification('Countdown', {
           body: time,
           tag: 'notif',
-          badge: `${path}favicon.ico`,
-          icon: `${path}img/notifications/timer.png`
+          badge: '/bodybuilding-app/favicon.ico',
+          icon: '/bodybuilding-app/img/notifications/timer.png'
         })
 
         if (Date.parse(deltaTime) < 0) {
           self.registration.showNotification('Sport Companion', {
             body: 'Countdown is Over ! 🏋️‍♀️',
             tag: 'notif',
-            badge: `${path}favicon.ico`,
+            badge: '/bodybuilding-app/favicon.ico',
             renotify: true,
-            icon: `${path}img/notifications/timer-sand-empty.png`
+            icon: '/bodybuilding-app/img/notifications/timer-sand-empty.png'
           })
           interval = clearInterval(interval)
         }
@@ -72,8 +75,8 @@ self.addEventListener('message', event => {
       self.registration.showNotification('Sport Companion', {
         body: "Let's Train ! 💪",
         tag: 'notif',
-        badge: `${path}favicon.ico`,
-        icon: `${path}img/notifications/weight-lifter.png`
+        badge: '/bodybuilding-app/favicon.ico',
+        icon: '/bodybuilding-app/img/notifications/weight-lifter.png'
       })
     )
 
